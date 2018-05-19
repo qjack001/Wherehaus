@@ -1,14 +1,31 @@
-name: wherehous
+name: edit_page
 description: A new Flutter project.
 
 dependencies:
+  sqflite: "^0.8.9" #all sql packages benefit from this
+  async: "^2.0.6"
+  path_provider: "^0.4.0"
+  image_picker: "^0.4.1"
+  
+  ssrp: "^0.3.0" # experimental
+
+
+
+  #SQL solution dependencies
+  sqljocky5: "^1.0.0" ## sketchy version and flutter won't work with the safer newer ones
+  crypto: "^2.0.2+1" 
+  logging: "^0.11.3+1"
+  collection: "^1.14.6"
+  convert: "^2.0.1"
+  typed_data: "^1.1.5"
+  charcode: "^1.1.1"
+
   flutter:
     sdk: flutter
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.0
-  path_provider: ^0.4.0
 
 dev_dependencies:
   flutter_test:
@@ -35,8 +52,7 @@ flutter:
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
-  # assets:
-  #   - fonts/no_result.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 
