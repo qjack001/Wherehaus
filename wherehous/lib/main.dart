@@ -1033,6 +1033,7 @@ class SearchPage extends State<Home>
 				preferredSize: new Size(MediaQuery.of(context).size.width, 56.0),
 				child: new ListView
 				(
+					physics: new ClampingScrollPhysics(),
 					children: <Widget>
 					[
 						new Card //SEARCH
