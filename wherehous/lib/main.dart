@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wherehous/testDataBase.dart';
 import 'package:wherehous/fileManager.dart';
+import 'package:wherehous/nav.dart';
+
 
 DataBase fakeOne;
 int currentID;
@@ -24,6 +26,8 @@ class Wherehouse extends StatelessWidget
 		);
 	}
 }
+
+
 
 class Home extends StatefulWidget 
 {
@@ -71,7 +75,7 @@ class Login extends StatefulWidget
   	LoginPage createState() => new LoginPage(); //FIX onboarding first?
 }
 
-class Search extends StatefulWidget 
+class Search extends StatefulWidget
 {
 
   	Search({Key key, this.title}) : super(key: key);
@@ -317,7 +321,7 @@ class EditPage extends State<Edit>
 						//FIX update database
 
 						//exit edit page:
-						Navigator.pop(context);
+						Nav.pop(context);
 					}
 					else
 					{
@@ -570,12 +574,8 @@ class NewEditPage extends State<NewEdit>
 						);
 
 						//exit edit page:
-						Navigator.pop(context);
-						Navigator.push
-						(
-							context, 
-							new MaterialPageRoute(builder: (context) => new Product()),
-						);
+						Nav.pop(context);
+						Nav.push(Nav.PRODUCT_PAGE, context);
 					}
 					else
 					{
@@ -716,11 +716,7 @@ class ProductPage extends State<Product>
                                             color: Colors.blue,
                                             onPressed: ()
                                             {
-                                                Navigator.push
-                                                (
-                                                    context,
-                                                    new MaterialPageRoute(builder: (context) => new Edit()),
-                                                );
+                                                Nav.push(Nav.EDIT_PAGE, context);
                                             },
                                         ),
 
@@ -747,11 +743,7 @@ class ProductPage extends State<Product>
                                             color: Colors.blue,
                                             onPressed: () //FIX (more specilized)
                                             {
-                                                Navigator.push
-                                                (
-                                                    context,
-                                                    new MaterialPageRoute(builder: (context) => new Edit()),
-                                                );
+                                                Nav.push(Nav.EDIT_PAGE, context);
                                             },
                                         ),
                                         
@@ -798,8 +790,8 @@ class ProductPage extends State<Product>
 																onPressed: ()
 																{
 																	fakeOne.delete(currentID);
-																	Navigator.pop(context);
-																	Navigator.pop(context);
+																	Nav.pop(context);
+																	Nav.pop(context);
 																},
 															),
 
@@ -813,7 +805,7 @@ class ProductPage extends State<Product>
 
 																onPressed: ()
 																{
-																	Navigator.pop(context);
+																	Nav.pop(context);
 																},
 															)
 														],
@@ -891,12 +883,7 @@ class SearchPage extends State<Search>
 			onTap: () 
 			{
 				currentID = index;
-
-				Navigator.push
-				(
-					context,
-					new MaterialPageRoute(builder: (context) => new Product()),
-				);
+				Nav.push(Nav.PRODUCT_PAGE, context);
 			},
 
 			leading: new Placeholder //IMG
@@ -1110,11 +1097,7 @@ class SearchPage extends State<Search>
 			(
 				onPressed: ()
 				{
-					Navigator.push
-					(
-						context,
-						new MaterialPageRoute(builder: (context) => new NewEdit()),
-					);
+					Nav.push(Nav.NEW_EDIT_PAGE, context);
 				},
 
 				tooltip: 'Add new',
@@ -1507,11 +1490,7 @@ class LoginPage extends State<Login>
 													if (_formKey.currentState.validate())
 													{
 														setUserInfo();
-														Navigator.pushReplacement
-														(
-															context,
-															new MaterialPageRoute(builder: (context) => new Search()),
-														);
+														Nav.pushReplace(Nav.SEARCH_PAGE, context);
 													}
 												},
 											),
