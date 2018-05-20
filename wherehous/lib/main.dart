@@ -16,28 +16,12 @@ class Wherehouse extends StatelessWidget
 		fakeOne = new DataBase();
 		currentID = 0;
 		userName = "";
-		MaterialApp app;
-
-		if (LoginPage.getUserInfo()) 
-		{
-			app = new MaterialApp
-			(
-				title: 'Wherehouse',
-				theme: new ThemeData(primarySwatch: Colors.grey),
-				home: new Home(title: 'Wherehouse'),
-			);
-		}
-		else
-		{
-			app = new MaterialApp
-			(
-				title: 'Wherehouse',
-				theme: new ThemeData(primarySwatch: Colors.grey),
-				home: new Login(title: 'Wherehouse'),
-			);
-		}
-
-		return app;
+		return new MaterialApp
+		(
+			title: 'Wherehouse',
+			theme: new ThemeData(primarySwatch: Colors.grey),
+			home: new Home(title: 'Wherehouse'),
+		);
 	}
 }
 
@@ -47,7 +31,7 @@ class Home extends StatefulWidget
 	final String title;
 
 	@override
-  	SearchPage createState() => new SearchPage();
+  	HomePage createState() => new HomePage();
 }
 
 class Product extends StatefulWidget 
@@ -87,6 +71,15 @@ class Login extends StatefulWidget
   	LoginPage createState() => new LoginPage(); //FIX onboarding first?
 }
 
+class Search extends StatefulWidget 
+{
+
+  	Search({Key key, this.title}) : super(key: key);
+	final String title;
+
+  	@override
+  	SearchPage createState() => new SearchPage();
+}
 
 
 
@@ -886,7 +879,7 @@ class ProductPage extends State<Product>
 }
 
 
-class SearchPage extends State<Home> 
+class SearchPage extends State<Search> 
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	String searchInput = "";
@@ -1135,7 +1128,48 @@ class SearchPage extends State<Home>
 
 
 
-
+class HomePage extends State<Home>
+{
+	@override
+	Widget build(BuildContext context)
+	{
+		return new FutureBuilder
+		(
+			future: DataStorage.readIn(),
+            builder: (BuildContext context, AsyncSnapshot<List<String>> fileData) 
+			{
+				if (!fileData.hasData) 
+				{
+					return new Scaffold
+					(
+						body: new Center
+						(
+							child: new Text
+							(
+								"Loading...",
+								style: new TextStyle
+								(
+									fontFamily: "RobotoMono",
+									fontSize: 16.0,
+									color: Colors.grey[700],
+								),
+							),
+						)
+					);
+				} 
+				else if (fileData.data.length == 0) 
+				{
+					return new Login();
+				} 
+				else 
+				{
+					userName = fileData.data[0];
+					return new Search();
+				}
+			}
+		);
+	}
+}
 
 class LoginPage extends State<Login>
 {
@@ -1476,7 +1510,7 @@ class LoginPage extends State<Login>
 														Navigator.pushReplacement
 														(
 															context,
-															new MaterialPageRoute(builder: (context) => new Home()),
+															new MaterialPageRoute(builder: (context) => new Search()),
 														);
 													}
 												},
