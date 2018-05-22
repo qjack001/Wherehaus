@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'testDataBase.dart';
 import 'fileManager.dart';
+import 'dart:async';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
+Future<File> tempImage;
 DataBase fakeOne;
 int currentID;
 String userName;
@@ -574,6 +578,7 @@ class NewEditPage extends State<NewEdit>
 							tearWeight: productData[5],
 							totalWeight: productData[6],
 							lastEdit: userName,
+              image: tempImage,
 						);
 
 						//exit edit page:
@@ -656,19 +661,29 @@ class ProductPage extends State<Product>
                         (
                             children: <Widget>
                             [
-                                new Placeholder //img
-                                (
-                                    strokeWidth: 2.0,
-                                    color: Colors.black,
-                                ),
+                                new FutureBuilder<File>
+                              (
+                                future: fakeOne.getDatabase()[currentID].getImage(),
+                                builder: (BuildContext context, AsyncSnapshot<File> snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.done &&
+                                      snapshot.data != null) {
+                                    return new Image.file(snapshot.data);
+                                  } else if (snapshot.error != null) {
+                                    return const Text('error picking image.');
+                                  } else {
+                                    return const Text('You have not yet picked an image.');
+                                  }
+                                },
+                                
+                              ),
 
-								new ListTile
-								(
-									leading: new BackButton
-									(
-										color: Colors.white,
-									),
-								),
+                              new ListTile
+                              (
+                                leading: new BackButton
+                                (
+                                  color: Colors.white,
+                                ),
+                              ),
                             ],
                         )
                     ),
@@ -906,11 +921,21 @@ class SearchPage extends State<Home>
 				);
 			},
 
-			leading: new Placeholder //IMG
-			(
-				strokeWidth: 1.0,
-				fallbackHeight: 40.0,
-			),
+			leading: new FutureBuilder<File> 
+                              (
+                                future: fakeOne.getDatabase()[currentID].getImage(),
+                                builder: (BuildContext context, AsyncSnapshot<File> snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.done &&
+                                      snapshot.data != null) {
+                                    return new Image.file(snapshot.data);
+                                  } else if (snapshot.error != null) {
+                                    return const Text('error picking image.');
+                                  } else {
+                                    return const Text('You have not yet picked an image.');
+                                  }
+                                },
+                                
+                              ),
 
 			title: new Padding
 			(
@@ -1116,6 +1141,7 @@ class SearchPage extends State<Home>
 			(
 				onPressed: ()
 				{
+          tempImage = ImagePicker.pickImage(source: ImageSource.camera);
 					Navigator.push
 					(
 						context,
@@ -1131,10 +1157,6 @@ class SearchPage extends State<Home>
 		);
 	}
 }
-
-
-
-
 
 class LoginPage extends State<Login>
 {

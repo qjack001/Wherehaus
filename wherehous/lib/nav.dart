@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:wherehous/main.dart';
 
 
+
 class Nav
 {
 	static StatefulWidget EDIT_PAGE = new Edit();
-	static StatefulWidget SEARCH_PAGE = new Search();
+	static StatefulWidget SEARCH_PAGE = new Home();
 	static StatefulWidget LOGIN_PAGE = new Login();
 	static StatefulWidget PRODUCT_PAGE = new Product();
 	static StatefulWidget NEW_EDIT_PAGE = new NewEdit();
