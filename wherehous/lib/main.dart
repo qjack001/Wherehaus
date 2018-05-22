@@ -1019,7 +1019,12 @@ class SearchPage extends State<Home>
 					} 
 					else
 					{
-						return new Placeholder();
+						return new Placeholder
+						(
+							fallbackHeight: 40.0,
+							strokeWidth: 1.0,
+							color: Colors.grey,
+						);
 					} 
 				}
 			),
