@@ -603,6 +603,7 @@ class NewEditPage extends State<NewEdit>
 	}
 }
 
+
 class ProductPage extends State<Product> 
 {
     RichText getData(String title, int id)
@@ -714,7 +715,7 @@ class ProductPage extends State<Product>
                                 
                              	),
 
-								new Padding
+								new Padding //shadow
 								(
 									padding: EdgeInsets.only(top: 2.0),
 									child: new ListTile
@@ -949,6 +950,7 @@ class ProductPage extends State<Product>
     }
 }
 
+
 class SearchPage extends State<Home> 
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
@@ -969,21 +971,30 @@ class SearchPage extends State<Home>
 				);
 			},
 
-			leading: new FutureBuilder<File> 
-                              (
-                                future: fakeOne.getDatabase()[index].getImage(),
-                                builder: (BuildContext context, AsyncSnapshot<File> snapshot) {
-                                  if (snapshot.connectionState == ConnectionState.done &&
-                                      snapshot.data != null) {
-                                    return new Image.file(snapshot.data);
-                                  } else if (snapshot.error != null) {
-                                    return const Text('error picking image.');
-                                  } else {
-                                    return const Text('You have not yet picked an image.');
-                                  }
-                                },
-                                
-                              ),
+			leading: new FutureBuilder<File>
+			(
+				future: fakeOne.getDatabase()[index].getImage(),
+				builder: (BuildContext context, AsyncSnapshot<File> snapshot) 
+				{
+					if (snapshot.connectionState == ConnectionState.done && snapshot.data != null) 
+					{
+						return new Container
+						(
+							height: 40.0,
+							width: 40.0,
+							child: new Image.file
+							(
+								snapshot.data,
+								fit: BoxFit.cover,
+							)
+						);
+					} 
+					else
+					{
+						return new Placeholder();
+					} 
+				}
+			),
 
 			title: new Padding
 			(
