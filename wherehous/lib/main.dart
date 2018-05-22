@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wherehous/testDataBase.dart';
-import 'package:wherehous/fileManager.dart';
+import 'testDataBase.dart';
+import 'fileManager.dart';
 
 DataBase fakeOne;
 int currentID;

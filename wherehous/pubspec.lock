@@ -16,7 +16,7 @@ packages:
     source: hosted
     version: "1.4.2"
   async:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: async
       url: "https://pub.dartlang.org"
@@ -37,7 +37,7 @@ packages:
     source: hosted
     version: "1.0.3"
   charcode:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: charcode
       url: "https://pub.dartlang.org"
@@ -51,21 +51,21 @@ packages:
     source: hosted
     version: "0.1.2+1"
   collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: collection
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.14.6"
   convert:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: convert
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
   crypto:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: crypto
       url: "https://pub.dartlang.org"
@@ -137,6 +137,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.1"
+  image_picker:
+    dependency: "direct main"
+    description:
+      name: image_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.1"
   io:
     dependency: transitive
     description:
@@ -166,7 +173,7 @@ packages:
     source: hosted
     version: "0.3.0-alpha.9"
   logging:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: logging
       url: "https://pub.dartlang.org"
@@ -317,6 +324,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.0"
+  sqflite:
+    dependency: "direct main"
+    description:
+      name: sqflite
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.9"
+  sqljocky5:
+    dependency: "direct main"
+    description:
+      name: sqljocky5
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+  ssrp:
+    dependency: "direct main"
+    description:
+      name: ssrp
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
   stack_trace:
     dependency: transitive
     description:
@@ -338,6 +366,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  synchronized:
+    dependency: transitive
+    description:
+      name: synchronized
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.0"
   term_glyph:
     dependency: transitive
     description:
@@ -353,7 +388,7 @@ packages:
     source: hosted
     version: "0.12.34"
   typed_data:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: typed_data
       url: "https://pub.dartlang.org"
@@ -395,5 +430,5 @@ packages:
     source: hosted
     version: "2.1.13"
 sdks:
-  dart: ">=2.0.0-dev.28.0 <=2.0.0-edge.3c4dccbd46f152be9e1b6ca95c57357e8e48057c"
+  dart: ">=2.0.0-dev.35 <=2.0.0-edge.3c4dccbd46f152be9e1b6ca95c57357e8e48057c"
   flutter: ">=0.1.4 <2.0.0"
