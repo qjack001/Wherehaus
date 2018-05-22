@@ -1,7 +1,7 @@
 import 'package:sqljocky5/sqljocky.dart';
 import 'package:sqljocky5/utils.dart';
 import 'dart:async';
-import 'package:edit_page/dataObj.dart';
+import 'package:wherehous/dataObj.dart';
 
 
 class MyConnection /// WARNING! CLOSE pool using pool.closeConnectionNow(); --- it will not on its own
