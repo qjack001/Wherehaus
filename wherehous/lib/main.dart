@@ -715,6 +715,18 @@ class ProductPage extends State<Product>
                                 
                              	),
 
+								new Padding
+								(
+									padding: EdgeInsets.only(top: 2.0),
+									child: new ListTile
+									(
+										leading: new BackButton
+										(
+											color: Colors.black38,
+										),
+									),
+								),
+
 								new ListTile
 								(
 									leading: new BackButton
