@@ -653,37 +653,75 @@ class ProductPage extends State<Product>
                 [
                     new Container //HERO
                     ( 
-                        height: 242.0, //height of img
+                        height: 250.0, //height of img
                         width: MediaQuery.of(context).size.width,
-                        color: Colors.grey,
+                        color: Colors.grey[300],
                         
                         child: new Stack //img, back button
                         (
                             children: <Widget>
                             [
                                 new FutureBuilder<File>
-                              (
-                                future: fakeOne.getDatabase()[currentID].getImage(),
-                                builder: (BuildContext context, AsyncSnapshot<File> snapshot) {
-                                  if (snapshot.connectionState == ConnectionState.done &&
-                                      snapshot.data != null) {
-                                    return new Image.file(snapshot.data);
-                                  } else if (snapshot.error != null) {
-                                    return const Text('error picking image.');
-                                  } else {
-                                    return const Text('You have not yet picked an image.');
-                                  }
-                                },
+								(
+									future: fakeOne.getDatabase()[currentID].getImage(),
+									builder: (BuildContext context, AsyncSnapshot<File> snapshot) 
+									{
+										if (snapshot.connectionState == ConnectionState.done &&
+											snapshot.data != null) 
+										{
+											return new Container //HERO
+											( 
+												height: 250.0, //height of img
+												width: MediaQuery.of(context).size.width,
+												child: new Image.file
+												(
+													snapshot.data,
+													fit: BoxFit.cover,
+												)
+											);
+										} 
+										else if (snapshot.error != null) 
+										{
+											return new Center
+											(
+												child: Text
+												(
+													'error picking image.',
+													style: new TextStyle
+													(
+														color: Colors.grey,
+														fontFamily: "RobotoMono",
+														fontSize: 16.0,
+													)
+												),
+											);
+										} 
+										else 
+										{
+											return new Center
+											(
+												child: Text(
+													'You have not yet picked an image.',
+													style: new TextStyle
+													(
+														color: Colors.grey,
+														fontFamily: "RobotoMono",
+														fontSize: 16.0,
+													)
+												),
+											);
+										}
+									},
                                 
-                              ),
+                             	),
 
-                              new ListTile
-                              (
-                                leading: new BackButton
-                                (
-                                  color: Colors.white,
-                                ),
-                              ),
+								new ListTile
+								(
+									leading: new BackButton
+									(
+										color: Colors.white,
+									),
+								),
                             ],
                         )
                     ),
