@@ -603,7 +603,6 @@ class NewEditPage extends State<NewEdit>
 	}
 }
 
-
 class ProductPage extends State<Product> 
 {
     RichText getData(String title, int id)
@@ -900,7 +899,6 @@ class ProductPage extends State<Product>
     }
 }
 
-
 class SearchPage extends State<Home> 
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
@@ -923,7 +921,7 @@ class SearchPage extends State<Home>
 
 			leading: new FutureBuilder<File> 
                               (
-                                future: fakeOne.getDatabase()[currentID].getImage(),
+                                future: fakeOne.getDatabase()[index].getImage(),
                                 builder: (BuildContext context, AsyncSnapshot<File> snapshot) {
                                   if (snapshot.connectionState == ConnectionState.done &&
                                       snapshot.data != null) {
