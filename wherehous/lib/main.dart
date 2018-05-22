@@ -578,7 +578,7 @@ class NewEditPage extends State<NewEdit>
 							tearWeight: productData[5],
 							totalWeight: productData[6],
 							lastEdit: userName,
-              image: tempImage,
+              				image: tempImage,
 						);
 
 						//exit edit page:
@@ -682,32 +682,60 @@ class ProductPage extends State<Product>
 										} 
 										else if (snapshot.error != null) 
 										{
-											return new Center
+											return new InkWell
 											(
-												child: Text
-												(
-													'error picking image.',
-													style: new TextStyle
+												onTap: ()
+												{
+													tempImage = ImagePicker.pickImage(source: ImageSource.camera);
+													fakeOne.getDatabase()[currentID].setImage(tempImage);
+													Navigator.pushReplacement
 													(
-														color: Colors.grey,
-														fontFamily: "RobotoMono",
-														fontSize: 16.0,
-													)
+														context,
+														new MaterialPageRoute(builder: (context) => new Product()),
+													);
+												},
+
+												child: new Center
+												(
+													child: Text
+													(
+														'error picking image.',
+														style: new TextStyle
+														(
+															color: Colors.grey,
+															fontFamily: "RobotoMono",
+															fontSize: 16.0,
+														)
+													),
 												),
 											);
 										} 
 										else 
 										{
-											return new Center
+											return new InkWell
 											(
-												child: Text(
-													'You have not yet picked an image.',
-													style: new TextStyle
+												onTap: ()
+												{
+													tempImage = ImagePicker.pickImage(source: ImageSource.camera);
+													fakeOne.getDatabase()[currentID].setImage(tempImage);
+													Navigator.pushReplacement
 													(
-														color: Colors.grey,
-														fontFamily: "RobotoMono",
-														fontSize: 16.0,
-													)
+														context,
+														new MaterialPageRoute(builder: (context) => new Product()),
+													);
+												},
+
+												child: new Center
+												(
+													child: Text(
+														'You have not yet picked an image.',
+														style: new TextStyle
+														(
+															color: Colors.grey,
+															fontFamily: "RobotoMono",
+															fontSize: 16.0,
+														)
+													),
 												),
 											);
 										}
@@ -1200,7 +1228,7 @@ class SearchPage extends State<Home>
 			(
 				onPressed: ()
 				{
-          tempImage = ImagePicker.pickImage(source: ImageSource.camera);
+          			tempImage = ImagePicker.pickImage(source: ImageSource.camera);
 					Navigator.push
 					(
 						context,
