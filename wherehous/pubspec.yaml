@@ -9,7 +9,7 @@ dependencies:
   
   ssrp: "^0.3.0" # experimental
 
-
+  geolocation: ^0.2.1
 
   #SQL solution dependencies
   sqljocky5: "^1.0.0" ## sketchy version and flutter won't work with the safer newer ones
