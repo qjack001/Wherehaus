@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:map_view/map_view.dart';
+import 'getAPIKey.dart';
 
 Future<File> tempImage;
 DataBase fakeOne;
@@ -14,8 +15,8 @@ var staticMap;
 
 void main()
 {
-	MapView.setApiKey("AIzaSyChqBSLh84nAjnL7vmsOmgLjqkmg4BurKo");
-	staticMap = new StaticMapProvider('AIzaSyChqBSLh84nAjnL7vmsOmgLjqkmg4BurKo');
+	MapView.setApiKey(getAPIKey());
+	staticMap = new StaticMapProvider(getAPIKey());
 	runApp(new Wherehouse());
 }
 
