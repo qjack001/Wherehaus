@@ -4,13 +4,20 @@ import 'fileManager.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:map_view/map_view.dart';
 
 Future<File> tempImage;
 DataBase fakeOne;
 int currentID;
 String userName;
+var staticMap;
 
-void main() => runApp(new Wherehouse());
+void main()
+{
+	MapView.setApiKey("AIzaSyChqBSLh84nAjnL7vmsOmgLjqkmg4BurKo");
+	staticMap = new StaticMapProvider('AIzaSyChqBSLh84nAjnL7vmsOmgLjqkmg4BurKo');
+	runApp(new Wherehouse());
+}
 
 class Wherehouse extends StatelessWidget 
 {

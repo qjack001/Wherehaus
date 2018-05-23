@@ -19,6 +19,7 @@ dependencies:
   convert: "^2.0.1"
   typed_data: "^1.1.5"
   charcode: "^1.1.1"
+  map_view: "^0.0.12"
 
   flutter:
     sdk: flutter
