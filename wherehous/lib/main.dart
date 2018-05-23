@@ -614,6 +614,21 @@ class NewEditPage extends State<NewEdit>
 
 class ProductPage extends State<Product> 
 {
+	MapView mapView = new MapView();
+	CameraPosition cameraPosition;
+	var staticMapProvider = new StaticMapProvider(getAPIKey());
+	Uri staticMapUri;
+	Location loc = Locations.portland; //Fix: new Location(long, lat)
+
+	@override
+	initState() 
+	{
+		super.initState();
+		cameraPosition = new CameraPosition(loc, 2.0);
+		staticMapUri = staticMapProvider.getStaticUri(loc, 12,
+			width: 900, height: 400, mapType: StaticMapViewType.roadmap);
+	}
+
     RichText getData(String title, int id)
     {
         int totalLength = 13;
@@ -970,15 +985,11 @@ class ProductPage extends State<Product>
 
                     new Container //MAP
                     ( 
-                        height: 200.0, //hight of img
+                        height: 300.0, //hight of img
                         width: MediaQuery.of(context).size.width,
                         color: Colors.grey,
                         
-                        child: new Placeholder //img
-                        (
-                            strokeWidth: 2.0,
-                            color: Colors.black,
-                        ),
+                        child: new Image.network(staticMapUri.toString()),
                     ),
                 ],
             ),
