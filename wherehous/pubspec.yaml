@@ -10,6 +10,7 @@ dependencies:
   ssrp: "^0.3.0" # experimental
 
   geolocation: ^0.2.1
+  map_view: "^0.0.12"
 
   #SQL solution dependencies
   sqljocky5: "^1.0.0" ## sketchy version and flutter won't work with the safer newer ones
@@ -19,7 +20,6 @@ dependencies:
   convert: "^2.0.1"
   typed_data: "^1.1.5"
   charcode: "^1.1.1"
-  map_view: "^0.0.12"
 
   flutter:
     sdk: flutter
