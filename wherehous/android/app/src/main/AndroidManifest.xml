@@ -17,9 +17,6 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="wherehous"
-        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyChqBSLh84nAjnL7vmsOmgLjqkmg4BurKo"/>
-        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
-        <activity android:name="com.apptreesoftware.mapview.MapActivity" android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -28,17 +25,29 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
+            
             <!-- This keeps the window background of the activity showing
                  until Flutter renders its first frame. It can be removed if
                  there is no splash screen (such as the default splash screen
                  defined in @style/LaunchTheme). -->
             <meta-data
                 android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
-                android:value="true" />
+                android:value="true"/>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.apptreesoftware.mapview.MapActivity" 
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+            <meta-data
+                android:name="com.google.android.maps.v2.API_KEY" 
+                android:value="AIzaSyChqBSLh84nAjnL7vmsOmgLjqkmg4BurKo"/>
+            <meta-data
+                android:name="com.google.android.gms.version" 
+                android:value="@integer/google_play_services_version"/>
         </activity>
     </application>
 </manifest>
