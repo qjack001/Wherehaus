@@ -14,8 +14,11 @@ DataBase fakeOne;
 int currentID;
 String userName;
 <<<<<<< HEAD
+<<<<<<< HEAD
 LocationResult location;
 =======
+=======
+>>>>>>> 10bab32f0b90d40ee0d2e5387414720a06f2c4db
 var staticMap;
 
 
@@ -25,7 +28,10 @@ void main()
 	staticMap = new StaticMapProvider(getAPIKey());
 	runApp(new Wherehouse());
 }
+<<<<<<< HEAD
 >>>>>>> 4acc80d5305c589fb7a3a7f71796479f4da54ac6
+=======
+>>>>>>> 10bab32f0b90d40ee0d2e5387414720a06f2c4db
 
 
 class Wherehouse extends StatelessWidget 
@@ -101,7 +107,7 @@ class Login extends StatefulWidget
 	final String title;
 
   	@override
-  	LoginPage createState() => new LoginPage(); //FIX onboarding first?
+  	LoginPage createState() => new LoginPage();
 }
 
 
@@ -159,6 +165,63 @@ class HomePage extends State<Home>
 }
 
 
+<<<<<<< HEAD
+
+class HomePage extends State<Home>
+{
+	@override
+	Widget build(BuildContext context) 
+	{
+		return new FutureBuilder<List<String>>
+		(
+			future: DataStorage.readIn(),
+			builder: (BuildContext context, AsyncSnapshot<List<String>> userInfo) 
+			{
+				if (userInfo.connectionState != ConnectionState.done)
+				{
+					return new Container
+					(
+						color: Colors.white,
+						alignment: Alignment.center,
+						child: new Text
+						(
+							"loading...",
+							style: new TextStyle
+							(
+								fontFamily: "RobotoMono",
+								fontSize: 16.0,
+								color: Colors.grey,
+							),
+						)
+					);
+				}
+				else if (userInfo.data == []) 
+				{
+					return new Login();
+				} 
+				else if (userInfo.error == null)
+				{
+					//FIX: set vars here
+					return new Search();
+				}
+				else 
+				{
+					
+					showDialog(context:context, barrierDismissible: false, child: new SimpleDialog
+					(
+						title: new Text("An error occured"),
+					));
+					return new Center();
+				} 
+			},
+		
+		);
+	}
+}
+
+
+=======
+>>>>>>> 10bab32f0b90d40ee0d2e5387414720a06f2c4db
 class EditPage extends State<Edit> 
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
@@ -1064,6 +1127,7 @@ class SearchPage extends State<Search>
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	String searchInput = "";
 <<<<<<< HEAD
+<<<<<<< HEAD
   StreamSubscription<LocationResult> locationStream;
 
   @override
@@ -1088,6 +1152,8 @@ class SearchPage extends State<Search>
     }
   }
 =======
+=======
+>>>>>>> 10bab32f0b90d40ee0d2e5387414720a06f2c4db
 	StreamSubscription<geo.LocationResult> locationStream;
 	geo.LocationResult location;
 
@@ -1115,7 +1181,10 @@ class SearchPage extends State<Search>
 			print("Failed");
 		}
 	}
+<<<<<<< HEAD
 >>>>>>> 4acc80d5305c589fb7a3a7f71796479f4da54ac6
+=======
+>>>>>>> 10bab32f0b90d40ee0d2e5387414720a06f2c4db
 
   
 	Widget getResult(int index)
