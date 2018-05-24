@@ -28,28 +28,13 @@ class Wherehouse extends StatelessWidget
 		fakeOne = new DataBase();
 		currentID = 0;
 		userName = "";
-		MaterialApp app;
-
-		if (LoginPage.getUserInfo()) 
-		{
-			app = new MaterialApp
-			(
-				title: 'Wherehouse',
-				theme: new ThemeData(primarySwatch: Colors.grey),
-				home: new Home(title: 'Wherehouse'),
-			);
-		}
-		else
-		{
-			app = new MaterialApp
-			(
-				title: 'Wherehouse',
-				theme: new ThemeData(primarySwatch: Colors.grey),
-				home: new Login(title: 'Wherehouse'),
-			);
-		}
-
-		return app;
+		
+		return new MaterialApp
+		(
+			title: 'Wherehouse',
+			theme: new ThemeData(primarySwatch: Colors.grey),
+			home: new Home(title: 'Wherehouse'),
+		);
 	}
 }
 
@@ -58,6 +43,15 @@ class Wherehouse extends StatelessWidget
 class Home extends StatefulWidget 
 {
   	Home({Key key, this.title}) : super(key: key);
+	final String title;
+
+	@override
+  	HomePage createState() => new HomePage();
+}
+
+class Search extends StatefulWidget 
+{
+  	Search({Key key, this.title}) : super(key: key);
 	final String title;
 
 	@override
@@ -101,6 +95,54 @@ class Login extends StatefulWidget
   	LoginPage createState() => new LoginPage(); //FIX onboarding first?
 }
 
+
+
+class HomePage extends State<Home>
+{
+	@override
+	Widget build(BuildContext context) 
+	{
+		return new FutureBuilder<List<String>>
+		(
+			future: DataStorage.readIn(),
+			builder: (BuildContext context, AsyncSnapshot<List<String>> userInfo) 
+			{
+				if (userInfo.connectionState != ConnectionState.done)
+				{
+					return new Container
+					(
+						color: Colors.white,
+						alignment: Alignment.center,
+						child: new Text
+						(
+							"loading...",
+							style: new TextStyle
+							(
+								fontFamily: "RobotoMono",
+								fontSize: 16.0,
+								color: Colors.grey,
+							),
+						)
+					);
+				}
+				else if (userInfo.data == []) 
+				{
+					return new Login();
+				} 
+				else if (userInfo.error == null)
+				{
+					//FIX: set vars here
+					return new Search();
+				}
+				else 
+				{
+					return new Center();
+				} 
+			},
+		
+		);
+	}
+}
 
 
 class EditPage extends State<Edit> 
@@ -1002,7 +1044,7 @@ class ProductPage extends State<Product>
 }
 
 
-class SearchPage extends State<Home> 
+class SearchPage extends State<Search> 
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	String searchInput = "";
@@ -1320,14 +1362,6 @@ class LoginPage extends State<Login>
 		{
 			isValid = true;
 		}
-	}
-
-	static bool getUserInfo()
-	{
-		//read in data
-		//if empty, return false
-		//otherwise, set vars to data and return true
-		return false; //placeholder FIX
 	}
 
     @override

@@ -14,9 +14,9 @@ class DataBase
 	}
 
 	void newItem({String title: '', String productNumber: '', String location: '', String position: '',  
-		String quantity: '',  String tearWeight: '',  String totalWeight: '',  String lastEdit: '', bool empty: true, image})
+		String quantity: '',  String tearWeight: '',  String totalWeight: '',  String lastEdit: '', bool empty: true, image, newGps})
 	{
-		itemArray.add(new Item(title, productNumber, location, position, quantity, tearWeight, totalWeight, lastEdit, empty, image));
+		itemArray.add(new Item(title, productNumber, location, position, quantity, tearWeight, totalWeight, lastEdit, empty, image, newGps));
 	}
 
 	List getDatabase()
