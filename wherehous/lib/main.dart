@@ -8,11 +8,13 @@ import 'getAPIKey.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:geolocation/geolocation.dart' as geo; 
 
+
 Future<File> tempImage;
 DataBase fakeOne;
 int currentID;
 String userName;
 var staticMap;
+
 
 void main()
 {
@@ -20,6 +22,7 @@ void main()
 	staticMap = new StaticMapProvider(getAPIKey());
 	runApp(new Wherehouse());
 }
+
 
 class Wherehouse extends StatelessWidget 
 {
@@ -39,9 +42,12 @@ class Wherehouse extends StatelessWidget
 	}
 }
 
+
+
+
 class Home extends StatefulWidget 
 {
-  Home({Key key, this.title}) : super(key: key);
+  	Home({Key key, this.title}) : super(key: key);
 	final String title;
 
 	@override
@@ -398,6 +404,7 @@ class EditPage extends State<Edit>
 		);
 	}
 }
+
 
 class NewEditPage extends State<NewEdit> 
 {
@@ -1051,30 +1058,33 @@ class SearchPage extends State<Search>
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	String searchInput = "";
-  StreamSubscription<geo.LocationResult> locationStream;
-  geo.LocationResult location;
+	StreamSubscription<geo.LocationResult> locationStream;
+	geo.LocationResult location;
 
-  @override
-  initState()
-  {
-    super.initState();
-    checkGps();
-  }
+	@override
+	initState()
+	{
+		super.initState();
+		checkGps();
+	}
 
-  checkGps() async
-  {
-    final geo.GeolocationResult result = await geo.Geolocation.requestLocationPermission(const geo.LocationPermission(
-      android: geo.LocationPermissionAndroid.fine,
-      ios: geo.LocationPermissionIOS.always,
-    ));
-    if (result.isSuccessful)
-    {
-      print("Success");
-    }  else
-    {
-      print("Failed");
-    }
-  }
+	checkGps() async
+	{
+		final geo.GeolocationResult result = await geo.Geolocation.requestLocationPermission(const geo.LocationPermission
+		(
+			android: geo.LocationPermissionAndroid.fine,
+			ios: geo.LocationPermissionIOS.always,
+		));
+
+		if (result.isSuccessful)
+		{
+			print("Success");
+		}  
+		else
+		{
+			print("Failed");
+		}
+	}
 
   
 	Widget getResult(int index)
@@ -1345,16 +1355,13 @@ class SearchPage extends State<Search>
 			(
 				onPressed: ()
 				{
-          locationStream = geo.Geolocation.currentLocation
-          (
-            accuracy: geo.LocationAccuracy.best
-          )
-            .listen((locResult)
-            {
-              location = locResult;
-              // create property in item object for storing location
-            });
-          tempImage = ImagePicker.pickImage(source: ImageSource.camera);
+					locationStream = geo.Geolocation.currentLocation(accuracy: geo.LocationAccuracy.best).listen((locResult)
+					{
+						location = locResult;
+						// create property in item object for storing location
+					});
+
+					tempImage = ImagePicker.pickImage(source: ImageSource.camera);
 					Navigator.push
 					(
 						context,
@@ -1371,6 +1378,7 @@ class SearchPage extends State<Search>
 	}
 
 }
+
 
 class LoginPage extends State<Login>
 {
