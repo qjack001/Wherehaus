@@ -3,15 +3,30 @@ import 'testDataBase.dart';
 import 'fileManager.dart';
 import 'dart:async';
 import 'dart:io';
+import 'package:map_view/map_view.dart';
+import 'getAPIKey.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:geolocation/geolocation.dart';
+import 'package:geolocation/geolocation.dart' as geo; 
+
 
 Future<File> tempImage;
 DataBase fakeOne;
 int currentID;
 String userName;
+<<<<<<< HEAD
+LocationResult location;
+=======
+var staticMap;
 
-void main() => runApp(new Wherehouse());
+
+void main()
+{
+	MapView.setApiKey(getAPIKey());
+	staticMap = new StaticMapProvider(getAPIKey());
+	runApp(new Wherehouse());
+}
+>>>>>>> 4acc80d5305c589fb7a3a7f71796479f4da54ac6
+
 
 class Wherehouse extends StatelessWidget 
 {
@@ -21,39 +36,35 @@ class Wherehouse extends StatelessWidget
 		fakeOne = new DataBase();
 		currentID = 0;
 		userName = "";
-		MaterialApp app;
-
-		if (LoginPage.getUserInfo()) 
-		{
-			app = new MaterialApp
-			(
-				title: 'Wherehouse',
-				theme: new ThemeData(primarySwatch: Colors.grey),
-				home: new Home(title: 'Wherehouse'),
-			);
-		}
-		else
-		{
-			app = new MaterialApp
-			(
-				title: 'Wherehouse',
-				theme: new ThemeData(primarySwatch: Colors.grey),
-				home: new Login(title: 'Wherehouse'),
-			);
-		}
-
-		return app;
+		
+		return new MaterialApp
+		(
+			title: 'Wherehouse',
+			theme: new ThemeData(primarySwatch: Colors.grey),
+			home: new Home(title: 'Wherehouse'),
+		);
 	}
 }
 
+
+
+
 class Home extends StatefulWidget 
 {
-  Home({Key key, this.title}) : super(key: key);
+  	Home({Key key, this.title}) : super(key: key);
 	final String title;
 
 	@override
-  SearchPage createState() => new SearchPage();
+  	HomePage createState() => new HomePage();
+}
 
+class Search extends StatefulWidget 
+{
+  	Search({Key key, this.title}) : super(key: key);
+	final String title;
+
+	@override
+  	SearchPage createState() => new SearchPage();
 }
 
 class Product extends StatefulWidget 
@@ -92,6 +103,61 @@ class Login extends StatefulWidget
   	@override
   	LoginPage createState() => new LoginPage(); //FIX onboarding first?
 }
+
+
+
+class HomePage extends State<Home>
+{
+	@override
+	Widget build(BuildContext context) 
+	{
+		return new FutureBuilder<List<String>>
+		(
+			future: DataStorage.readIn(),
+			builder: (BuildContext context, AsyncSnapshot<List<String>> userInfo) 
+			{
+				if (userInfo.connectionState != ConnectionState.done)
+				{
+					return new Container
+					(
+						color: Colors.white,
+						alignment: Alignment.center,
+						child: new Text
+						(
+							"loading...",
+							style: new TextStyle
+							(
+								fontFamily: "RobotoMono",
+								fontSize: 16.0,
+								color: Colors.grey,
+							),
+						)
+					);
+				}
+				else if (userInfo.data == []) 
+				{
+					return new Login();
+				} 
+				else if (userInfo.error == null)
+				{
+					//FIX: set vars here
+					return new Search();
+				}
+				else 
+				{
+					
+					showDialog(context:context, barrierDismissible: false, child: new SimpleDialog
+					(
+						title: new Text("An error occured"),
+					));
+					return new Center();
+				} 
+			},
+		
+		);
+	}
+}
+
 
 class EditPage extends State<Edit> 
 {
@@ -343,6 +409,7 @@ class EditPage extends State<Edit>
 	}
 }
 
+
 class NewEditPage extends State<NewEdit> 
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
@@ -576,7 +643,8 @@ class NewEditPage extends State<NewEdit>
 							tearWeight: productData[5],
 							totalWeight: productData[6],
 							lastEdit: userName,
-              				image: tempImage,
+              image: tempImage,
+              newGps: location,
 						);
 
 						//exit edit page:
@@ -604,6 +672,20 @@ class NewEditPage extends State<NewEdit>
 
 class ProductPage extends State<Product> 
 {
+	MapView mapView = new MapView();
+	CameraPosition cameraPosition;
+	var staticMapProvider = new StaticMapProvider(getAPIKey());
+	Uri staticMapUri;
+	Location loc = new Location(44.2282607, -76.4975472); //Fix: new Location(long, lat)
+
+	@override
+	initState() 
+	{
+		super.initState();
+		cameraPosition = new CameraPosition(loc, 2.0);
+		staticMapUri = staticMapProvider.getStaticUri(loc, 19, width: 900, height: 400, mapType: StaticMapViewType.roadmap); //FIX: set to 20 if more zoom is needed
+	}
+	
     RichText getData(String title, int id)
     {
         int totalLength = 13;
@@ -960,15 +1042,15 @@ class ProductPage extends State<Product>
 
                     new Container //MAP
                     ( 
-                        height: 200.0, //hight of img
+                        height: 300.0, //hight of img
                         width: MediaQuery.of(context).size.width,
                         color: Colors.grey,
                         
-                        child: new Placeholder //img
-                        (
-                            strokeWidth: 2.0,
-                            color: Colors.black,
-                        ),
+                        child: new Image.network
+						(
+							staticMapUri.toString(),
+							fit: BoxFit.cover,
+						),
                     ),
                 ],
             ),
@@ -976,12 +1058,13 @@ class ProductPage extends State<Product>
     }
 }
 
-class SearchPage extends State<Home> 
+
+class SearchPage extends State<Search> 
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	String searchInput = "";
+<<<<<<< HEAD
   StreamSubscription<LocationResult> locationStream;
-  LocationResult location;
 
   @override
   initState()
@@ -1004,6 +1087,35 @@ class SearchPage extends State<Home>
       print("Failed");
     }
   }
+=======
+	StreamSubscription<geo.LocationResult> locationStream;
+	geo.LocationResult location;
+
+	@override
+	initState()
+	{
+		super.initState();
+		checkGps();
+	}
+
+	checkGps() async
+	{
+		final geo.GeolocationResult result = await geo.Geolocation.requestLocationPermission(const geo.LocationPermission
+		(
+			android: geo.LocationPermissionAndroid.fine,
+			ios: geo.LocationPermissionIOS.always,
+		));
+
+		if (result.isSuccessful)
+		{
+			print("Success");
+		}  
+		else
+		{
+			print("Failed");
+		}
+	}
+>>>>>>> 4acc80d5305c589fb7a3a7f71796479f4da54ac6
 
   
 	Widget getResult(int index)
@@ -1243,28 +1355,44 @@ class SearchPage extends State<Home>
 				),
 			),
 
-			body: new ListView
+			body: new RefreshIndicator
 			(
-				children: <Widget>
-				[
-					getProducts(),
-				],
+				color: Colors.blue,
+				onRefresh: ()
+				{
+					final Completer<Null> completer = new Completer<Null>();
+					new Timer(const Duration(seconds: 3), () 
+					{ 
+						completer.complete(null); 
+					});
+
+					return completer.future.then((_) 
+					{
+						print("REFRESHED");
+					});
+					//FIX: refresh database
+				},
+
+				child: new ListView
+				(
+					children: <Widget>
+					[
+						getProducts(),
+					],
+				),
 			),
 
 			floatingActionButton: new FloatingActionButton
 			(
 				onPressed: ()
 				{
-          locationStream = Geolocation.currentLocation
-          (
-            accuracy: LocationAccuracy.best
-          )
-            .listen((locResult)
-            {
-              location = locResult;
-              // create property in item object for storing location
-            });
-          tempImage = ImagePicker.pickImage(source: ImageSource.camera);
+					locationStream = geo.Geolocation.currentLocation(accuracy: geo.LocationAccuracy.best).listen((locResult)
+					{
+						location = locResult;
+						// create property in item object for storing location
+					});
+
+					tempImage = ImagePicker.pickImage(source: ImageSource.camera);
 					Navigator.push
 					(
 						context,
@@ -1281,6 +1409,7 @@ class SearchPage extends State<Home>
 	}
 
 }
+
 
 class LoginPage extends State<Login>
 {
@@ -1309,14 +1438,6 @@ class LoginPage extends State<Login>
 		{
 			isValid = true;
 		}
-	}
-
-	static bool getUserInfo()
-	{
-		//read in data
-		//if empty, return false
-		//otherwise, set vars to data and return true
-		return false; //placeholder FIX
 	}
 
     @override
