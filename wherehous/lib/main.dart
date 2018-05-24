@@ -53,6 +53,8 @@ class Wherehouse extends StatelessWidget
 	}
 }
 
+
+
 class Home extends StatefulWidget 
 {
   	Home({Key key, this.title}) : super(key: key);
@@ -98,7 +100,6 @@ class Login extends StatefulWidget
   	@override
   	LoginPage createState() => new LoginPage(); //FIX onboarding first?
 }
-
 
 
 
@@ -1291,6 +1292,7 @@ class SearchPage extends State<Home>
 	}
 }
 
+
 class LoginPage extends State<Login>
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
@@ -1646,4 +1648,3 @@ class LoginPage extends State<Login>
         );
     }
 }
-
