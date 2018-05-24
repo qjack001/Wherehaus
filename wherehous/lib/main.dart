@@ -97,7 +97,7 @@ class Login extends StatefulWidget
 	final String title;
 
   	@override
-  	LoginPage createState() => new LoginPage(); //FIX onboarding first?
+  	LoginPage createState() => new LoginPage();
 }
 
 
