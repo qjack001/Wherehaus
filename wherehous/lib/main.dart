@@ -1243,12 +1243,31 @@ class SearchPage extends State<Home>
 				),
 			),
 
-			body: new ListView
+			body: new RefreshIndicator
 			(
-				children: <Widget>
-				[
-					getProducts(),
-				],
+				color: Colors.blue,
+				onRefresh: ()
+				{
+					final Completer<Null> completer = new Completer<Null>();
+					new Timer(const Duration(seconds: 3), () 
+					{ 
+						completer.complete(null); 
+					});
+
+					return completer.future.then((_) 
+					{
+						print("REFRESHED");
+					});
+					//FIX: refresh database
+				},
+
+				child: new ListView
+				(
+					children: <Widget>
+					[
+						getProducts(),
+					],
+				),
 			),
 
 			floatingActionButton: new FloatingActionButton
