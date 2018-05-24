@@ -618,15 +618,14 @@ class ProductPage extends State<Product>
 	CameraPosition cameraPosition;
 	var staticMapProvider = new StaticMapProvider(getAPIKey());
 	Uri staticMapUri;
-	Location loc = Locations.portland; //Fix: new Location(long, lat)
+	Location loc = new Location(44.2282607, -76.4975472); //Fix: new Location(long, lat)
 
 	@override
 	initState() 
 	{
 		super.initState();
 		cameraPosition = new CameraPosition(loc, 2.0);
-		staticMapUri = staticMapProvider.getStaticUri(loc, 12,
-			width: 900, height: 400, mapType: StaticMapViewType.roadmap);
+		staticMapUri = staticMapProvider.getStaticUri(loc, 19, width: 900, height: 400, mapType: StaticMapViewType.roadmap); //FIX: set to 20 if more zoom is needed
 	}
 
     RichText getData(String title, int id)
@@ -989,7 +988,11 @@ class ProductPage extends State<Product>
                         width: MediaQuery.of(context).size.width,
                         color: Colors.grey,
                         
-                        child: new Image.network(staticMapUri.toString()),
+                        child: new Image.network
+						(
+							staticMapUri.toString(),
+							fit: BoxFit.cover,
+						),
                     ),
                 ],
             ),
