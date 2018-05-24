@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:map_view/map_view.dart';
 import 'getAPIKey.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:geolocation/geolocation.dart';
+import 'package:geolocation/geolocation.dart' as geo; 
 
 Future<File> tempImage;
 DataBase fakeOne;
@@ -1051,8 +1051,8 @@ class SearchPage extends State<Search>
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	String searchInput = "";
-  StreamSubscription<LocationResult> locationStream;
-  LocationResult location;
+  StreamSubscription<geo.LocationResult> locationStream;
+  geo.LocationResult location;
 
   @override
   initState()
@@ -1063,9 +1063,9 @@ class SearchPage extends State<Search>
 
   checkGps() async
   {
-    final GeolocationResult result = await Geolocation.requestLocationPermission(const LocationPermission(
-      android: LocationPermissionAndroid.fine,
-      ios: LocationPermissionIOS.always,
+    final geo.GeolocationResult result = await geo.Geolocation.requestLocationPermission(const geo.LocationPermission(
+      android: geo.LocationPermissionAndroid.fine,
+      ios: geo.LocationPermissionIOS.always,
     ));
     if (result.isSuccessful)
     {
@@ -1345,9 +1345,9 @@ class SearchPage extends State<Search>
 			(
 				onPressed: ()
 				{
-          locationStream = Geolocation.currentLocation
+          locationStream = geo.Geolocation.currentLocation
           (
-            accuracy: LocationAccuracy.best
+            accuracy: geo.LocationAccuracy.best
           )
             .listen((locResult)
             {
