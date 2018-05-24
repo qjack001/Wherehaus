@@ -136,6 +136,11 @@ class HomePage extends State<Home>
 				}
 				else 
 				{
+					
+					showDialog(context:context, barrierDismissible: false, child: new SimpleDialog
+					(
+						title: new Text("An error occured"),
+					));
 					return new Center();
 				} 
 			},
