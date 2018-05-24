@@ -4,21 +4,14 @@ import 'fileManager.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:map_view/map_view.dart';
-import 'getAPIKey.dart';
+import 'package:geolocation/geolocation.dart';
 
 Future<File> tempImage;
 DataBase fakeOne;
 int currentID;
 String userName;
-var staticMap;
 
-void main()
-{
-	MapView.setApiKey(getAPIKey());
-	staticMap = new StaticMapProvider(getAPIKey());
-	runApp(new Wherehouse());
-}
+void main() => runApp(new Wherehouse());
 
 class Wherehouse extends StatelessWidget 
 {
@@ -53,15 +46,14 @@ class Wherehouse extends StatelessWidget
 	}
 }
 
-
-
 class Home extends StatefulWidget 
 {
-  	Home({Key key, this.title}) : super(key: key);
+  Home({Key key, this.title}) : super(key: key);
 	final String title;
 
 	@override
-  	SearchPage createState() => new SearchPage();
+  SearchPage createState() => new SearchPage();
+
 }
 
 class Product extends StatefulWidget 
@@ -100,8 +92,6 @@ class Login extends StatefulWidget
   	@override
   	LoginPage createState() => new LoginPage(); //FIX onboarding first?
 }
-
-
 
 class EditPage extends State<Edit> 
 {
@@ -352,7 +342,6 @@ class EditPage extends State<Edit>
 		);
 	}
 }
-
 
 class NewEditPage extends State<NewEdit> 
 {
@@ -615,20 +604,6 @@ class NewEditPage extends State<NewEdit>
 
 class ProductPage extends State<Product> 
 {
-	MapView mapView = new MapView();
-	CameraPosition cameraPosition;
-	var staticMapProvider = new StaticMapProvider(getAPIKey());
-	Uri staticMapUri;
-	Location loc = new Location(44.2282607, -76.4975472); //Fix: new Location(long, lat)
-
-	@override
-	initState() 
-	{
-		super.initState();
-		cameraPosition = new CameraPosition(loc, 2.0);
-		staticMapUri = staticMapProvider.getStaticUri(loc, 19, width: 900, height: 400, mapType: StaticMapViewType.roadmap); //FIX: set to 20 if more zoom is needed
-	}
-
     RichText getData(String title, int id)
     {
         int totalLength = 13;
@@ -985,15 +960,15 @@ class ProductPage extends State<Product>
 
                     new Container //MAP
                     ( 
-                        height: 300.0, //hight of img
+                        height: 200.0, //hight of img
                         width: MediaQuery.of(context).size.width,
                         color: Colors.grey,
                         
-                        child: new Image.network
-						(
-							staticMapUri.toString(),
-							fit: BoxFit.cover,
-						),
+                        child: new Placeholder //img
+                        (
+                            strokeWidth: 2.0,
+                            color: Colors.black,
+                        ),
                     ),
                 ],
             ),
@@ -1001,12 +976,36 @@ class ProductPage extends State<Product>
     }
 }
 
-
 class SearchPage extends State<Home> 
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	String searchInput = "";
+  StreamSubscription<LocationResult> locationStream;
+  LocationResult location;
 
+  @override
+  initState()
+  {
+    super.initState();
+    checkGps();
+  }
+
+  checkGps() async
+  {
+    final GeolocationResult result = await Geolocation.requestLocationPermission(const LocationPermission(
+      android: LocationPermissionAndroid.fine,
+      ios: LocationPermissionIOS.always,
+    ));
+    if (result.isSuccessful)
+    {
+      print("Success");
+    }  else
+    {
+      print("Failed");
+    }
+  }
+
+  
 	Widget getResult(int index)
 	{
 		return new ListTile
@@ -1244,38 +1243,28 @@ class SearchPage extends State<Home>
 				),
 			),
 
-			body: new RefreshIndicator
+			body: new ListView
 			(
-				color: Colors.blue,
-				onRefresh: ()
-				{
-					final Completer<Null> completer = new Completer<Null>();
-					new Timer(const Duration(seconds: 3), () 
-					{ 
-						completer.complete(null); 
-					});
-
-					return completer.future.then((_) 
-					{
-						print("REFRESHED");
-					});
-					//FIX: refresh database
-				},
-
-				child: new ListView
-				(
-					children: <Widget>
-					[
-						getProducts(),
-					],
-				),
+				children: <Widget>
+				[
+					getProducts(),
+				],
 			),
 
 			floatingActionButton: new FloatingActionButton
 			(
 				onPressed: ()
 				{
-          			tempImage = ImagePicker.pickImage(source: ImageSource.camera);
+          locationStream = Geolocation.currentLocation
+          (
+            accuracy: LocationAccuracy.best
+          )
+            .listen((locResult)
+            {
+              location = locResult;
+              // create property in item object for storing location
+            });
+          tempImage = ImagePicker.pickImage(source: ImageSource.camera);
 					Navigator.push
 					(
 						context,
@@ -1290,8 +1279,8 @@ class SearchPage extends State<Home>
 			),
 		);
 	}
-}
 
+}
 
 class LoginPage extends State<Login>
 {

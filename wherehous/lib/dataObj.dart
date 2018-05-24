@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'package:geolocation/geolocation.dart';
 class Item 
 {
 	String title;
@@ -13,8 +13,9 @@ class Item
 	String lastEdit; // tracks whoever last edited an item
 	bool empty;
   Future<File> image;
+  LocationResult gps;
 
-	Item(String name, String numb, String loc, String spot, String quan, String tear, String tot, String edit, bool emptIn, Future<File> newImage)
+	Item(String name, String numb, String loc, String spot, String quan, String tear, String tot, String edit, bool emptIn, Future<File> newImage, LocationResult newGps)
 	{
 		title = name;
 		productNumber = numb;
@@ -26,12 +27,22 @@ class Item
 		lastEdit = edit;
 		empty = emptIn;
     image = newImage;
+    gps = newGps;
 	}
 
 	bool isEmpty()
 	{
 		return empty;
 	}
+  
+  LocationResult getGps()
+  {
+    return gps;
+  }
+  void setGps(newGps)
+  {
+    this.gps = newGps;
+  }
 
 	String getInfo(int id)
 	{
