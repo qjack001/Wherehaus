@@ -91,6 +91,63 @@ class Login extends StatefulWidget
 
   	@override
   	LoginPage createState() => new LoginPage(); //FIX onboarding first?
+<<<<<<< HEAD
+=======
+}
+
+
+
+class HomePage extends State<Home>
+{
+	@override
+	Widget build(BuildContext context) 
+	{
+		return new FutureBuilder<List<String>>
+		(
+			future: DataStorage.readIn(),
+			builder: (BuildContext context, AsyncSnapshot<List<String>> userInfo) 
+			{
+				if (userInfo.connectionState != ConnectionState.done)
+				{
+					return new Container
+					(
+						color: Colors.white,
+						alignment: Alignment.center,
+						child: new Text
+						(
+							"loading...",
+							style: new TextStyle
+							(
+								fontFamily: "RobotoMono",
+								fontSize: 16.0,
+								color: Colors.grey,
+							),
+						)
+					);
+				}
+				else if (userInfo.data == []) 
+				{
+					return new Login();
+				} 
+				else if (userInfo.error == null)
+				{
+					//FIX: set vars here
+					return new Search();
+				}
+				else 
+				{
+					
+					showDialog(context:context, barrierDismissible: false, child: new SimpleDialog
+					(
+						title: new Text("An error occured"),
+					));
+					return new Center();
+				} 
+			},
+		
+		);
+	}
+>>>>>>> parent of 10bab32... Remove onboarding comment
 }
 
 class EditPage extends State<Edit> 
