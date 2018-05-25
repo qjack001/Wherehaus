@@ -37,11 +37,20 @@ class Item
   
   LocationResult getGps()
   {
-    return gps;
+    return this.gps;
   }
   void setGps(newGps)
   {
     this.gps = newGps;
+  }
+
+  double getLong()
+  {
+    return this.gps.location.longitude;
+  }
+  double getLat()
+  {
+    return this.gps.location.latitude;
   }
 
 	String getInfo(int id)
