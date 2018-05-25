@@ -13,7 +13,7 @@ Future<File> tempImage;
 DataBase fakeOne;
 int currentID;
 String userName;
-geo.LocationResult location;
+geo.LocationResult tempLocation;
 var staticMap;
 
 
@@ -640,8 +640,8 @@ class NewEditPage extends State<NewEdit>
 							tearWeight: productData[5],
 							totalWeight: productData[6],
 							lastEdit: userName,
-              image: tempImage,
-              newGps: location,
+							image: tempImage,
+							newGps: tempLocation,
 						);
 
 						//exit edit page:
@@ -673,12 +673,13 @@ class ProductPage extends State<Product>
 	CameraPosition cameraPosition;
 	var staticMapProvider = new StaticMapProvider(getAPIKey());
 	Uri staticMapUri;
-	Location loc = new Location(fakeOne.getDatabase()[currentID].getLat(), fakeOne.getDatabase()[currentID].getLong());
+	Location loc;
 
 	@override
 	initState() 
 	{
 		super.initState();
+		loc = new Location(fakeOne.getDatabase()[currentID].getLat(), fakeOne.getDatabase()[currentID].getLong());
 		cameraPosition = new CameraPosition(loc, 2.0);
 		staticMapUri = staticMapProvider.getStaticUri(loc, 19, width: 900, height: 400, mapType: StaticMapViewType.roadmap); //FIX: set to 20 if more zoom is needed
 	}
@@ -1061,7 +1062,6 @@ class SearchPage extends State<Search>
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	String searchInput = "";
   	StreamSubscription<geo.LocationResult> locationStream;
-	geo.LocationResult location;
 
 	@override
 	initState()
@@ -1356,7 +1356,7 @@ class SearchPage extends State<Search>
 				{
 					locationStream = geo.Geolocation.currentLocation(accuracy: geo.LocationAccuracy.best).listen((locResult)
 					{
-						location = locResult;
+						tempLocation = locResult;
 						// create property in item object for storing location
 					});
 
