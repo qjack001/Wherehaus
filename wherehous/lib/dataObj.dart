@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:geolocation/geolocation.dart';
+
 class Item 
 {
 	String title;
@@ -12,8 +13,8 @@ class Item
 	String totalWeight; // total weight
 	String lastEdit; // tracks whoever last edited an item
 	bool empty;
-  Future<File> image;
-  LocationResult gps;
+  	Future<File> image;
+  	LocationResult gps;
 
 	Item(String name, String numb, String loc, String spot, String quan, String tear, String tot, String edit, bool emptIn, Future<File> newImage, LocationResult newGps)
 	{
@@ -26,8 +27,8 @@ class Item
 		totalWeight= tot;
 		lastEdit = edit;
 		empty = emptIn;
-    image = newImage;
-    gps = newGps;
+    	image = newImage;
+   		gps = newGps;
 	}
 
 	bool isEmpty()
@@ -35,14 +36,25 @@ class Item
 		return empty;
 	}
   
-  LocationResult getGps()
-  {
-    return gps;
-  }
-  void setGps(newGps)
-  {
-    this.gps = newGps;
-  }
+	LocationResult getGps()
+	{
+		return this.gps;
+	}
+
+	void setGps(newGps)
+	{
+		this.gps = newGps;
+	}
+
+	double getLong()
+	{
+		return this.gps.location.longitude;
+	}
+
+	double getLat()
+	{
+		return this.gps.location.latitude;
+	}
 
 	String getInfo(int id)
 	{
@@ -100,15 +112,15 @@ class Item
 		}
 	}
 
-  void setImage(Future<File> newImage)
-  {
-    this.image = newImage;
-  }
+	void setImage(Future<File> newImage)
+	{
+		this.image = newImage;
+	}
 
-  Future<File> getImage()
-  {
-    return this.image;
-  }
+	Future<File> getImage()
+	{
+		return this.image;
+	}
   
 	void setEmpty(bool emptyIn)
 	{
