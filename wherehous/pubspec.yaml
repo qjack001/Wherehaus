@@ -38,6 +38,9 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+    - assets/no_results.png
+    - assets/no_connection.png
   fonts:
     - family: RobotoMono
       fonts:

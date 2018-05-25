@@ -1180,10 +1180,7 @@ class SearchPage extends State<Search>
 					
 					children: <Widget>
 					[
-						new Image.network
-						(
-  							'https://i.imgur.com/s7kjMHo.png'
-						),
+						new Image.asset('assets/no_results.png'),
 
 						new Text
 						(
