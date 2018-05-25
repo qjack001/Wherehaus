@@ -27,8 +27,8 @@ class Item
 		totalWeight= tot;
 		lastEdit = edit;
 		empty = emptIn;
-    	image = newImage;
-   		gps = newGps;
+		image = newImage;
+		gps = newGps;
 	}
 
 	bool isEmpty()
@@ -48,11 +48,21 @@ class Item
 
 	double getLong()
 	{
+		if(this.gps.location == null)
+		{
+			return null;
+		}
+
 		return this.gps.location.longitude;
 	}
 
 	double getLat()
 	{
+		if(this.gps.location == null)
+		{
+			return null;
+		}
+		
 		return this.gps.location.latitude;
 	}
 
