@@ -673,7 +673,7 @@ class ProductPage extends State<Product>
 	CameraPosition cameraPosition;
 	var staticMapProvider = new StaticMapProvider(getAPIKey());
 	Uri staticMapUri;
-	Location loc = new Location(44.2282607, -76.4975472); //Fix: new Location(long, lat)
+	Location loc = new Location(fakeOne.getDatabase()[currentID].getLat(), fakeOne.getDatabase()[currentID].getLong());
 
 	@override
 	initState() 
