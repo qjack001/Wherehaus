@@ -12,11 +12,7 @@ dependencies:
   geolocation: ^0.2.1
   map_view: "^0.0.12"
 
-  # Firebase server
-  firebase_database: "^1.0.0"
-  firebase_core: "^0.2.3"
-
-  # SQL solution dependencies
+  #SQL solution dependencies
   sqljocky5: "^1.0.0" ## sketchy version and flutter won't work with the safer newer ones
   crypto: "^2.0.2+1" 
   logging: "^0.11.3+1"

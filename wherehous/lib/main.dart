@@ -6,29 +6,7 @@ import 'dart:io';
 import 'package:map_view/map_view.dart';
 import 'getAPIKey.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:geolocation/geolocation.dart' as geo;
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
-import 'package:firebase_core/firebase_core.dart';
-
-final Future<FirebaseApp> dataBase = FirebaseApp.configure(
-  name: 'db',
-  options: Platform.isIOS
-  ? const FirebaseOptions
-  (
-    googleAppID: '',
-    gcmSenderID: '',
-    databaseURL: '',
-  )
-  : const FirebaseOptions
-  (
-    googleAppID: '',
-    apiKey: '',
-    databaseURL: '',
-  )
-);
-
-
+import 'package:geolocation/geolocation.dart' as geo; 
 
 
 Future<File> tempImage;
