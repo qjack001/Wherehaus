@@ -1,0 +1,71 @@
+@font-face { font-family: Gilroy; src: url("Gilroy-ExtraBold.otf"); }
+@font-face { font-family: Monosten; src: url("Monosten-A-webfont.ttf"); }
+
+:root 
+{
+    --grey: #9d9d9d;
+    --off-white: #f0f6f8;
+    --wolf-red: #FA5F28;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --title: Gilroy, Futura, Helvetica, sans-serif;
+    --monospace: Monosten, monospace;
+}
+
+html
+{
+    background: var(--off-white);
+    margin: 40px 15%;
+}
+
+.logo
+{
+    width: 140px;
+}
+
+/* MENU */
+
+.menu-div
+{
+    text-align: right;
+    display: inline-block;
+    width: 80%;
+}
+
+.menu
+{
+    font-family: var(--monospace);
+    font-size: 0.7rem;
+    color: var(--grey);
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0px 20px;
+}
+
+.menu:hover
+{
+    border-bottom-style: solid;
+    border-bottom-color: var(--grey);
+    border-bottom-width: 2px;
+}
+
+
+.button
+{
+    padding: 20px 70px;
+    box-shadow: rgba(17,17,17,0.3) 0 5px 15px 0;
+    background-color: rgba(255, 255, 255, 0.57);
+    border-radius: 80px;
+    transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    outline: none;
+}
+
+.button:hover
+{
+    box-shadow: rgba(17,17,17,0.3) 0 10px 25px 0;
+}
+
+
