@@ -89,6 +89,7 @@ h1
     font-family: var(--title);
     font-size: 2.5rem;
     color: var(--dark-grey);
+    margin-bottom: 0px;
 }
 
 p
