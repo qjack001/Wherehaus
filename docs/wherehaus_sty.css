@@ -4,6 +4,7 @@
 :root 
 {
     --grey: #9d9d9d;
+    --dark-grey: #555555;
     --off-white: #f0f6f8;
     --wolf-red: #FA5F28;
     --breakpoint-xs: 0;
@@ -41,7 +42,6 @@ html
     font-size: 0.7rem;
     color: var(--grey);
     text-decoration: none;
-    font-weight: bold;
     margin: 0px 20px;
 }
 
@@ -61,6 +61,10 @@ html
     border-radius: 80px;
     transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
     outline: none;
+    font-family: var(--title);
+    font-size: 1rem;
+    letter-spacing: 2px;
+    color: var(--dark-grey);
 }
 
 .button:hover
