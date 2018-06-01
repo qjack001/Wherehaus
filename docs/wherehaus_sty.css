@@ -65,7 +65,23 @@ a
 }
 
 
-/* text */
+
+
+/* hero */
+
+.hero
+{
+    display: flex;
+}
+
+.hero-div
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 50%;
+    position: relative;
+}
 
 h1
 {
@@ -81,6 +97,8 @@ p
     color: var(--dark-grey);
     margin-bottom: 70px;
 }
+
+
 
 
 /* button */
