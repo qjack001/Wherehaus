@@ -22,12 +22,20 @@ html
     margin: 40px 15%;
 }
 
+
+
+
+/* menu */
+
+header
+{
+    
+}
+
 .logo
 {
     width: 140px;
 }
-
-/* MENU */
 
 .menu-div
 {
@@ -36,12 +44,16 @@ html
     width: 80%;
 }
 
+a
+{ 
+    text-decoration: none;
+}
+
 .menu
 {
     font-family: var(--monospace);
     font-size: 0.7rem;
     color: var(--grey);
-    text-decoration: none;
     margin: 0px 20px;
 }
 
@@ -53,9 +65,13 @@ html
 }
 
 
+
+
+/* button */
+
 .button
 {
-    padding: 20px 70px;
+    padding: 20px 50px;
     box-shadow: rgba(17,17,17,0.3) 0 5px 15px 0;
     background-color: rgba(255, 255, 255, 0.57);
     border-radius: 80px;
