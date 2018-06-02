@@ -1,12 +1,17 @@
+
+
 @font-face { font-family: Gilroy; src: url("Gilroy-ExtraBold.otf"); }
 @font-face { font-family: Monosten; src: url("Monosten-A-webfont.ttf"); }
 
 :root 
 {
-    --grey: #9d9d9d;
+    --light-grey: rgba(0, 0, 0, 0.39);
+    --mid-grey: rgba(0, 0, 0, 0.59);
     --dark-grey: rgba(0, 0, 0, 0.69);
     --off-white: #f0f6f8;
-    --wolf-red: #FA5F28;
+    --wolf-red: #fa5f28;
+    --purple: #4b00a2;
+    
     --breakpoint-xs: 0;
     --breakpoint-sm: 576px;
     --breakpoint-md: 768px;
@@ -29,7 +34,7 @@ html
 
 header
 {
-    margin-bottom: 140px;
+    margin-bottom: 100px;
 }
 
 .logo
@@ -53,8 +58,9 @@ a
 {
     font-family: var(--monospace);
     font-size: 0.7rem;
-    color: var(--grey);
+    color: var(--light-grey);
     margin-left: 40px;
+    letter-spacing: 0.4px;
 }
 
 .menu:hover
@@ -68,6 +74,11 @@ a
 
 
 /* hero */
+
+.app-icon
+{
+    width: 50px;
+}
 
 .hero
 {
@@ -89,15 +100,21 @@ h1
     font-family: var(--title);
     font-size: 2.5rem;
     color: var(--dark-grey);
-    margin-bottom: 0px;
+    margin-bottom: 5px;
+    line-height: 0.9;
 }
 
 p
 {
     font-family: var(--monospace);
-    font-size: 1.1rem;
+    font-size: 0.875rem;
     color: var(--dark-grey);
     margin-bottom: 70px;
+}
+
+.hero-img
+{
+    align-self: flex-end;
 }
 
 
@@ -111,17 +128,32 @@ p
     box-shadow: rgba(17,17,17,0.3) 0 5px 15px 0;
     background-color: rgba(255, 255, 255, 0.57);
     border-radius: 80px;
-    transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition: all 0.2s ease-in;
     outline: none;
     font-family: var(--title);
     font-size: 1rem;
     letter-spacing: 2px;
     color: var(--dark-grey);
+    cursor: pointer;
 }
 
 .button:hover
 {
     box-shadow: rgba(17,17,17,0.3) 0 10px 25px 0;
+    color: var(--mid-grey);
 }
 
 
+
+
+/* footer */
+
+.footer
+{
+    margin-top: 100px;
+    font-family: var(--monospace);
+    font-size: 0.7rem;
+    color: var(--light-grey);
+    margin-right: 40px;
+    letter-spacing: 0.4px;
+}
