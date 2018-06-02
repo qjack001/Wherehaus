@@ -157,8 +157,3 @@ p
     color: var(--light-grey);
     letter-spacing: 0.4px;
 }
-
-.footer > space
-{
-    margin-right: 40px;
-}
