@@ -51,7 +51,7 @@ header
 
 a
 { 
-    text-decoration: none;
+    color: var(--light-grey)
 }
 
 .menu
@@ -61,6 +61,7 @@ a
     color: var(--light-grey);
     margin-left: 40px;
     letter-spacing: 0.4px;
+    text-decoration: none;
 }
 
 .menu:hover
@@ -154,6 +155,10 @@ p
     font-family: var(--monospace);
     font-size: 0.7rem;
     color: var(--light-grey);
-    margin-right: 40px;
     letter-spacing: 0.4px;
+}
+
+.footer > space
+{
+    margin-right: 40px;
 }
