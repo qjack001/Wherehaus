@@ -66,9 +66,7 @@ a
 
 .menu:hover
 {
-    border-bottom-style: solid;
-    border-bottom-color: var(--grey);
-    border-bottom-width: 2px;
+    text-decoration: underline;
 }
 
 
