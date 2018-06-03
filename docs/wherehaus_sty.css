@@ -114,6 +114,8 @@ p
 .hero-img
 {
     align-self: flex-end;
+    width: 80%;
+    opacity: 0.75;
 }
 
 
