@@ -6,14 +6,16 @@ import 'dart:io';
 import 'package:map_view/map_view.dart';
 import 'getAPIKey.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:geolocation/geolocation.dart' as geo; 
+import 'package:firebase_database/firebase_database.dart';
+import 'package:wherehous/dataObj.dart';
+//import 'package:geolocation/geolocation.dart' as geo; 
 
 
 Future<File> tempImage;
 DataBase fakeOne;
 int currentID;
 String userName;
-geo.LocationResult tempLocation;
+//geo.LocationResult tempLocation;
 var staticMap;
 
 
@@ -23,7 +25,6 @@ void main()
 	staticMap = new StaticMapProvider(getAPIKey());
 	runApp(new Wherehouse());
 }
-
 
 class Wherehouse extends StatelessWidget 
 {
@@ -42,9 +43,6 @@ class Wherehouse extends StatelessWidget
 		);
 	}
 }
-
-
-
 
 class Home extends StatefulWidget 
 {
@@ -101,8 +99,6 @@ class Login extends StatefulWidget
   	LoginPage createState() => new LoginPage();
 }
 
-
-
 class HomePage extends State<Home>
 {
 	@override
@@ -154,7 +150,6 @@ class HomePage extends State<Home>
 		);
 	}
 }
-
 
 class EditPage extends State<Edit> 
 {
@@ -406,11 +401,43 @@ class EditPage extends State<Edit>
 	}
 }
 
-
 class NewEditPage extends State<NewEdit> 
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  List<Item> items = List();
+  Item item;
+  DatabaseReference itemRef;
+  //FirebaseStorage storage;
+  Future<File> tempImage;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    item = Item('test','test','test','test','test','test','test','test',true, null);
+    final FirebaseDatabase database = FirebaseDatabase.instance; //Rather then just writing FirebaseDatabase(), get the instance.  
+    //final FirebaseStorage storage = FirebaseStorage.instance;
+    //bucket = storage.storageBucket;
+    itemRef = database.reference().child('items');
+    itemRef.onChildAdded.listen(_onEntryAdded);
+    itemRef.onChildChanged.listen(_onEntryChanged);
+  }
+
+  _onEntryAdded(Event event) {
+    setState(() {
+      items.add(Item.fromSnapshot(event.snapshot));
+    });
+  }
+
+  _onEntryChanged(Event event) {
+    var old = items.singleWhere((entry) {
+      return entry.key == event.snapshot.key;
+    });
+    setState(() {
+      items[items.indexOf(old)] = Item.fromSnapshot(event.snapshot);
+    });
+  }
 
     List<String> productData = 
 	[
@@ -641,7 +668,7 @@ class NewEditPage extends State<NewEdit>
 							totalWeight: productData[6],
 							lastEdit: userName,
 							image: tempImage,
-							newGps: tempLocation,
+							//newGps: tempLocation,
 						);
 
 						//exit edit page:
@@ -666,30 +693,29 @@ class NewEditPage extends State<NewEdit>
 	}
 }
 
-
 class ProductPage extends State<Product> 
 {
 	MapView mapView = new MapView();
 	CameraPosition cameraPosition;
 	var staticMapProvider = new StaticMapProvider(getAPIKey());
 	Uri staticMapUri;
-	Location loc;
+	//Location loc;
 
 	@override
 	initState() 
 	{
 		super.initState();
-		if(fakeOne.getDatabase()[currentID].getLat() == null || fakeOne.getDatabase()[currentID].getLong() == null)
-		{
-			loc = null;
-		}
-		else
-		{
-			loc = new Location(fakeOne.getDatabase()[currentID].getLat(), fakeOne.getDatabase()[currentID].getLong());
-		}
+		// if(fakeOne.getDatabase()[currentID].getLat() == null || fakeOne.getDatabase()[currentID].getLong() == null)
+		// {
+		// 	loc = null;
+		// }
+		// else
+		// {
+		// 	loc = new Location(fakeOne.getDatabase()[currentID].getLat(), fakeOne.getDatabase()[currentID].getLong());
+		// }
 
-		cameraPosition = new CameraPosition(loc, 2.0);
-		staticMapUri = staticMapProvider.getStaticUri(loc, 19, width: 900, height: 400, mapType: StaticMapViewType.roadmap); //FIX: set to 20 if more zoom is needed
+		//cameraPosition = new CameraPosition(loc, 2.0);
+		//staticMapUri = staticMapProvider.getStaticUri(loc, 19, width: 900, height: 400, mapType: StaticMapViewType.roadmap); //FIX: set to 20 if more zoom is needed
 	}
 	
     RichText getData(String title, int id)
@@ -1069,37 +1095,36 @@ class ProductPage extends State<Product>
     }
 }
 
-
 class SearchPage extends State<Search> 
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	String searchInput = "";
-  	StreamSubscription<geo.LocationResult> locationStream;
+  //StreamSubscription<geo.LocationResult> locationStream;
 
 	@override
 	initState()
 	{
 		super.initState();
-		checkGps();
+		//checkGps();
 	}
 
-	checkGps() async
-	{
-		final geo.GeolocationResult result = await geo.Geolocation.requestLocationPermission(const geo.LocationPermission
-		(
-			android: geo.LocationPermissionAndroid.fine,
-			ios: geo.LocationPermissionIOS.always,
-		));
+	// checkGps() async
+	// {
+	// 	final geo.GeolocationResult result = await geo.Geolocation.requestLocationPermission(const geo.LocationPermission
+	// 	(
+	// 		android: geo.LocationPermissionAndroid.fine,
+	// 		ios: geo.LocationPermissionIOS.always,
+	// 	));
 
-		if (result.isSuccessful)
-		{
-			print("Success");
-		}  
-		else
-		{
-			print("Failed");
-		}
-	}
+	// 	if (result.isSuccessful)
+	// 	{
+	// 		print("Success");
+	// 	}  
+	// 	else
+	// 	{
+	// 		print("Failed");
+	// 	}
+	// }
 	
   
 	Widget getResult(int index)
@@ -1367,11 +1392,11 @@ class SearchPage extends State<Search>
 			(
 				onPressed: ()
 				{
-					locationStream = geo.Geolocation.currentLocation(accuracy: geo.LocationAccuracy.best).listen((locResult)
-					{
-						tempLocation = locResult;
-						// create property in item object for storing location
-					});
+					// locationStream = geo.Geolocation.currentLocation(accuracy: geo.LocationAccuracy.best).listen((locResult)
+					// {
+					// 	tempLocation = locResult;
+					// 	// create property in item object for storing location
+					// });
 
 					tempImage = ImagePicker.pickImage(source: ImageSource.camera);
 					Navigator.push
@@ -1390,7 +1415,6 @@ class SearchPage extends State<Search>
 	}
 
 }
-
 
 class LoginPage extends State<Login>
 {
