@@ -156,16 +156,16 @@ class EditPage extends State<Edit>
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-    List<String> productData = 
+    List<String> productData = //update
 	[
-		fakeOne.getDatabase()[currentID].getInfo(0),
-		fakeOne.getDatabase()[currentID].getInfo(1),
-		fakeOne.getDatabase()[currentID].getInfo(2),
-		fakeOne.getDatabase()[currentID].getInfo(3),
-		fakeOne.getDatabase()[currentID].getInfo(4),
-		fakeOne.getDatabase()[currentID].getInfo(5),
-		fakeOne.getDatabase()[currentID].getInfo(6),
-		fakeOne.getDatabase()[currentID].getInfo(7),
+		// fakeOne.getDatabase()[currentID].getInfo(0),
+		// fakeOne.getDatabase()[currentID].getInfo(1),
+		// fakeOne.getDatabase()[currentID].getInfo(2),
+		// fakeOne.getDatabase()[currentID].getInfo(3),
+		// fakeOne.getDatabase()[currentID].getInfo(4),
+		// fakeOne.getDatabase()[currentID].getInfo(5),
+		// fakeOne.getDatabase()[currentID].getInfo(6),
+		// fakeOne.getDatabase()[currentID].getInfo(7),
 		
 	];
 
@@ -372,16 +372,16 @@ class EditPage extends State<Edit>
 				{
 					final fail = new SnackBar(content: new Text('Error: Some of the data is invalid'));
 					
-					if (isValid())
+					if (isValid()) // update
 					{
-						fakeOne.getDatabase()[currentID].editInfo(0, productData[0]);
-						fakeOne.getDatabase()[currentID].editInfo(1, productData[1]);
-						fakeOne.getDatabase()[currentID].editInfo(2, productData[2]);
-						fakeOne.getDatabase()[currentID].editInfo(3, productData[3]);
-						fakeOne.getDatabase()[currentID].editInfo(4, productData[4]);
-						fakeOne.getDatabase()[currentID].editInfo(5, productData[5]);
-						fakeOne.getDatabase()[currentID].editInfo(6, productData[6]);
-						fakeOne.getDatabase()[currentID].editInfo(7, userName);
+						// fakeOne.getDatabase()[currentID].editInfo(0, productData[0]);
+						// fakeOne.getDatabase()[currentID].editInfo(1, productData[1]);
+						// fakeOne.getDatabase()[currentID].editInfo(2, productData[2]);
+						// fakeOne.getDatabase()[currentID].editInfo(3, productData[3]);
+						// fakeOne.getDatabase()[currentID].editInfo(4, productData[4]);
+						// fakeOne.getDatabase()[currentID].editInfo(5, productData[5]);
+						// fakeOne.getDatabase()[currentID].editInfo(6, productData[6]);
+						// fakeOne.getDatabase()[currentID].editInfo(7, userName);
 						//FIX update database
 
 						//exit edit page:
@@ -664,7 +664,7 @@ class NewEditPage extends State<NewEdit>
 					
 					if (isValid())
 					{
-						currentID = fakeOne.getDatabase().length;
+						//currentID = fakeOne.getDatabase().length;
             item.title = productData[0];
             item.productNumber = productData[1];
             item.location = productData[2];
