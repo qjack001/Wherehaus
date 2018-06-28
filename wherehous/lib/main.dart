@@ -415,7 +415,7 @@ class NewEditPage extends State<NewEdit>
   @override
   void initState() {
     super.initState();
-    item = Item('test','test','test','test','test','test','test','test',true, null);
+    item = Item('Empty','Empty','Empty','Empty','Empty','Empty','Empty','Empty',true, null);
     final FirebaseDatabase database = FirebaseDatabase.instance; //Rather then just writing FirebaseDatabase(), get the instance.  
     //final FirebaseStorage storage = FirebaseStorage.instance;
     //bucket = storage.storageBucket;
@@ -437,6 +437,15 @@ class NewEditPage extends State<NewEdit>
     setState(() {
       items[items.indexOf(old)] = Item.fromSnapshot(event.snapshot);
     });
+  }
+
+ void handleSubmit() {
+    final FormState form = formKey.currentState;
+
+    if (form.validate()) {
+      //item.image = tempImage;
+      itemRef.push().set(item.toJson()); // imp
+    }
   }
 
     List<String> productData = 
@@ -656,22 +665,29 @@ class NewEditPage extends State<NewEdit>
 					if (isValid())
 					{
 						currentID = fakeOne.getDatabase().length;
-
-						fakeOne.newItem
-						(
-							title: productData[0],
-							productNumber: productData[1],
-							location: productData[2],
-							position: productData[3],
-							quantity: productData[4],
-							tearWeight: productData[5],
-							totalWeight: productData[6],
-							lastEdit: userName,
-							image: tempImage,
-							//newGps: tempLocation,
-						);
+            item.title = productData[0];
+            item.productNumber = productData[1];
+            item.location = productData[2];
+            item.position = productData[3];
+            item.quantity = productData[4];
+            item.tearWeight = productData[5];
+            item.totalWeight = productData[6];
+						// fakeOne.newItem
+						// (
+						// 	title: productData[0],
+						// 	productNumber: productData[1],
+						// 	location: productData[2],
+						// 	position: productData[3],
+						// 	quantity: productData[4],
+						// 	tearWeight: productData[5],
+						// 	totalWeight: productData[6],
+						// 	lastEdit: userName,
+						// 	image: tempImage,
+						// 	//newGps: tempLocation,
+						// );
 
 						//exit edit page:
+            itemRef.push().set(item.toJson());
 						Navigator.pop(context);
 						Navigator.push
 						(
