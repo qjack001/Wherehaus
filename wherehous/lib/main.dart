@@ -155,23 +155,38 @@ class EditPage extends State<Edit>
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  Item item;
+  DatabaseReference itemRef;
+  List<Item> items = List();
 
-    List<String> productData = //update
-	[
-		// fakeOne.getDatabase()[currentID].getInfo(0),
-		// fakeOne.getDatabase()[currentID].getInfo(1),
-		// fakeOne.getDatabase()[currentID].getInfo(2),
-		// fakeOne.getDatabase()[currentID].getInfo(3),
-		// fakeOne.getDatabase()[currentID].getInfo(4),
-		// fakeOne.getDatabase()[currentID].getInfo(5),
-		// fakeOne.getDatabase()[currentID].getInfo(6),
-		// fakeOne.getDatabase()[currentID].getInfo(7),
-		
-	];
+  @override
+  void initState() {
+  super.initState();
+  item = items[0];
+  final FirebaseDatabase database = FirebaseDatabase.instance; //Rather then just writing FirebaseDatabase(), get the instance.  
+  itemRef = database.reference().child('items');
+  itemRef.onChildAdded.listen(_onEntryAdded);
+  itemRef.onChildChanged.listen(_onEntryChanged);
+  }
+
+  _onEntryAdded(Event event) {
+    setState(() {
+      items.add(Item.fromSnapshot(event.snapshot));
+    });
+  }
+
+  _onEntryChanged(Event event) {
+    var old = items.singleWhere((entry) {
+      return entry.key == event.snapshot.key;
+    });
+    setState(() {
+      items[items.indexOf(old)] = Item.fromSnapshot(event.snapshot);
+    });
+  }
 
 	List<bool> valid = 
     [
-        false,
+    false,
 		false,
 		false,
 		false,
@@ -214,7 +229,6 @@ class EditPage extends State<Edit>
 		{
 			output = output && valid[i];
 		}
-
 		return output;
 	}	
 
@@ -243,7 +257,7 @@ class EditPage extends State<Edit>
                 subtitle: new TextFormField
 				(
 					focusNode: focus[id],
-                	initialValue: productData[id],
+                	initialValue: '',//productData[id],
 					autocorrect: true,
 					autovalidate: true,
 
@@ -286,7 +300,7 @@ class EditPage extends State<Edit>
 
 					onSaved: (value)
 					{
-						productData[id] = value;
+						//productData[id] = value;// example update
 					},
 
 					onFieldSubmitted: (value) 
@@ -374,17 +388,7 @@ class EditPage extends State<Edit>
 					
 					if (isValid()) // update
 					{
-						// fakeOne.getDatabase()[currentID].editInfo(0, productData[0]);
-						// fakeOne.getDatabase()[currentID].editInfo(1, productData[1]);
-						// fakeOne.getDatabase()[currentID].editInfo(2, productData[2]);
-						// fakeOne.getDatabase()[currentID].editInfo(3, productData[3]);
-						// fakeOne.getDatabase()[currentID].editInfo(4, productData[4]);
-						// fakeOne.getDatabase()[currentID].editInfo(5, productData[5]);
-						// fakeOne.getDatabase()[currentID].editInfo(6, productData[6]);
-						// fakeOne.getDatabase()[currentID].editInfo(7, userName);
-						//FIX update database
-
-						//exit edit page:
+						itemRef.push().set(item.toJson());
 						Navigator.pop(context);
 					}
 					else
@@ -762,7 +766,7 @@ class ProductPage extends State<Product>
                 [
                     new TextSpan
                     (
-                        text: fakeOne.getDatabase()[currentID].getInfo(id), 
+                        text: 'beans',//fakeOne.getDatabase()[currentID].getInfo(id), 
                         style: new TextStyle(fontWeight: FontWeight.normal)
                     ),
                 ],
@@ -796,7 +800,7 @@ class ProductPage extends State<Product>
                             [
                                 new FutureBuilder<File>
 								(
-									future: fakeOne.getDatabase()[currentID].getImage(),
+									//future: //fakeOne.getDatabase()[currentID].getImage(),
 									builder: (BuildContext context, AsyncSnapshot<File> snapshot) 
 									{
 										if (snapshot.connectionState == ConnectionState.done &&
