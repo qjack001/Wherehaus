@@ -7,9 +7,6 @@ import 'package:map_view/map_view.dart';
 import 'getAPIKey.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:wherehous/dataObj.dart';
-//import 'package:geolocation/geolocation.dart' as geo; 
-
 
 Future<File> tempImage;
 DataBase fakeOne;
@@ -155,38 +152,23 @@ class EditPage extends State<Edit>
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  Item item;
-  DatabaseReference itemRef;
-  List<Item> items = List();
 
-  @override
-  void initState() {
-  super.initState();
-  item = items[0];
-  final FirebaseDatabase database = FirebaseDatabase.instance; //Rather then just writing FirebaseDatabase(), get the instance.  
-  itemRef = database.reference().child('items');
-  itemRef.onChildAdded.listen(_onEntryAdded);
-  itemRef.onChildChanged.listen(_onEntryChanged);
-  }
-
-  _onEntryAdded(Event event) {
-    setState(() {
-      items.add(Item.fromSnapshot(event.snapshot));
-    });
-  }
-
-  _onEntryChanged(Event event) {
-    var old = items.singleWhere((entry) {
-      return entry.key == event.snapshot.key;
-    });
-    setState(() {
-      items[items.indexOf(old)] = Item.fromSnapshot(event.snapshot);
-    });
-  }
+    List<String> productData = 
+	[
+		fakeOne.getDatabase()[currentID].getInfo(0),
+		fakeOne.getDatabase()[currentID].getInfo(1),
+		fakeOne.getDatabase()[currentID].getInfo(2),
+		fakeOne.getDatabase()[currentID].getInfo(3),
+		fakeOne.getDatabase()[currentID].getInfo(4),
+		fakeOne.getDatabase()[currentID].getInfo(5),
+		fakeOne.getDatabase()[currentID].getInfo(6),
+		fakeOne.getDatabase()[currentID].getInfo(7),
+		
+	];
 
 	List<bool> valid = 
     [
-    false,
+        false,
 		false,
 		false,
 		false,
@@ -229,6 +211,7 @@ class EditPage extends State<Edit>
 		{
 			output = output && valid[i];
 		}
+
 		return output;
 	}	
 
@@ -257,7 +240,7 @@ class EditPage extends State<Edit>
                 subtitle: new TextFormField
 				(
 					focusNode: focus[id],
-                	initialValue: '',//productData[id],
+                	initialValue: productData[id],
 					autocorrect: true,
 					autovalidate: true,
 
@@ -300,7 +283,7 @@ class EditPage extends State<Edit>
 
 					onSaved: (value)
 					{
-						//productData[id] = value;// example update
+						productData[id] = value;
 					},
 
 					onFieldSubmitted: (value) 
@@ -386,9 +369,19 @@ class EditPage extends State<Edit>
 				{
 					final fail = new SnackBar(content: new Text('Error: Some of the data is invalid'));
 					
-					if (isValid()) // update
+					if (isValid())
 					{
-						itemRef.push().set(item.toJson());
+						fakeOne.getDatabase()[currentID].editInfo(0, productData[0]);
+						fakeOne.getDatabase()[currentID].editInfo(1, productData[1]);
+						fakeOne.getDatabase()[currentID].editInfo(2, productData[2]);
+						fakeOne.getDatabase()[currentID].editInfo(3, productData[3]);
+						fakeOne.getDatabase()[currentID].editInfo(4, productData[4]);
+						fakeOne.getDatabase()[currentID].editInfo(5, productData[5]);
+						fakeOne.getDatabase()[currentID].editInfo(6, productData[6]);
+						fakeOne.getDatabase()[currentID].editInfo(7, userName);
+						//FIX update database
+
+						//exit edit page:
 						Navigator.pop(context);
 					}
 					else
@@ -409,48 +402,6 @@ class NewEditPage extends State<NewEdit>
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  List<Item> items = List();
-  Item item;
-  DatabaseReference itemRef;
-  //FirebaseStorage storage;
-  Future<File> tempImage;
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    super.initState();
-    item = Item('Empty','Empty','Empty','Empty','Empty','Empty','Empty','Empty',true, null);
-    final FirebaseDatabase database = FirebaseDatabase.instance; //Rather then just writing FirebaseDatabase(), get the instance.  
-    //final FirebaseStorage storage = FirebaseStorage.instance;
-    //bucket = storage.storageBucket;
-    itemRef = database.reference().child('items');
-    itemRef.onChildAdded.listen(_onEntryAdded);
-    itemRef.onChildChanged.listen(_onEntryChanged);
-  }
-
-  _onEntryAdded(Event event) {
-    setState(() {
-      items.add(Item.fromSnapshot(event.snapshot));
-    });
-  }
-
-  _onEntryChanged(Event event) {
-    var old = items.singleWhere((entry) {
-      return entry.key == event.snapshot.key;
-    });
-    setState(() {
-      items[items.indexOf(old)] = Item.fromSnapshot(event.snapshot);
-    });
-  }
-
- void handleSubmit() {
-    final FormState form = formKey.currentState;
-
-    if (form.validate()) {
-      //item.image = tempImage;
-      itemRef.push().set(item.toJson()); // imp
-    }
-  }
 
     List<String> productData = 
 	[
@@ -668,30 +619,23 @@ class NewEditPage extends State<NewEdit>
 					
 					if (isValid())
 					{
-						//currentID = fakeOne.getDatabase().length;
-            item.title = productData[0];
-            item.productNumber = productData[1];
-            item.location = productData[2];
-            item.position = productData[3];
-            item.quantity = productData[4];
-            item.tearWeight = productData[5];
-            item.totalWeight = productData[6];
-						// fakeOne.newItem
-						// (
-						// 	title: productData[0],
-						// 	productNumber: productData[1],
-						// 	location: productData[2],
-						// 	position: productData[3],
-						// 	quantity: productData[4],
-						// 	tearWeight: productData[5],
-						// 	totalWeight: productData[6],
-						// 	lastEdit: userName,
-						// 	image: tempImage,
-						// 	//newGps: tempLocation,
-						// );
+						currentID = fakeOne.getDatabase().length;
+
+						fakeOne.newItem
+						(
+							title: productData[0],
+							productNumber: productData[1],
+							location: productData[2],
+							position: productData[3],
+							quantity: productData[4],
+							tearWeight: productData[5],
+							totalWeight: productData[6],
+							lastEdit: userName,
+							image: tempImage,
+							//newGps: tempLocation,
+						);
 
 						//exit edit page:
-            itemRef.push().set(item.toJson());
 						Navigator.pop(context);
 						Navigator.push
 						(
@@ -719,23 +663,23 @@ class ProductPage extends State<Product>
 	CameraPosition cameraPosition;
 	var staticMapProvider = new StaticMapProvider(getAPIKey());
 	Uri staticMapUri;
-	//Location loc;
+	Location loc;
 
 	@override
 	initState() 
 	{
 		super.initState();
-		// if(fakeOne.getDatabase()[currentID].getLat() == null || fakeOne.getDatabase()[currentID].getLong() == null)
-		// {
-		// 	loc = null;
-		// }
-		// else
-		// {
-		// 	loc = new Location(fakeOne.getDatabase()[currentID].getLat(), fakeOne.getDatabase()[currentID].getLong());
-		// }
+		if(fakeOne.getDatabase()[currentID].getLat() == null || fakeOne.getDatabase()[currentID].getLong() == null)
+		{
+			loc = null;
+		}
+		else
+		{
+			loc = new Location(fakeOne.getDatabase()[currentID].getLat(), fakeOne.getDatabase()[currentID].getLong());
+		}
 
-		//cameraPosition = new CameraPosition(loc, 2.0);
-		//staticMapUri = staticMapProvider.getStaticUri(loc, 19, width: 900, height: 400, mapType: StaticMapViewType.roadmap); //FIX: set to 20 if more zoom is needed
+		cameraPosition = new CameraPosition(loc, 2.0);
+		staticMapUri = staticMapProvider.getStaticUri(loc, 19, width: 900, height: 400, mapType: StaticMapViewType.roadmap); //FIX: set to 20 if more zoom is needed
 	}
 	
     RichText getData(String title, int id)
@@ -766,7 +710,7 @@ class ProductPage extends State<Product>
                 [
                     new TextSpan
                     (
-                        text: 'beans',//fakeOne.getDatabase()[currentID].getInfo(id), 
+                        text: fakeOne.getDatabase()[currentID].getInfo(id), 
                         style: new TextStyle(fontWeight: FontWeight.normal)
                     ),
                 ],
@@ -800,7 +744,7 @@ class ProductPage extends State<Product>
                             [
                                 new FutureBuilder<File>
 								(
-									//future: //fakeOne.getDatabase()[currentID].getImage(),
+									future: fakeOne.getDatabase()[currentID].getImage(),
 									builder: (BuildContext context, AsyncSnapshot<File> snapshot) 
 									{
 										if (snapshot.connectionState == ConnectionState.done &&
@@ -1412,7 +1356,7 @@ class SearchPage extends State<Search>
 			(
 				onPressed: ()
 				{
-					// locationStream = geo.Geolocation.currentLocation(accuracy: geo.LocationAccuracy.best).listen((locResult)
+					//locationStream = geo.Geolocation.currentLocation(accuracy: geo.LocationAccuracy.best).listen((locResult)
 					// {
 					// 	tempLocation = locResult;
 					// 	// create property in item object for storing location
