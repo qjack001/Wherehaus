@@ -689,7 +689,7 @@ class ProductPage extends State<Product>
 		}
 
 		cameraPosition = new CameraPosition(loc, 2.0);
-		staticMapUri = staticMapProvider.getStaticUri(loc, 19, width: 900, height: 400, mapType: StaticMapViewType.roadmap); //FIX: set to 20 if more zoom is needed
+		staticMapUri = staticMapProvider.getStaticUri(loc, 20, width: 900, height: 400, mapType: StaticMapViewType.roadmap); //FIX: set to 20 if more zoom is needed
 	}
 	
     RichText getData(String title, int id)
