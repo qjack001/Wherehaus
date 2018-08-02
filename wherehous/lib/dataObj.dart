@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
-//import 'package:geolocation/geolocation.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/models/location_accuracy.dart';
+import 'package:geolocator/models/position.dart';
 
 class Item 
 {
@@ -16,8 +18,9 @@ class Item
 	String lastEdit; // tracks whoever last edited an item
 	bool empty;
   Future<File> image;
-  //LocationResult gps;
-  Item(this.title, this.productNumber, this.location, this.position, this.quantity, this.tearWeight, this.totalWeight, this.lastEdit, this.empty, this.image);// this.gps);
+  double lat;
+  double long;
+  Item(this.title, this.productNumber, this.location, this.position, this.quantity, this.tearWeight, this.totalWeight, this.lastEdit, this.empty, this.image, this.lat, this.long);
 
   Item.fromSnapshot(DataSnapshot snapshot)
       : key = snapshot.key,
@@ -30,8 +33,9 @@ class Item
         totalWeight = snapshot.value["totalWeight"],
         lastEdit = snapshot.value["lastEdit"],
         empty = snapshot.value["empty"],
-        image = snapshot.value["image"];
-        //gps = snapshot.value["gps"];
+        image = snapshot.value["image"],
+        lat = snapshot.value["lat"],
+        long = snapshot.value["long"];
 
   toJson() 
   {
@@ -47,7 +51,8 @@ class Item
       "lastEdit" : lastEdit,
       "empty" : empty,
       //"image" : image,
-      //"gps" : gps
+      "lat" : lat,
+      "long": long
     };
   }
 	// Item(String name, String numb, String loc, String spot, String quan, String tear, String tot, String edit, bool emptIn, Future<File> newImage)// LocationResult newGps)
@@ -80,25 +85,25 @@ class Item
 	// 	this.gps = newGps;
 	// }
 
-	// double getLong()
-	// {
-	// 	if(this.gps.location == null)
-	// 	{
-	// 		return null;
-	// 	}
+	double getLong()
+	{
+		if(this.long == null)
+		{
+			return null;
+		}
 
-	// 	return this.gps.location.longitude;
-	// }
+		return this.long;
+	}
 
-	// double getLat()
-	// {
-	// 	if(this.gps.location == null)
-	// 	{
-	// 		return null;
-	// 	}
+	double getLat()
+	{
+		if(this.lat == null)
+		{
+			return null;
+		}
 		
-	// 	return this.gps.location.latitude;
-	// }
+		return this.lat;
+	}
 
 	String getInfo(int id)
 	{

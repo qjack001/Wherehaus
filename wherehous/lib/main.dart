@@ -8,14 +8,16 @@ import 'getAPIKey.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:wherehous/dataObj.dart';
-//import 'package:geolocation/geolocation.dart' as geo;
+import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/models/location_accuracy.dart';
+import 'package:geolocator/models/position.dart';
 
 
 Future<File> tempImage;
 DataBase fakeOne;
 int currentID;
 String userName;
-//geo.LocationResult tempLocation;
+Position tempLocation;
 var staticMap;
 
 
@@ -415,7 +417,6 @@ class NewEditPage extends State<NewEdit>
   @override
   void initState() {
     super.initState();
-    item = Item('test','test','test','test','test','test','test','test',true, null);
     final FirebaseDatabase database = FirebaseDatabase.instance; //Rather then just writing FirebaseDatabase(), get the instance.  
     //final FirebaseStorage storage = FirebaseStorage.instance;
     //bucket = storage.storageBucket;
@@ -668,7 +669,8 @@ class NewEditPage extends State<NewEdit>
 							totalWeight: productData[6],
 							lastEdit: userName,
 							image: tempImage,
-							//newGps: tempLocation,
+							newLat: tempLocation.latitude,
+							newLong: tempLocation.longitude
 						);
 
 						//exit edit page:
@@ -699,23 +701,23 @@ class ProductPage extends State<Product>
 	CameraPosition cameraPosition;
 	var staticMapProvider = new StaticMapProvider(getAPIKey());
 	Uri staticMapUri;
-	//Location loc;
+	Location loc;
 
 	@override
 	initState() 
 	{
 		super.initState();
-		// if(fakeOne.getDatabase()[currentID].getLat() == null || fakeOne.getDatabase()[currentID].getLong() == null)
-		// {
-		// 	loc = null;
-		// }
-		// else
-		// {
-		// 	loc = new Location(fakeOne.getDatabase()[currentID].getLat(), fakeOne.getDatabase()[currentID].getLong());
-		// }
+		if(fakeOne.getDatabase()[currentID].getLat() == null || fakeOne.getDatabase()[currentID].getLong() == null)
+		{
+			loc = null;
+		}
+		else
+		{
+			loc = new Location(fakeOne.getDatabase()[currentID].getLat(), fakeOne.getDatabase()[currentID].getLong());
+		}
 
-		//cameraPosition = new CameraPosition(loc, 2.0);
-		//staticMapUri = staticMapProvider.getStaticUri(loc, 19, width: 900, height: 400, mapType: StaticMapViewType.roadmap); //FIX: set to 20 if more zoom is needed
+		cameraPosition = new CameraPosition(loc, 2.0);
+		staticMapUri = staticMapProvider.getStaticUri(loc, 19, width: 900, height: 400, mapType: StaticMapViewType.roadmap); //FIX: set to 20 if more zoom is needed
 	}
 	
     RichText getData(String title, int id)
@@ -805,6 +807,8 @@ class ProductPage extends State<Product>
 												{
 													tempImage = ImagePicker.pickImage(source: ImageSource.camera);
 													fakeOne.getDatabase()[currentID].setImage(tempImage);
+													
+													() async {tempLocation = await Geolocator().getPosition(LocationAccuracy.lowest);};
 													Navigator.pushReplacement
 													(
 														context,
@@ -1100,8 +1104,7 @@ class SearchPage extends State<Search>
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	String searchInput = "";
   DataBase dBase;
-  
-  //StreamSubscription<geo.LocationResult> locationStream;
+
 
 	@override
 	initState()
@@ -1110,28 +1113,8 @@ class SearchPage extends State<Search>
     fakeOne.update("");
     const delay = const Duration(milliseconds:100);
     new Timer(delay, () => setState(() {fakeOne.update(searchInput);fakeOne = fakeOne;}));
-		//checkGps();
 	}
 
-	// checkGps() async
-	// {
-	// 	final geo.GeolocationResult result = await geo.Geolocation.requestLocationPermission(const geo.LocationPermission
-	// 	(
-	// 		android: geo.LocationPermissionAndroid.fine,
-	// 		ios: geo.LocationPermissionIOS.always,
-	// 	));
-
-	// 	if (result.isSuccessful)
-	// 	{
-	// 		print("Success");
-	// 	}  
-	// 	else
-	// 	{
-	// 		print("Failed");
-	// 	}
-	// }
-	
-  
 	Widget getResult(int index)
 	{
 		return new ListTile
@@ -1398,11 +1381,12 @@ class SearchPage extends State<Search>
 			(
 				onPressed: ()
 				{
-					// locationStream = geo.Geolocation.currentLocation(accuracy: geo.LocationAccuracy.best).listen((locResult)
-					// {
-					// 	tempLocation = locResult;
-					// 	// create property in item object for storing location
-					// });
+					() async 
+					{
+						Position position = await Geolocator().getPosition(LocationAccuracy.lowest);
+						tempLocation = position;
+						print("done");
+					};
 
 					tempImage = ImagePicker.pickImage(source: ImageSource.camera);
 					Navigator.push
