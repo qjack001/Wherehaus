@@ -8,7 +8,7 @@ import 'getAPIKey.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:wherehous/dataObj.dart';
-//import 'package:geolocation/geolocation.dart' as geo; 
+//import 'package:geolocation/geolocation.dart' as geo;
 
 
 Future<File> tempImage;

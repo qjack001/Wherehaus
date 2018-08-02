@@ -12,8 +12,6 @@ dependencies:
   firebase_database: "^1.0.0"
   firebase_core: "^0.2.3"
 
-  # SQL solution dependencies
-
 
   flutter:
     sdk: flutter
