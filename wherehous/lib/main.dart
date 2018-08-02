@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:map_view/map_view.dart';
 import 'getAPIKey.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:geolocation/geolocation.dart' as geo; 
+import 'package:geofire/geofire.dart' as geo; 
 
 
 Future<File> tempImage;

@@ -7,7 +7,9 @@ dependencies:
   image_picker: "^0.4.1"
 
   map_view: "^0.0.12"
-  geolocation: ^0.2.1
+  geofire:
+    git:
+      url: "git://github.com/bramvbilsen/Flutter-GeoFire.git"
 
   flutter:
     sdk: flutter
