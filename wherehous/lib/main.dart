@@ -224,10 +224,10 @@ class EditPage extends State<Edit>
 	{
 		return new Padding
 		(
-            padding: EdgeInsets.only(top: 16.0),
+          padding: EdgeInsets.only(top: 16.0),
         	child: new ListTile
 			(
-                title: new Padding
+          title: new Padding
 				(
 					padding: EdgeInsets.only(bottom: 8.0),
 					child: new Text
@@ -245,7 +245,7 @@ class EditPage extends State<Edit>
                 subtitle: new TextFormField
 				(
 					focusNode: focus[id],
-                	initialValue: productData[id],
+          initialValue: productData[id],
 					autocorrect: true,
 					autovalidate: true,
 
@@ -1381,12 +1381,13 @@ class SearchPage extends State<Search>
 			(
 				onPressed: ()
 				{
-					() async 
+					void retrievePos ()  async
 					{
 						Position position = await Geolocator().getPosition(LocationAccuracy.lowest);
 						tempLocation = position;
 						print("done");
-					};
+          }
+          retrievePos();
 
 					tempImage = ImagePicker.pickImage(source: ImageSource.camera);
 					Navigator.push

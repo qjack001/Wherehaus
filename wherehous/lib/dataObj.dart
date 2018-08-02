@@ -20,6 +20,7 @@ class Item
   Future<File> image;
   double lat;
   double long;
+  
   Item(this.title, this.productNumber, this.location, this.position, this.quantity, this.tearWeight, this.totalWeight, this.lastEdit, this.empty, this.image, this.lat, this.long);
 
   Item.fromSnapshot(DataSnapshot snapshot)
