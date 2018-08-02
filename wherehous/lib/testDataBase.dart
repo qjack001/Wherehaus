@@ -147,7 +147,6 @@ class DataBase
 
 	void update(String input)
 	{
-    print("input:" + input);
     inSearch = [];
 		notInSearch = [];
 

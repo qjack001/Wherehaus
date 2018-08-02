@@ -808,7 +808,7 @@ class ProductPage extends State<Product>
 													tempImage = ImagePicker.pickImage(source: ImageSource.camera);
 													fakeOne.getDatabase()[currentID].setImage(tempImage);
 													
-													() async {tempLocation = await Geolocator().getPosition(LocationAccuracy.lowest);};
+													() async {tempLocation = await Geolocator().getPosition(LocationAccuracy.best);};
 													Navigator.pushReplacement
 													(
 														context,
@@ -1383,9 +1383,8 @@ class SearchPage extends State<Search>
 				{
 					void retrievePos ()  async
 					{
-						Position position = await Geolocator().getPosition(LocationAccuracy.lowest);
+						Position position = await Geolocator().getPosition(LocationAccuracy.best);
 						tempLocation = position;
-						print("done");
           }
           retrievePos();
 
