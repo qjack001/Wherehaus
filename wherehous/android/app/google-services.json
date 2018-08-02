@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "25897001115",
+    "firebase_url": "https://wherehaus-db3a0.firebaseio.com",
+    "project_id": "wherehaus-db3a0",
+    "storage_bucket": "wherehaus-db3a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:25897001115:android:94030f5c54ae013c",
+        "android_client_info": {
+          "package_name": "com.example.wherehous"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "25897001115-i1tep9kop16qutq0jpmgq22akm21hskc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wherehous",
+            "certificate_hash": "27096f9d9d28aa31eb1fb81fd14ba779dc818658"
+          }
+        },
+        {
+          "client_id": "25897001115-4l4nhejnrbf4vj9pf8ncsfhrjh2a1rb9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByWfC9EDdYgPFm1vLGHGdyprjo7Tlri6U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "25897001115-4l4nhejnrbf4vj9pf8ncsfhrjh2a1rb9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
