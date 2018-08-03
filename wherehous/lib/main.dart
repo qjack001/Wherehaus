@@ -82,6 +82,15 @@ class Edit extends StatefulWidget
 	EditPage createState() => new EditPage();
 }
 
+class MoveEdit extends StatefulWidget 
+{
+	MoveEdit({Key key, this.title}) : super(key: key);
+	final String title;
+
+	@override
+	MoveEditPage createState() => new MoveEditPage();
+}
+
 class NewEdit extends StatefulWidget 
 {
 	NewEdit({Key key, this.title}) : super(key: key);
@@ -381,6 +390,224 @@ class EditPage extends State<Edit>
 						fakeOne.edit(currentID, 6, productData[6]);
 						fakeOne.edit(currentID, 7, userName);
 						//FIX update database
+
+						//exit edit page:
+						Navigator.pop(context);
+					}
+					else
+					{
+						_scaffoldKey.currentState.showSnackBar(fail);
+					}
+				},
+				tooltip: 'Save',
+				child: new Icon(Icons.check),
+				backgroundColor: Colors.green,
+				foregroundColor: Colors.white,
+			),
+		);
+	}
+}
+
+class MoveEditPage extends State<MoveEdit> 
+{
+	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+	final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+	List<String> productData = 
+	[
+		fakeOne.getDatabase()[currentID].getInfo(2),
+		fakeOne.getDatabase()[currentID].getInfo(3),
+		fakeOne.getDatabase()[currentID].getInfo(7)
+	];
+
+	List<bool> valid = 
+	[
+		false,
+		false,
+		false,
+	];
+
+	List<FocusNode> focus =
+	[
+		new FocusNode(),
+		new FocusNode(),
+		new FocusNode(),
+		new FocusNode(),
+	];
+
+	bool isNumeric(String s) 
+	{
+		if (s == '')
+		{
+			return true;
+		}
+		else if (s == null) 
+		{
+			return false;
+		}
+
+		return double.parse(s, (e) => null) != null;
+	}
+
+	bool isValid()
+	{
+		return true;
+	}	
+
+	Widget getFeild(String title, String hint, int id, bool empty, bool num)
+	{
+		return new Padding
+		(
+			padding: EdgeInsets.only(top: 16.0),
+			child: new ListTile
+			(
+				title: new Padding
+				(
+					padding: EdgeInsets.only(bottom: 8.0),
+					child: new Text
+					(
+						'$title:', 
+						style: new TextStyle
+						(
+							fontFamily: 'RobotoMono',
+							fontWeight: FontWeight.bold,
+							fontSize: 12.0,
+						),
+					),
+				),
+
+				subtitle: new TextFormField
+				(
+					focusNode: focus[id],
+					initialValue: productData[id],
+					autocorrect: true,
+					autovalidate: true,
+
+					style: new TextStyle
+					(
+						color: Colors.black,
+						fontFamily: "RobotoMono",
+						fontSize: 16.0,
+					),
+
+					decoration: new InputDecoration
+					(
+						fillColor: Colors.grey[200],
+						filled: true,
+						hintText: hint,
+						hintStyle: new TextStyle
+						(
+							color: Colors.grey[400],
+							fontFamily: "RobotoMono",
+							fontSize: 16.0,
+						)
+					),
+
+					validator: (value) 
+					{
+						if (value.isEmpty && empty) 
+						{
+							valid[id] = false;
+							return 'Inventory must have a $title';
+						}
+						else if (!isNumeric(value) && num)
+						{
+							valid[id] = false;
+							return 'Must be a number';
+						}
+
+						valid[id] = true;
+						_formKey.currentState.save();
+					},
+
+					onSaved: (value)
+					{
+						productData[id] = value;
+					},
+
+					onFieldSubmitted: (value) 
+					{
+						FocusScope.of(context).requestFocus(focus[id+1]);
+					},
+
+					keyboardType: num? new TextInputType.numberWithOptions(decimal: true) : TextInputType.text,
+
+				),
+			),
+		);
+	}
+
+	Form getForm()
+	{
+		return new Form
+		(
+			key: _formKey,
+			child: new Column
+			(
+				children: <Widget>
+				[
+					getFeild("Location", "eg: 'warehouse'", 0, true, false),
+					getFeild("Spot", "eg: '6'", 1, false, true),
+				]
+			)
+		);
+	}
+
+	@override
+	Widget build(BuildContext context) 
+	{
+		return new Scaffold
+		(
+			key: _scaffoldKey,
+
+			body: new ListView
+			(
+				children: <Widget>
+				[
+					new Padding
+					( //TITLE
+						padding: EdgeInsets.all(16.0),
+						child: new Row
+						(
+							mainAxisAlignment: MainAxisAlignment.start,
+							crossAxisAlignment: CrossAxisAlignment.start,
+							children: <Widget>
+							[
+								new IconTheme
+								(
+									data: new IconThemeData(size: 28.0),
+									child: Icon(Icons.short_text)
+								),
+
+								new Text
+								(
+									' Move',
+									style: new TextStyle
+									(
+										fontWeight: FontWeight.bold,
+										fontSize: 20.0,
+										fontFamily: "RobotoMono",
+									),
+								)
+							],
+						),
+					),
+
+					getForm(),
+				],
+			),
+
+			floatingActionButton: new FloatingActionButton
+			(
+				onPressed: ()
+				{
+					final fail = new SnackBar(content: new Text('Error: Some of the data is invalid'));
+
+					if (isValid())
+					{
+						fakeOne.edit(currentID, 2, productData[0]);
+						fakeOne.edit(currentID, 3, productData[1]);
+						fakeOne.edit(currentID, 7, userName);
 
 						//exit edit page:
 						Navigator.pop(context);
@@ -968,12 +1195,12 @@ class ProductPage extends State<Product>
                                         (
                                             icon: new Icon(Icons.open_with),
                                             color: Colors.blue,
-                                            onPressed: () //FIX (more specilized)
+                                            onPressed: ()
                                             {
                                                 Navigator.push
                                                 (
                                                     context,
-                                                    new MaterialPageRoute(builder: (context) => new Edit()),
+                                                    new MaterialPageRoute(builder: (context) => new MoveEdit()),
                                                 );
                                             },
                                         ),
