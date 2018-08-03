@@ -71,7 +71,11 @@ class DataBase
 				break;
 		}
 		var itemKey = itemArray[itemId].key;
-		itemRef.child(itemKey).child(itemValue).set(newValue);
+		var prev = itemArray[itemId].getInfo(editNum);
+		if(prev != newValue.toString())
+		{
+			itemRef.child(itemKey).child(itemValue).set(newValue);
+		}
 	}
 
 	_onEntryAdded(Event event) 
