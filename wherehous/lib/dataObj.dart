@@ -5,7 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 class Item 
 {
 	String key;
-  String title;
+	String title;
 	String productNumber;
 	String location;
 	String position; 
@@ -14,74 +14,50 @@ class Item
 	String totalWeight; // total weight
 	String lastEdit; // tracks whoever last edited an item
 	bool empty;
-  Future<File> image;
-  double lat;
-  double long;
-  
-  Item(this.title, this.productNumber, this.location, this.position, this.quantity, this.tearWeight, this.totalWeight, this.lastEdit, this.empty, this.image, this.lat, this.long);
+	Future<File> image;
+	double lat;
+	double long;
 
-  Item.fromSnapshot(DataSnapshot snapshot)
-      : key = snapshot.key,
-        title = snapshot.value["title"],
-        productNumber = snapshot.value["productNumber"],
-        location = snapshot.value["location"],
-        position = snapshot.value["position"],
-        quantity = snapshot.value["quantity"],
-        tearWeight = snapshot.value["tearWeight"],
-        totalWeight = snapshot.value["totalWeight"],
-        lastEdit = snapshot.value["lastEdit"],
-        empty = snapshot.value["empty"],
-        image = snapshot.value["image"],
-        lat = snapshot.value["lat"],
-        long = snapshot.value["long"];
+	Item(this.title, this.productNumber, this.location, this.position, this.quantity, this.tearWeight, this.totalWeight, this.lastEdit, this.empty, this.image, this.lat, this.long);
 
-  toJson() 
-  {
-    return 
-    {
-      "title": title,
-      "productNumber": productNumber,
-      "location": location,
-      "position": position,
-      "quantity" : quantity,
-      "tearWeight" : tearWeight,
-      "totalWeight" : totalWeight,
-      "lastEdit" : lastEdit,
-      "empty" : empty,
-      //"image" : image,
-      "lat" : lat,
-      "long": long
-    };
-  }
-	// Item(String name, String numb, String loc, String spot, String quan, String tear, String tot, String edit, bool emptIn, Future<File> newImage)// LocationResult newGps)
-	// {
-	// 	title = name;
-	// 	productNumber = numb;
-	// 	location = loc;
-	// 	position = spot;
-	// 	quantity = quan;
-	// 	tearWeight = tear;
-	// 	totalWeight= tot;
-	// 	lastEdit = edit;
-	// 	empty = emptIn;
-	// 	image = newImage;
-	// 	//gps = newGps;
-	// }
+	Item.fromSnapshot(DataSnapshot snapshot)
+		: key = snapshot.key,
+		title = snapshot.value["title"],
+		productNumber = snapshot.value["productNumber"],
+		location = snapshot.value["location"],
+		position = snapshot.value["position"],
+		quantity = snapshot.value["quantity"],
+		tearWeight = snapshot.value["tearWeight"],
+		totalWeight = snapshot.value["totalWeight"],
+		lastEdit = snapshot.value["lastEdit"],
+		empty = snapshot.value["empty"],
+		image = snapshot.value["image"],
+		lat = snapshot.value["lat"],
+		long = snapshot.value["long"];
+
+	toJson() 
+	{
+		return 
+		{
+		"title": title,
+		"productNumber": productNumber,
+		"location": location,
+		"position": position,
+		"quantity" : quantity,
+		"tearWeight" : tearWeight,
+		"totalWeight" : totalWeight,
+		"lastEdit" : lastEdit,
+		"empty" : empty,
+		//"image" : image,
+		"lat" : lat,
+		"long": long
+		};
+	}
 
 	bool isEmpty()
 	{
 		return empty;
 	}
-  
-	// LocationResult getGps()
-	// {
-	// 	return this.gps;
-	// }
-
-	// void setGps(newGps)
-	// {
-	// 	this.gps = newGps;
-	// }
 
 	double getLong()
 	{
@@ -99,7 +75,7 @@ class Item
 		{
 			return null;
 		}
-		
+
 		return this.lat;
 	}
 
@@ -168,7 +144,7 @@ class Item
 	{
 		return this.image;
 	}
-  
+
 	void setEmpty(bool emptyIn)
 	{
 		empty = emptyIn;

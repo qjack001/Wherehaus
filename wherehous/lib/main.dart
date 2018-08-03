@@ -389,7 +389,6 @@ class EditPage extends State<Edit>
 						fakeOne.edit(currentID, 5, productData[5]);
 						fakeOne.edit(currentID, 6, productData[6]);
 						fakeOne.edit(currentID, 7, userName);
-						//FIX update database
 
 						//exit edit page:
 						Navigator.pop(context);
@@ -608,7 +607,7 @@ class MoveEditPage extends State<MoveEdit>
 						fakeOne.edit(currentID, 2, productData[0]);
 						fakeOne.edit(currentID, 3, productData[1]);
 						fakeOne.edit(currentID, 7, userName);
-						//set new gps location
+						//FIX: set new gps location
 						//fakeOne.edit(currentID, 8, tempLocation.latitude);
 						//fakeOne.edit(currentID, 9, tempLocation.longitude);
 
@@ -955,7 +954,7 @@ class ProductPage extends State<Product>
 		}
 
 		cameraPosition = new CameraPosition(loc, 2.0);
-		staticMapUri = staticMapProvider.getStaticUri(loc, 19, width: 900, height: 400, mapType: StaticMapViewType.roadmap); //FIX: set to 20 if more zoom is needed
+		staticMapUri = staticMapProvider.getStaticUri(loc, 21, width: 900, height: 400, mapType: StaticMapViewType.roadmap); //FIX: set to 25 if floor plan allows that level of accuracy
 	}
 	
     RichText getData(String title, int id)
