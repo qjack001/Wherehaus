@@ -707,6 +707,11 @@ class ProductPage extends State<Product>
 	initState() 
 	{
 		super.initState();
+		if(currentID >= fakeOne.getDatabase().length)
+		{
+			currentID = 0;
+			Navigator.pop(context);
+		}
 		if(fakeOne.getDatabase()[currentID].getLat() == null || fakeOne.getDatabase()[currentID].getLong() == null)
 		{
 			loc = null;
