@@ -8,36 +8,36 @@ class DataBase
 	List<Item> itemArray; 
 	List<int> inSearch;
 	List<Item> notInSearch;
-  DatabaseReference itemRef;
+	DatabaseReference itemRef;
 
 	DataBase()
 	{
-    final FirebaseDatabase database = FirebaseDatabase.instance;
-    itemRef = database.reference().child('items');
+		final FirebaseDatabase database = FirebaseDatabase.instance;
+		itemRef = database.reference().child('items');
 
 		itemArray = [];
 
 		inSearch = [];
 		notInSearch = [];
 
-    itemRef.onChildAdded.listen(_onEntryAdded);
-    itemRef.onChildChanged.listen(_onEntryChanged);
-    itemRef.onChildRemoved.listen(_onEntryRemoved);
+		itemRef.onChildAdded.listen(_onEntryAdded);
+		itemRef.onChildChanged.listen(_onEntryChanged);
+		itemRef.onChildRemoved.listen(_onEntryRemoved);
 	}
-	
-  void newItem({String title: '', String productNumber: '', String location: '', String position: '',
-  String quantity: '',  String tearWeight: '',  String totalWeight: '',  String lastEdit: '', bool empty: true, image, newLat, newLong})
-	{
-    Item item = new Item(title, productNumber, location, position, quantity, tearWeight, totalWeight, lastEdit, empty, image, newLat, newLong);
-		//itemArray.add(new Item(title, productNumber, location, position, quantity, tearWeight, totalWeight, lastEdit, empty, image));
-    //itemArray.add(item);
-    itemRef.push().set(item.toJson()); // newGps));
-  }
 
-  void edit(itemId, editNum, newValue)
-  {
-    var itemValue = "";
-    switch (editNum)
+	void newItem({String title: '', String productNumber: '', String location: '', String position: '',
+	String quantity: '',  String tearWeight: '',  String totalWeight: '',  String lastEdit: '', bool empty: true, image, newLat, newLong})
+	{
+		Item item = new Item(title, productNumber, location, position, quantity, tearWeight, totalWeight, lastEdit, empty, image, newLat, newLong);
+		//itemArray.add(new Item(title, productNumber, location, position, quantity, tearWeight, totalWeight, lastEdit, empty, image));
+		//itemArray.add(item);
+		itemRef.push().set(item.toJson()); // newGps));
+	}
+
+	void edit(itemId, editNum, newValue)
+	{
+		var itemValue = "";
+		switch (editNum)
 		{
 			case 0:
 				itemValue = "title";
@@ -64,46 +64,34 @@ class DataBase
 				itemValue = "lastEdit";
 				break;
 		}
-    var itemKey = itemArray[itemId].key;
-    itemRef.child(itemKey).child(itemValue).set(newValue);
-  }
-  
-  _onEntryAdded(Event event) 
-  {
-    itemArray.add(Item.fromSnapshot(event.snapshot));
-  }
+		var itemKey = itemArray[itemId].key;
+		itemRef.child(itemKey).child(itemValue).set(newValue);
+	}
 
-  _onEntryChanged(Event event) 
-  {
-    //detect which item is effected, replace
-    var old = this.itemArray.singleWhere((entry) {
-      return entry.key == event.snapshot.key;
-    });
-    itemArray[itemArray.indexOf(old)] = Item.fromSnapshot(event.snapshot);
-  }
+	_onEntryAdded(Event event) 
+	{
+		itemArray.add(Item.fromSnapshot(event.snapshot));
+	}
 
-  _onEntryRemoved(Event event) 
-  {
-    //detect which item is effected, remove from list
-    var old = this.itemArray.singleWhere((entry) {
-      return entry.key == event.snapshot.key;
-    });
-    itemArray.removeAt(itemArray.indexOf(old));
-  }
+	_onEntryChanged(Event event) 
+	{
+		//detect which item is effected, replace
+		var old = this.itemArray.singleWhere((entry) 
+		{
+			return entry.key == event.snapshot.key;
+		});
+		itemArray[itemArray.indexOf(old)] = Item.fromSnapshot(event.snapshot);
+	}
 
-  List<Item> fireBasePull()
-  {
-    List<Item> updatedList;
-
-    return updatedList;
-  }
-
-  List<Item> fireBaseSync()
-  {
-    List<Item> updatedList;
-
-    return updatedList;
-  }
+	_onEntryRemoved(Event event) 
+	{
+		//detect which item is effected, remove from list
+		var old = this.itemArray.singleWhere((entry) 
+		{
+			return entry.key == event.snapshot.key;
+		});
+		itemArray.removeAt(itemArray.indexOf(old));
+	}
 
 	List getDatabase()
 	{
@@ -117,7 +105,7 @@ class DataBase
 
 	void delete(int id)
 	{
-    itemRef.child(itemArray[id].key).remove();
+		itemRef.child(itemArray[id].key).remove();
 	}
 
 	void search(String input, int id)
@@ -132,7 +120,7 @@ class DataBase
 		});
 
 		notInSearch.removeWhere((value) => value.getInfo(id).toLowerCase() == input.toLowerCase());
-		
+
 		//similar titles
 		notInSearch.forEach((value)
 		{
@@ -147,7 +135,7 @@ class DataBase
 
 	void update(String input)
 	{
-    inSearch = [];
+		inSearch = [];
 		notInSearch = [];
 
 		notInSearch.addAll(itemArray.reversed);
