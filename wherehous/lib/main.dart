@@ -1436,6 +1436,7 @@ class LoginPage extends State<Login>
 
 	void testConnection()
 	{
+		//!check if user has read/write permissions
 		isValid = true;
 	}
 
