@@ -13,7 +13,7 @@ class DataStorage
 	static Future<File> get _localFile async 
 	{
 		final path = await _localPath;
-		return new File('$path/data.txt');
+		return new File('$path/user_data.txt');
 	}
 
 	static Future<List<String>> readIn() async 
@@ -30,7 +30,7 @@ class DataStorage
 		} 
 		catch (e) 
 		{
-			return [];
+			return ["no data"];
 		}
 	}
 

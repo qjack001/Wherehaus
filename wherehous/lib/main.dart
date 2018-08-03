@@ -128,12 +128,13 @@ class HomePage extends State<Home>
 						)
 					);
 				}
-				else if (userInfo.data == []) 
+				else if (userInfo.data.length == 1) 
 				{
 					return new Login();
 				} 
-				else if (userInfo.error == null)
+				else if ((userInfo.data.length != 1)&&(userInfo.error == null))
 				{
+					userName = userInfo.data[0];
 					return new Search();
 				}
 				else 
