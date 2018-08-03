@@ -36,7 +36,7 @@ class Wherehouse extends StatelessWidget
 		fakeOne = new DataBase();
 		currentID = 0;
 		userName = "";
-		
+
 		return new MaterialApp
 		(
 			title: 'Wherehouse',
@@ -48,57 +48,56 @@ class Wherehouse extends StatelessWidget
 
 class Home extends StatefulWidget 
 {
-  	Home({Key key, this.title}) : super(key: key);
+	Home({Key key, this.title}) : super(key: key);
 	final String title;
 
 	@override
-  	HomePage createState() => new HomePage();
+	HomePage createState() => new HomePage();
 }
 
 class Search extends StatefulWidget 
 {
-  	Search({Key key, this.title}) : super(key: key);
+	Search({Key key, this.title}) : super(key: key);
 	final String title;
 
 	@override
-  	SearchPage createState() => new SearchPage();
+	SearchPage createState() => new SearchPage();
 }
 
 class Product extends StatefulWidget 
 {
-  	Product({Key key, this.title}) : super(key: key);
+	Product({Key key, this.title}) : super(key: key);
 	final String title;
 
-  	@override
-  	ProductPage createState() => new ProductPage();
+	@override
+	ProductPage createState() => new ProductPage();
 }
 
 class Edit extends StatefulWidget 
 {
-  	Edit({Key key, this.title}) : super(key: key);
+	Edit({Key key, this.title}) : super(key: key);
 	final String title;
 
-  	@override
-  	EditPage createState() => new EditPage();
+	@override
+	EditPage createState() => new EditPage();
 }
 
 class NewEdit extends StatefulWidget 
 {
-  	NewEdit({Key key, this.title}) : super(key: key);
+	NewEdit({Key key, this.title}) : super(key: key);
 	final String title;
 
-  	@override
-  	NewEditPage createState() => new NewEditPage();
+	@override
+	NewEditPage createState() => new NewEditPage();
 }
 
 class Login extends StatefulWidget 
 {
-
-  	Login({Key key, this.title}) : super(key: key);
+	Login({Key key, this.title}) : super(key: key);
 	final String title;
 
-  	@override
-  	LoginPage createState() => new LoginPage();
+	@override
+	LoginPage createState() => new LoginPage();
 }
 
 class HomePage extends State<Home>
@@ -135,12 +134,10 @@ class HomePage extends State<Home>
 				} 
 				else if (userInfo.error == null)
 				{
-					//FIX: set vars here
 					return new Search();
 				}
 				else 
 				{
-					
 					showDialog(context:context, barrierDismissible: false, child: new SimpleDialog
 					(
 						title: new Text("An error occured"),
@@ -148,7 +145,6 @@ class HomePage extends State<Home>
 					return new Center();
 				} 
 			},
-		
 		);
 	}
 }
@@ -158,7 +154,7 @@ class EditPage extends State<Edit>
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-    List<String> productData = 
+	List<String> productData = 
 	[
 		fakeOne.getDatabase()[currentID].getInfo(0),
 		fakeOne.getDatabase()[currentID].getInfo(1),
@@ -167,20 +163,19 @@ class EditPage extends State<Edit>
 		fakeOne.getDatabase()[currentID].getInfo(4),
 		fakeOne.getDatabase()[currentID].getInfo(5),
 		fakeOne.getDatabase()[currentID].getInfo(6),
-		fakeOne.getDatabase()[currentID].getInfo(7),
-		
+		fakeOne.getDatabase()[currentID].getInfo(7)
 	];
 
 	List<bool> valid = 
-    [
-        false,
+	[
 		false,
 		false,
 		false,
 		false,
 		false,
 		false,
-    ];
+		false,
+	];
 
 	List<FocusNode> focus =
 	[
@@ -203,11 +198,11 @@ class EditPage extends State<Edit>
 		else if (s == null) 
 		{
 			return false;
-    	}
+		}
 
-    	return double.parse(s, (e) => null) != null;
-  	}
-	
+		return double.parse(s, (e) => null) != null;
+	}
+
 	bool isValid()
 	{
 		bool output = true;
@@ -224,10 +219,10 @@ class EditPage extends State<Edit>
 	{
 		return new Padding
 		(
-          padding: EdgeInsets.only(top: 16.0),
-        	child: new ListTile
+			padding: EdgeInsets.only(top: 16.0),
+			child: new ListTile
 			(
-          title: new Padding
+				title: new Padding
 				(
 					padding: EdgeInsets.only(bottom: 8.0),
 					child: new Text
@@ -240,12 +235,12 @@ class EditPage extends State<Edit>
 							fontSize: 12.0,
 						),
 					),
-                ),
+				),
 
-                subtitle: new TextFormField
+				subtitle: new TextFormField
 				(
 					focusNode: focus[id],
-          initialValue: productData[id],
+					initialValue: productData[id],
 					autocorrect: true,
 					autovalidate: true,
 
@@ -256,35 +251,35 @@ class EditPage extends State<Edit>
 						fontSize: 16.0,
 					),
 
-                    decoration: new InputDecoration
+					decoration: new InputDecoration
 					(
 						fillColor: Colors.grey[200],
 						filled: true,
-                    	hintText: hint,
+						hintText: hint,
 						hintStyle: new TextStyle
 						(
 							color: Colors.grey[400],
 							fontFamily: "RobotoMono",
 							fontSize: 16.0,
 						)
-                    ),
+					),
 
-                    validator: (value) 
+					validator: (value) 
 					{
-                    	if (value.isEmpty && empty) 
+						if (value.isEmpty && empty) 
 						{
 							valid[id] = false;
-                        	return 'Inventory must have a $title';
-                        }
+							return 'Inventory must have a $title';
+						}
 						else if (!isNumeric(value) && num)
 						{
 							valid[id] = false;
 							return 'Must be a number';
-                        }
-						
+						}
+
 						valid[id] = true;
 						_formKey.currentState.save();
-                    },
+					},
 
 					onSaved: (value)
 					{
@@ -297,10 +292,10 @@ class EditPage extends State<Edit>
 					},
 
 					keyboardType: num? new TextInputType.numberWithOptions(decimal: true) : TextInputType.text,
-					
-                ),
-            ),
-        );
+
+				),
+			),
+		);
 	}
 
 	Form getForm()
@@ -373,7 +368,7 @@ class EditPage extends State<Edit>
 				onPressed: ()
 				{
 					final fail = new SnackBar(content: new Text('Error: Some of the data is invalid'));
-					
+
 					if (isValid())
 					{
 						fakeOne.edit(currentID, 0, productData[0]);
@@ -407,38 +402,44 @@ class NewEditPage extends State<NewEdit>
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  List<Item> items = List();
-  Item item;
-  DatabaseReference itemRef;
-  //FirebaseStorage storage;
-  Future<File> tempImage;
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+	List<Item> items = List();
+	Item item;
+	DatabaseReference itemRef;
+	//FirebaseStorage storage;
+	Future<File> tempImage;
+	final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  @override
-  void initState() {
-    super.initState();
-    final FirebaseDatabase database = FirebaseDatabase.instance; //Rather then just writing FirebaseDatabase(), get the instance.  
-    //final FirebaseStorage storage = FirebaseStorage.instance;
-    //bucket = storage.storageBucket;
-    itemRef = database.reference().child('items');
-    itemRef.onChildAdded.listen(_onEntryAdded);
-    itemRef.onChildChanged.listen(_onEntryChanged);
-  }
+	@override
+	void initState() 
+	{
+		super.initState();
+		final FirebaseDatabase database = FirebaseDatabase.instance; //Rather then just writing FirebaseDatabase(), get the instance.  
+		//final FirebaseStorage storage = FirebaseStorage.instance;
+		//bucket = storage.storageBucket;
+		itemRef = database.reference().child('items');
+		itemRef.onChildAdded.listen(_onEntryAdded);
+		itemRef.onChildChanged.listen(_onEntryChanged);
+	}
 
-  _onEntryAdded(Event event) {
-    setState(() {
-      items.add(Item.fromSnapshot(event.snapshot));
-    });
-  }
+	_onEntryAdded(Event event) 
+	{
+		setState(() 
+		{
+			items.add(Item.fromSnapshot(event.snapshot));
+		});
+	}
 
-  _onEntryChanged(Event event) {
-    var old = items.singleWhere((entry) {
-      return entry.key == event.snapshot.key;
-    });
-    setState(() {
-      items[items.indexOf(old)] = Item.fromSnapshot(event.snapshot);
-    });
-  }
+	_onEntryChanged(Event event) 
+	{
+		var old = items.singleWhere((entry) 
+		{
+			return entry.key == event.snapshot.key;
+		});
+		setState(() 
+		{
+			items[items.indexOf(old)] = Item.fromSnapshot(event.snapshot);
+		});
+	}
 
     List<String> productData = 
 	[
@@ -453,7 +454,7 @@ class NewEditPage extends State<NewEdit>
 
 	List<bool> valid = 
     [
-        false,
+		false,
 		false,
 		false,
 		false,
@@ -483,9 +484,9 @@ class NewEditPage extends State<NewEdit>
 		else if (s == null) 
 		{
 			return false;
-    	}
+		}
 
-    	return double.parse(s, (e) => null) != null;
+		return double.parse(s, (e) => null) != null;
   	}
 	
 	bool isValid()
@@ -766,11 +767,6 @@ class ProductPage extends State<Product>
     {
         return new Scaffold
         (
-			//appBar: new AppBar
-			//(
-				
-			//),
-
             body: new ListView
             (
                 children: <Widget>
@@ -1108,16 +1104,16 @@ class SearchPage extends State<Search>
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	String searchInput = "";
-  DataBase dBase;
+	DataBase dBase;
 
 
 	@override
 	initState()
 	{
 		super.initState();
-    fakeOne.update("");
-    const delay = const Duration(milliseconds:100);
-    new Timer(delay, () => setState(() {fakeOne.update(searchInput);fakeOne = fakeOne;}));
+		fakeOne.update("");
+		const delay = const Duration(milliseconds:100);
+		new Timer(delay, () => setState(() {fakeOne.update(searchInput);fakeOne = fakeOne;}));
 	}
 
 	String capText(String text)
@@ -1372,7 +1368,7 @@ class SearchPage extends State<Search>
 					final Completer<Null> completer = new Completer<Null>();
 					new Timer(const Duration(seconds: 2), () 
 					{
-            fakeOne.update(searchInput);
+            			fakeOne.update(searchInput);
 						completer.complete(null); 
 					});
 
@@ -1380,7 +1376,6 @@ class SearchPage extends State<Search>
 					{
 						setState(() {fakeOne = fakeOne;});
 					});
-					//FIX: refresh database
 				},
 
 				child: new ListView
@@ -1400,8 +1395,8 @@ class SearchPage extends State<Search>
 					{
 						Position position = await Geolocator().getPosition(LocationAccuracy.best);
 						tempLocation = position;
-          }
-          retrievePos();
+					}
+					retrievePos();
 
 					tempImage = ImagePicker.pickImage(source: ImageSource.camera);
 					Navigator.push
@@ -1430,7 +1425,6 @@ class LoginPage extends State<Login>
 		"",
 		"",
 		"",
-		"",
 	];
 
 	void setUserInfo()
@@ -1438,16 +1432,11 @@ class LoginPage extends State<Login>
 		DataStorage file = new DataStorage();
 		file.writeData(userData.join("\n"));
 		userName = userData[0];
-		//set sql vars here FIX
 	}
 
 	void testConnection()
 	{
-		//make sure sql credentials are correct
-		if(userData[2].isNotEmpty)
-		{
-			isValid = true;
-		}
+		isValid = true;
 	}
 
     @override
@@ -1571,7 +1560,7 @@ class LoginPage extends State<Login>
 													padding: EdgeInsets.only(bottom: 8.0),
 													child: new Text
 													(
-														'Server Address:', 
+														'Server Name:', 
 														style: new TextStyle
 														(
 															fontFamily: 'RobotoMono',
@@ -1624,59 +1613,6 @@ class LoginPage extends State<Login>
 													padding: EdgeInsets.only(bottom: 8.0),
 													child: new Text
 													(
-														'Server Username:', 
-														style: new TextStyle
-														(
-															fontFamily: 'RobotoMono',
-															fontWeight: FontWeight.bold,
-															fontSize: 12.0,
-														),
-													),
-												),
-
-												subtitle: new TextFormField
-												(
-													autocorrect: false,
-
-													style: new TextStyle
-													(
-														color: Colors.black,
-														fontFamily: "RobotoMono",
-														fontSize: 16.0,
-													),
-
-													decoration: new InputDecoration
-													(
-														fillColor: Colors.grey[200],
-														filled: true,
-													),
-
-													validator: (value)
-													{
-														if (!isValid)
-														{
-															return "Credentials invalid";
-														}
-													},
-
-													onSaved: (value)
-													{
-														userData[2] = value;
-													},
-												),
-											),
-										),
-
-										new Padding
-										(
-											padding: EdgeInsets.only(top: 16.0),
-											child: new ListTile
-											(
-												title: new Padding
-												(
-													padding: EdgeInsets.only(bottom: 8.0),
-													child: new Text
-													(
 														'Server Password:', 
 														style: new TextStyle
 														(
@@ -1714,7 +1650,7 @@ class LoginPage extends State<Login>
 
 													onSaved: (value)
 													{
-														userData[3] = value;
+														userData[2] = value;
 													},
 												),
 											),
