@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:geolocator/models/location_accuracy.dart';
-import 'package:geolocator/models/position.dart';
 
 class Item 
 {
