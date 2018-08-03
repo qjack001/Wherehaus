@@ -74,6 +74,7 @@ class DataBase
 		var prev = itemArray[itemId].getInfo(editNum);
 		if(prev != newValue.toString())
 		{
+			//FIX: may not work if item updated in the background
 			itemRef.child(itemKey).child(itemValue).set(newValue);
 		}
 	}

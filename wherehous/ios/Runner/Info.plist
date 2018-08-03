@@ -26,6 +26,11 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>googlechromes</string>
+        <string>comgooglemaps</string>
+    </array>
 	<key>NSLocationWhenInUseUsageDescription</key>
     <string>Using location to record the location of inventory items on a map</string>
 	<key>UIRequiredDeviceCapabilities</key>

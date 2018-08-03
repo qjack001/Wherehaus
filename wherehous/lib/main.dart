@@ -11,6 +11,7 @@ import 'package:wherehous/dataObj.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geolocator/models/location_accuracy.dart';
 import 'package:geolocator/models/position.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 Future<File> tempImage;
@@ -1320,16 +1321,36 @@ class ProductPage extends State<Product>
                         width: MediaQuery.of(context).size.width,
                         color: Colors.grey,
                         
-                        child: new Image.network
+                        child: new InkWell
 						(
-							staticMapUri.toString(),
-							fit: BoxFit.cover,
+							onTap: ()  
+							{
+								_launchInBrowser('https://www.google.com/maps/search/?api=1&query=${fakeOne.getDatabase()[currentID].getLat()},${fakeOne.getDatabase()[currentID].getLong()}');
+							},
+
+							child: new Image.network
+							(
+								staticMapUri.toString(),
+								fit: BoxFit.cover,
+							),
 						),
                     ),
                 ],
             ),
         );
     }
+
+	Future<Null> _launchInBrowser(String url) async 
+	{
+		if (await canLaunch(url)) 
+		{
+			await launch(url, forceSafariVC: false, forceWebView: false);
+		} 
+		else 
+		{
+			throw 'Could not launch $url';
+		}
+	}
 }
 
 class SearchPage extends State<Search> 
