@@ -608,6 +608,9 @@ class MoveEditPage extends State<MoveEdit>
 						fakeOne.edit(currentID, 2, productData[0]);
 						fakeOne.edit(currentID, 3, productData[1]);
 						fakeOne.edit(currentID, 7, userName);
+						//set new gps location
+						//fakeOne.edit(currentID, 8, tempLocation.latitude);
+						//fakeOne.edit(currentID, 9, tempLocation.longitude);
 
 						//exit edit page:
 						Navigator.pop(context);
@@ -633,6 +636,7 @@ class NewEditPage extends State<NewEdit>
 	List<Item> items = List();
 	Item item;
 	DatabaseReference itemRef;
+	//FIX: is the firebase database needed here?
 	//FirebaseStorage storage;
 	Future<File> tempImage;
 	final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -1197,6 +1201,7 @@ class ProductPage extends State<Product>
                                             color: Colors.blue,
                                             onPressed: ()
                                             {
+												() async {tempLocation = await Geolocator().getPosition(LocationAccuracy.best);};
                                                 Navigator.push
                                                 (
                                                     context,

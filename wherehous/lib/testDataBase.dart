@@ -63,6 +63,12 @@ class DataBase
 			case 7:
 				itemValue = "lastEdit";
 				break;
+			case 8:
+				itemValue = "lat";
+				break;
+			case 9:
+				itemValue = "long";
+				break;
 		}
 		var itemKey = itemArray[itemId].key;
 		itemRef.child(itemKey).child(itemValue).set(newValue);
