@@ -1120,6 +1120,16 @@ class SearchPage extends State<Search>
     new Timer(delay, () => setState(() {fakeOne.update(searchInput);fakeOne = fakeOne;}));
 	}
 
+	String capText(String text)
+	{
+		if(text.length > 30)
+		{
+			return text.substring(0, 26) + "...";
+		}
+
+		return text;
+	}
+
 	Widget getResult(int index)
 	{
 		return new ListTile
@@ -1170,7 +1180,7 @@ class SearchPage extends State<Search>
 				padding: EdgeInsets.only(left: 16.0),
 				child: new Text
 				(
-					'${fakeOne.getDatabase()[index].getInfo(0)}',
+					capText('${fakeOne.getDatabase()[index].getInfo(0)}'),
 					style: new TextStyle
 					(
 						fontWeight: FontWeight.bold,
@@ -1186,7 +1196,7 @@ class SearchPage extends State<Search>
 				padding: EdgeInsets.only(left: 16.0),
 				child: new Text
 				(
-					'${fakeOne.getDatabase()[index].getInfo(2)}',
+					capText('${fakeOne.getDatabase()[index].getInfo(2)}'),
 					style: new TextStyle
 					(
 						fontSize: 16.0,
