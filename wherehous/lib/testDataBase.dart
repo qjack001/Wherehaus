@@ -29,9 +29,7 @@ class DataBase
 	String quantity: '',  String tearWeight: '',  String totalWeight: '',  String lastEdit: '', bool empty: true, image, newLat, newLong})
 	{
 		Item item = new Item(title, productNumber, location, position, quantity, tearWeight, totalWeight, lastEdit, empty, image, newLat, newLong);
-		//itemArray.add(new Item(title, productNumber, location, position, quantity, tearWeight, totalWeight, lastEdit, empty, image));
-		//itemArray.add(item);
-		itemRef.push().set(item.toJson()); // newGps));
+		itemRef.push().set(item.toJson());
 	}
 
 	void edit(itemId, editNum, newValue)
@@ -71,12 +69,7 @@ class DataBase
 				break;
 		}
 		var itemKey = itemArray[itemId].key;
-		var prev = itemArray[itemId].getInfo(editNum);
-		if(prev != newValue.toString())
-		{
-			//FIX: may not work if item updated in the background
-			itemRef.child(itemKey).child(itemValue).set(newValue);
-		}
+		itemRef.child(itemKey).child(itemValue).set(newValue);
 	}
 
 	_onEntryAdded(Event event) 

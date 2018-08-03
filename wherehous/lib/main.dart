@@ -174,7 +174,17 @@ class EditPage extends State<Edit>
 		fakeOne.getDatabase()[currentID].getInfo(4),
 		fakeOne.getDatabase()[currentID].getInfo(5),
 		fakeOne.getDatabase()[currentID].getInfo(6),
-		fakeOne.getDatabase()[currentID].getInfo(7)
+	];
+
+	List<String> prevData = 
+	[
+		fakeOne.getDatabase()[currentID].getInfo(0),
+		fakeOne.getDatabase()[currentID].getInfo(1),
+		fakeOne.getDatabase()[currentID].getInfo(2),
+		fakeOne.getDatabase()[currentID].getInfo(3),
+		fakeOne.getDatabase()[currentID].getInfo(4),
+		fakeOne.getDatabase()[currentID].getInfo(5),
+		fakeOne.getDatabase()[currentID].getInfo(6),
 	];
 
 	List<bool> valid = 
@@ -382,13 +392,35 @@ class EditPage extends State<Edit>
 
 					if (isValid())
 					{
-						fakeOne.edit(currentID, 0, productData[0]);
-						fakeOne.edit(currentID, 1, productData[1]);
-						fakeOne.edit(currentID, 2, productData[2]);
-						fakeOne.edit(currentID, 3, productData[3]);
-						fakeOne.edit(currentID, 4, productData[4]);
-						fakeOne.edit(currentID, 5, productData[5]);
-						fakeOne.edit(currentID, 6, productData[6]);
+						if(prevData[0].toString() != productData[0].toString())
+						{
+							fakeOne.edit(currentID, 0, productData[0]);
+						}
+						if(prevData[1].toString() != productData[1].toString())
+						{
+							fakeOne.edit(currentID, 1, productData[1]);
+						}
+						if(prevData[2].toString() != productData[2].toString())
+						{
+							fakeOne.edit(currentID, 2, productData[2]);
+						}
+						if(prevData[3].toString() != productData[3].toString())
+						{
+							fakeOne.edit(currentID, 3, productData[3]);
+						}
+						if(prevData[4].toString() != productData[4].toString())
+						{
+							fakeOne.edit(currentID, 4, productData[4]);
+						}
+						if(prevData[5].toString() != productData[5].toString())
+						{
+							fakeOne.edit(currentID, 5, productData[5]);
+						}
+						if(prevData[6].toString() != productData[6].toString())
+						{
+							fakeOne.edit(currentID, 6, productData[6]);
+						}
+
 						fakeOne.edit(currentID, 7, userName);
 
 						//exit edit page:
@@ -417,7 +449,6 @@ class MoveEditPage extends State<MoveEdit>
 	[
 		fakeOne.getDatabase()[currentID].getInfo(2),
 		fakeOne.getDatabase()[currentID].getInfo(3),
-		fakeOne.getDatabase()[currentID].getInfo(7)
 	];
 
 	List<bool> valid = 
