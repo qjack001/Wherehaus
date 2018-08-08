@@ -1970,6 +1970,7 @@ class LoginPage extends State<Login>
 													if (_formKey.currentState.validate())
 													{
 														setUserInfo();
+														() async {tempLocation = await Geolocator().getPosition(LocationAccuracy.best);};
 														Navigator.pushReplacement
 														(
 															context,
