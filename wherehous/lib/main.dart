@@ -1069,6 +1069,12 @@ class ProductPage extends State<Product>
 											(
 												onTap: ()
 												{
+													void retrievePos ()  async
+													{
+														Position position = await Geolocator().getPosition(LocationAccuracy.best);
+														tempLocation = position;
+													}
+													retrievePos();
 													tempImage = ImagePicker.pickImage(source: ImageSource.camera);
 													fakeOne.getDatabase()[currentID].setImage(tempImage);
 													
@@ -1101,8 +1107,15 @@ class ProductPage extends State<Product>
 											(
 												onTap: ()
 												{
+													void retrievePos ()  async
+													{
+														Position position = await Geolocator().getPosition(LocationAccuracy.best);
+														tempLocation = position;
+													}
+													retrievePos();
 													tempImage = ImagePicker.pickImage(source: ImageSource.camera);
 													fakeOne.getDatabase()[currentID].setImage(tempImage);
+													() async {tempLocation = await Geolocator().getPosition(LocationAccuracy.best);};
 													Navigator.pushReplacement
 													(
 														context,
@@ -1683,6 +1696,7 @@ class SearchPage extends State<Search>
 					retrievePos();
 
 					tempImage = ImagePicker.pickImage(source: ImageSource.camera);
+					() async {tempLocation = await Geolocator().getPosition(LocationAccuracy.best);};
 					Navigator.push
 					(
 						context,
@@ -1965,12 +1979,17 @@ class LoginPage extends State<Login>
 												
 												onPressed: () 
 												{
+													void retrievePos ()  async
+													{
+														Position position = await Geolocator().getPosition(LocationAccuracy.best);
+														tempLocation = position;
+													}
+													retrievePos();
 													_formKey.currentState.save();
 													testConnection();
 													if (_formKey.currentState.validate())
 													{
 														setUserInfo();
-														() async {tempLocation = await Geolocator().getPosition(LocationAccuracy.best);};
 														Navigator.pushReplacement
 														(
 															context,
