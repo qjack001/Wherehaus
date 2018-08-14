@@ -15,6 +15,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 
 Future<File> tempImage;
+Future<Uri> imageUri;
 DataBase fakeOne;
 int currentID;
 String userName;
@@ -670,6 +671,7 @@ class NewEditPage extends State<NewEdit>
 	//FIX: is the firebase database needed here?
 	//FirebaseStorage storage;
 	Future<File> tempImage;
+  Future<Uri> imageUri;
 	final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
 	@override
@@ -932,7 +934,7 @@ class NewEditPage extends State<NewEdit>
 							tearWeight: productData[5],
 							totalWeight: productData[6],
 							lastEdit: userName,
-							image: tempImage,
+							image: imageUri,
 							newLat: tempLocation.latitude,
 							newLong: tempLocation.longitude
 						);
@@ -1045,8 +1047,8 @@ class ProductPage extends State<Product>
                             children: <Widget>
                             [
                                 new FutureBuilder<File>
-								(
-									future: fakeOne.getDatabase()[currentID].getImage(),
+								(// Marker of worry --------------------------------------------------------------------------
+									//future: fakeOne.getDatabase()[currentID].getUri(),
 									builder: (BuildContext context, AsyncSnapshot<File> snapshot) 
 									{
 										if (snapshot.connectionState == ConnectionState.done &&
@@ -1056,9 +1058,9 @@ class ProductPage extends State<Product>
 											( 
 												height: 250.0, //height of img
 												width: MediaQuery.of(context).size.width,
-												child: new Image.file
+												child: new Image.network
 												(
-													snapshot.data,
+													fakeOne.getDatabase()[currentID].getUri().toString(),
 													fit: BoxFit.cover,
 												)
 											);
@@ -1076,7 +1078,8 @@ class ProductPage extends State<Product>
 													}
 													retrievePos();
 													tempImage = ImagePicker.pickImage(source: ImageSource.camera);
-													fakeOne.getDatabase()[currentID].setImage(tempImage);
+                          imageUri =  fakeOne.uploadImage(tempImage);
+													fakeOne.getDatabase()[currentID].setUri(imageUri);
 													
 													() async {tempLocation = await Geolocator().getPosition(LocationAccuracy.best);};
 													Navigator.pushReplacement
@@ -1114,7 +1117,9 @@ class ProductPage extends State<Product>
 													}
 													retrievePos();
 													tempImage = ImagePicker.pickImage(source: ImageSource.camera);
-													fakeOne.getDatabase()[currentID].setImage(tempImage);
+                          imageUri = fakeOne.uploadImage(tempImage);
+													fakeOne.getDatabase()[currentID].setUri(imageUri);
+
 													() async {tempLocation = await Geolocator().getPosition(LocationAccuracy.best);};
 													Navigator.pushReplacement
 													(

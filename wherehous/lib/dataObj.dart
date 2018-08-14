@@ -14,11 +14,11 @@ class Item
 	String totalWeight; // total weight
 	String lastEdit; // tracks whoever last edited an item
 	bool empty;
-	Future<File> image;
+	Future<Uri> imageUri;
 	double lat;
 	double long;
 
-	Item(this.title, this.productNumber, this.location, this.position, this.quantity, this.tearWeight, this.totalWeight, this.lastEdit, this.empty, this.image, this.lat, this.long);
+	Item(this.title, this.productNumber, this.location, this.position, this.quantity, this.tearWeight, this.totalWeight, this.lastEdit, this.empty, this.imageUri, this.lat, this.long);
 
 	Item.fromSnapshot(DataSnapshot snapshot)
 		: key = snapshot.key,
@@ -31,7 +31,7 @@ class Item
 		totalWeight = snapshot.value["totalWeight"],
 		lastEdit = snapshot.value["lastEdit"],
 		empty = snapshot.value["empty"],
-		image = snapshot.value["image"],
+		imageUri = snapshot.value["imageUri"],
 		lat = snapshot.value["lat"],
 		long = snapshot.value["long"];
 
@@ -48,7 +48,7 @@ class Item
 		"totalWeight" : totalWeight,
 		"lastEdit" : lastEdit,
 		"empty" : empty,
-		//"image" : image,
+		"imageUri" : imageUri,
 		"lat" : lat,
 		"long": long
 		};
@@ -135,14 +135,14 @@ class Item
 		}
 	}
 
-	void setImage(Future<File> newImage)
+	void setImage(Future<Uri> newImage)
 	{
-		this.image = newImage;
+		this.imageUri = newImage;
 	}
 
-	Future<File> getImage()
+	Future<Uri> getUri()
 	{
-		return this.image;
+		return this.imageUri;
 	}
 
 	void setEmpty(bool emptyIn)

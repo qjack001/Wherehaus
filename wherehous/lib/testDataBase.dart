@@ -1,5 +1,11 @@
 import 'dataObj.dart';
+import 'dart:async';
+import 'dart:io';
+//import 'dart:typed_data';
+import 'dart:math';
+//import 'package:flutter/services.dart' show rootBundle;
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 final FirebaseDatabase database = FirebaseDatabase.instance;
 
@@ -30,6 +36,8 @@ class DataBase
 	{
 		Item item = new Item(title, productNumber, location, position, quantity, tearWeight, totalWeight, lastEdit, empty, image, newLat, newLong);
 		itemRef.push().set(item.toJson());
+    print('!Image string!'); 
+    print(image);
 	}
 
 	void edit(itemId, editNum, newValue)
@@ -71,6 +79,17 @@ class DataBase
 		var itemKey = itemArray[itemId].key;
 		itemRef.child(itemKey).child(itemValue).set(newValue);
 	}
+
+  Future<Uri> uploadImage(Future<File> futureImage) async
+  {
+    //print(await futureImage);
+    File image = await futureImage;
+    var random = new Random().nextInt(10000);
+    var ref = FirebaseStorage.instance.ref().child('image_$random.jpg');
+    final StorageUploadTask uploadTask = ref.putFile(image);
+    final Uri downloadUrl = (await uploadTask.future).downloadUrl;
+    return downloadUrl;
+  }
 
 	_onEntryAdded(Event event) 
 	{
