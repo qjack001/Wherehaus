@@ -943,8 +943,8 @@ class NewEditPage extends State<NewEdit>
 					if (isValid())
 					{
 						currentID = fakeOne.getDatabase().length;
-            uploadImage(tempImage);
-
+            uploadImage(tempImage); // for some reason it is not setting imageUrl to a readable string, the databse is setting it to null
+            //imageUrl = "tehe";
 						fakeOne.newItem
 						(
 							title: productData[0],
