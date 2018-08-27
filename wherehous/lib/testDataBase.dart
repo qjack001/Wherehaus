@@ -83,10 +83,9 @@ class DataBase
   Future<Uri> uploadImage(Future<File> futureImage) async
   {
     //print(await futureImage);
-    File image = await futureImage;
     var random = new Random().nextInt(10000);
     var ref = FirebaseStorage.instance.ref().child('image_$random.jpg');
-    final StorageUploadTask uploadTask = ref.putFile(image);
+    final StorageUploadTask uploadTask = ref.putFile(await futureImage);
     final Uri downloadUrl = (await uploadTask.future).downloadUrl;
     return downloadUrl;
   }

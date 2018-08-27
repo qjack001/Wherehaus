@@ -140,7 +140,7 @@ class Item
 		this.imageUri = newImage;
 	}
 
-	Future<Uri> getUri()
+	Future<Uri> getImage()
 	{
 		return this.imageUri;
 	}
