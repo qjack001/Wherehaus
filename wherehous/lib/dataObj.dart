@@ -1,5 +1,5 @@
-import 'dart:async';
-import 'dart:io';
+// import 'dart:async';
+// import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 
 class Item 
@@ -14,7 +14,7 @@ class Item
 	String totalWeight; // total weight
 	String lastEdit; // tracks whoever last edited an item
 	bool empty;
-	Future<Uri> imageUri;
+	String imageUri;
 	double lat;
 	double long;
 
@@ -135,17 +135,17 @@ class Item
 		}
 	}
 
-	void setImage(Future<Uri> newImage)
+	void setImage(String newImage)
 	{
 		this.imageUri = newImage;
 	}
 
-	Future<Uri> getUri()
+	String getUri()
 	{
 		return this.imageUri;
 	}
 
-  Future<Uri> getImage()
+  String getImage()
 	{
 		return this.imageUri;
 	}

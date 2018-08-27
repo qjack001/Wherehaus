@@ -33,12 +33,10 @@ class DataBase
 	}
 
 	void newItem({String title: '', String productNumber: '', String location: '', String position: '',
-	String quantity: '',  String tearWeight: '',  String totalWeight: '',  String lastEdit: '', bool empty: true, image, newLat, newLong})
+	String quantity: '',  String tearWeight: '',  String totalWeight: '',  String lastEdit: '', bool empty: true, imageUri, newLat, newLong})
 	{
-		Item item = new Item(title, productNumber, location, position, quantity, tearWeight, totalWeight, lastEdit, empty, image, newLat, newLong);
+		Item item = new Item(title, productNumber, location, position, quantity, tearWeight, totalWeight, lastEdit, empty, imageUri, newLat, newLong);
 		itemRef.push().set(item.toJson());
-    print('!Image string!'); 
-    print(image);
 	}
 
 	void edit(itemId, editNum, newValue)

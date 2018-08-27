@@ -16,6 +16,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 Future<File> tempImage;
 Future<Uri> imageUri;
+String imageString;
 DataBase fakeOne;
 int currentID;
 String userName;
@@ -672,6 +673,7 @@ class NewEditPage extends State<NewEdit>
 	//FirebaseStorage storage;
 	Future<File> tempImage;
   Future<Uri> imageUri;
+  String imageString;
 	final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
 	@override
@@ -924,6 +926,9 @@ class NewEditPage extends State<NewEdit>
 					{
 						currentID = fakeOne.getDatabase().length;
 
+            imageUri = fakeOne.uploadImage(tempImage);
+            fakeOne.getDatabase()[currentID].setUri(imageUri);
+
 						fakeOne.newItem
 						(
 							title: productData[0],
@@ -934,7 +939,7 @@ class NewEditPage extends State<NewEdit>
 							tearWeight: productData[5],
 							totalWeight: productData[6],
 							lastEdit: userName,
-							image: imageUri,
+							imageUri: imageString,
 							newLat: tempLocation.latitude,
 							newLong: tempLocation.longitude
 						);
@@ -1610,8 +1615,11 @@ class SearchPage extends State<Search>
 						tempLocation = position;
 					}
 					retrievePos();
-
 					tempImage = ImagePicker.pickImage(source: ImageSource.camera);
+          //upload image to firebase
+          imageUri =  fakeOne.uploadImage(tempImage);
+					fakeOne.getDatabase()[currentID].setUri(imageUri);
+          //get gps location
 					() async {tempLocation = await Geolocator().getPosition(LocationAccuracy.best);};
 					Navigator.push
 					(
