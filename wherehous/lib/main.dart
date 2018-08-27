@@ -1617,6 +1617,10 @@ class SearchPage extends State<Search>
 					}
 					retrievePos();
 
+					tempImage = ImagePicker.pickImage(source: ImageSource.camera);
+          print("Photo Taken and is a tempImage----------------------------------");
+          fakeOne.uploadImage(tempImage, currentID);// for some reason it is not setting imageUrl to a readable string, the databse is setting it to null
+
 					() async {tempLocation = await Geolocator().getPosition(LocationAccuracy.best);};
 					Navigator.push
 					(
