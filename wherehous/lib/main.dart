@@ -13,11 +13,14 @@ import 'package:geolocator/models/location_accuracy.dart';
 import 'package:geolocator/models/position.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dataObj.dart';
+//import 'dart:typed_data';
 import 'dart:math';
+//import 'package:flutter/services.dart' show rootBundle;
 import 'package:firebase_storage/firebase_storage.dart';
 
 
 Future<File> tempImage;
+String imageUrl;
 DataBase fakeOne;
 int currentID;
 String userName;
@@ -673,6 +676,8 @@ class NewEditPage extends State<NewEdit>
 	//FIX: is the firebase database needed here?
 	//FirebaseStorage storage;
 	Future<File> tempImage;
+  String imageUrl;
+  //String tempUrl;
 	final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
 	@override
@@ -687,12 +692,18 @@ class NewEditPage extends State<NewEdit>
 		itemRef.onChildChanged.listen(_onEntryChanged);
 	}
 
-  Future<Null> uploadImage(Future<File> futureImage, String url) async
+  Future<Null> uploadImage(Future<File> futureImage) async
   {
     //print(await futureImage);
     File image = await futureImage;
-    var ref = FirebaseStorage.instance.ref().child('image_$url.jpg');
+    var random = new Random().nextInt(10000);
+    var ref = FirebaseStorage.instance.ref().child('image_$random.jpg');
     final StorageUploadTask uploadTask = ref.putFile(image);
+    final Uri downloadUrl = (await uploadTask.future).downloadUrl;
+
+    print("Nibba we made it!");
+    print(downloadUrl.toString());
+    imageUrl = downloadUrl.toString();
   }
 
 	_onEntryAdded(Event event) 
@@ -932,8 +943,8 @@ class NewEditPage extends State<NewEdit>
 					if (isValid())
 					{
 						currentID = fakeOne.getDatabase().length;
-						String urlCode = (new Random().nextInt(10000)).toString(); //! should prob fix
-						uploadImage(tempImage, urlCode); // for some reason it is not setting imageUrl to a readable string, the databse is setting it to null
+            uploadImage(tempImage); // for some reason it is not setting imageUrl to a readable string, the databse is setting it to null
+            //imageUrl = "tehe";
 						fakeOne.newItem
 						(
 							title: productData[0],
@@ -944,7 +955,7 @@ class NewEditPage extends State<NewEdit>
 							tearWeight: productData[5],
 							totalWeight: productData[6],
 							lastEdit: userName,
-							imageUrl: urlCode,
+							imageUrl: imageUrl,
 							newLat: tempLocation.latitude,
 							newLong: tempLocation.longitude
 						);

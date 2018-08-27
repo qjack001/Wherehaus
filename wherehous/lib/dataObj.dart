@@ -140,7 +140,7 @@ class Item
 
   String getUrl()
 	{
-		return "https://firebasestorage.googleapis.com/v0/b/wherehaus-db3a0.appspot.com/o/image_" + this.imageUrl;
+		return this.imageUrl;
 	}
 
 	void setEmpty(bool emptyIn)
