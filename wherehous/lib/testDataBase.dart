@@ -34,7 +34,7 @@ class DataBase
 	void newItem({String title: '', String productNumber: '', String location: '', String position: '',
 	String quantity: '',  String tearWeight: '',  String totalWeight: '',  String lastEdit: '', bool empty: true, imageUrl, newLat, newLong})
 	{
-		Item item = new Item(title, productNumber, location, position, quantity, tearWeight, totalWeight, lastEdit, empty, imageUrl, newLat, newLong);
+		Item item = new Item(title, productNumber, location, position, quantity, tearWeight, totalWeight, lastEdit, empty, "http://www.neotechnocraft.com/images/NoImageFound.jpg", newLat, newLong);
 		itemRef.push().set(item.toJson());
     //print('!Image string!'); 
     //print(image);
@@ -80,19 +80,37 @@ class DataBase
 		itemRef.child(itemKey).child(itemValue).set(newValue);
 	}
 
-  // Future<String> uploadImage(Future<File> futureImage) async
+  // uploadImage(Future<File> futureImage, id) async
   // {
   //   //print(await futureImage);
   //   File image = await futureImage;
   //   var random = new Random().nextInt(10000);
+  //   print("made it to the method?++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
   //   var ref = FirebaseStorage.instance.ref().child('image_$random.jpg');
+  //   print("Made it past the reference YEEEEEEEEEEEEEEEEEEEEEEEEEHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAW!+++++++++++++++++++++++++++++++++++++++++");
   //   final StorageUploadTask uploadTask = ref.putFile(image);
-  //   final Uri downloadUrl = (await uploadTask.future).downloadUrl;
+  //   print("Upload task this bois ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+  //   //final Uri downloadUrl = 
+  //   (uploadTask.future).then( (futureTask) { itemArray[id].setImage(futureTask.downloadUrl.toString()); } );
+  //   print("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET++++++++++++++++++++++++++++++");
+  //   //itemArray[id].setImage(downloadUrl.toString());
 
-  //   print("Nibba we made it!");
-  //   print(downloadUrl.toString());
-  //   return(downloadUrl.toString());
+  //   print("Nibba we made it!-----------------------------------------------------------------------------------------------------------------------------------------------------");
+  //   //print(downloadUrl.toString());
+  //  // return(downloadUrl.toString());
   // }
+  Future<Null> uploadImage(Future<File> image, id) async
+  {
+    File putImage = await image;
+    final String fileName = "${Random().nextInt(10000)}.jpg";
+    var ref = FirebaseStorage.instance.ref().child(fileName);
+    final StorageUploadTask task = ref.putFile(putImage);
+    final Uri downloadUrl = (await task.future).downloadUrl;
+    print("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET++++++++++++++++++++++++++++++");
+
+    String urlString = downloadUrl.toString();
+    itemArray[id].setImage(urlString);
+  }
 
 	_onEntryAdded(Event event) 
 	{
