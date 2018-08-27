@@ -145,11 +145,6 @@ class Item
 		return this.imageUri;
 	}
 
-  Future<Uri> getImage()
-	{
-		return this.imageUri;
-	}
-
 	void setEmpty(bool emptyIn)
 	{
 		empty = emptyIn;
