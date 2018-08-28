@@ -944,6 +944,7 @@ class NewEditPage extends State<NewEdit>
 					{
 						currentID = fakeOne.getDatabase().length;
             
+
             //imageUrl = "tehe";
 						fakeOne.newItem
 						(
@@ -955,15 +956,15 @@ class NewEditPage extends State<NewEdit>
 							tearWeight: productData[5],
 							totalWeight: productData[6],
 							lastEdit: userName,
-							imageUrl: imageUrl,
+							imageUrl: "http://www.neotechnocraft.com/images/NoImageFound.jpg",
 							newLat: tempLocation.latitude,
 							newLong: tempLocation.longitude
 						);
 
             tempImage = ImagePicker.pickImage(source: ImageSource.camera);
             print("Photo Taken and is a tempImage----------------------------------");
+            fakeOne.uploadImage(tempImage, currentID);
             
-            fakeOne.uploadImage(tempImage, currentID);// for some reason it is not setting imageUrl to a readable string, the databse is setting it to null
 						//exit edit page:
 						Navigator.pop(context);
 						Navigator.push
@@ -1616,10 +1617,6 @@ class SearchPage extends State<Search>
 						tempLocation = position;
 					}
 					retrievePos();
-
-					tempImage = ImagePicker.pickImage(source: ImageSource.camera);
-          print("Photo Taken and is a tempImage----------------------------------");
-          fakeOne.uploadImage(tempImage, currentID);// for some reason it is not setting imageUrl to a readable string, the databse is setting it to null
 
 					() async {tempLocation = await Geolocator().getPosition(LocationAccuracy.best);};
 					Navigator.push

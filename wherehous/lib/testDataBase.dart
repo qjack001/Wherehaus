@@ -34,7 +34,7 @@ class DataBase
 	void newItem({String title: '', String productNumber: '', String location: '', String position: '',
 	String quantity: '',  String tearWeight: '',  String totalWeight: '',  String lastEdit: '', bool empty: true, imageUrl, newLat, newLong})
 	{
-		Item item = new Item(title, productNumber, location, position, quantity, tearWeight, totalWeight, lastEdit, empty, "http://www.neotechnocraft.com/images/NoImageFound.jpg", newLat, newLong);
+		Item item = new Item(title, productNumber, location, position, quantity, tearWeight, totalWeight, lastEdit, empty, imageUrl, newLat, newLong);
 		itemRef.push().set(item.toJson());
     //print('!Image string!'); 
     //print(image);
@@ -110,6 +110,8 @@ class DataBase
 
     String urlString = downloadUrl.toString();
     itemArray[id].setImage(urlString);
+    var itemKey = itemArray[id].key;
+    itemRef.child(itemKey).child("imageUrl").set(urlString);
   }
 
 	_onEntryAdded(Event event) 
