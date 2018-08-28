@@ -1083,6 +1083,7 @@ class ProductPage extends State<Product>
 									)
 								),							
 
+
 								new Padding //shadow
 								(
 									padding: EdgeInsets.only(top: 2.0),
