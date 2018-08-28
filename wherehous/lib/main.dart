@@ -7,15 +7,20 @@ import 'package:map_view/map_view.dart';
 import 'getAPIKey.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:wherehous/dataObj.dart';
+//import 'package:wherehous/dataObj.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geolocator/models/location_accuracy.dart';
 import 'package:geolocator/models/position.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dataObj.dart';
+//import 'dart:typed_data';
+//import 'dart:math';
+//import 'package:flutter/services.dart' show rootBundle;
+//import 'package:firebase_storage/firebase_storage.dart';
 
 
 Future<File> tempImage;
-Future<Uri> imageUri;
+String imageUrl;
 DataBase fakeOne;
 int currentID;
 String userName;
@@ -670,8 +675,9 @@ class NewEditPage extends State<NewEdit>
 	DatabaseReference itemRef;
 	//FIX: is the firebase database needed here?
 	//FirebaseStorage storage;
-	Future<File> tempImage;
-  Future<Uri> imageUri;
+	//Future<File> tempImage;
+  String imageUrl;
+  //String tempUrl;
 	final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
 	@override
@@ -685,6 +691,20 @@ class NewEditPage extends State<NewEdit>
 		itemRef.onChildAdded.listen(_onEntryAdded);
 		itemRef.onChildChanged.listen(_onEntryChanged);
 	}
+
+  // Future<Null> uploadImage(Future<File> futureImage) async
+  // {
+  //   //print(await futureImage);
+  //   File image = await futureImage;
+  //   var random = new Random().nextInt(10000);
+  //   var ref = FirebaseStorage.instance.ref().child('image_$random.jpg');
+  //   final StorageUploadTask uploadTask = ref.putFile(image);
+  //   final Uri downloadUrl = (await uploadTask.future).downloadUrl;
+
+  //   print("Nibba we made it!");
+  //   print(downloadUrl.toString());
+  //   imageUrl = downloadUrl.toString();
+  // }
 
 	_onEntryAdded(Event event) 
 	{
@@ -916,14 +936,16 @@ class NewEditPage extends State<NewEdit>
 
 			floatingActionButton: new FloatingActionButton
 			(
-				onPressed: ()
+				onPressed: () async
 				{
 					final fail = new SnackBar(content: new Text('Error: Some of the data is invalid'));
 					
 					if (isValid())
 					{
 						currentID = fakeOne.getDatabase().length;
+            
 
+            //imageUrl = "tehe";
 						fakeOne.newItem
 						(
 							title: productData[0],
@@ -934,11 +956,15 @@ class NewEditPage extends State<NewEdit>
 							tearWeight: productData[5],
 							totalWeight: productData[6],
 							lastEdit: userName,
-							image: imageUri,
+							imageUrl: "http://www.neotechnocraft.com/images/NoImageFound.jpg",
 							newLat: tempLocation.latitude,
 							newLong: tempLocation.longitude
 						);
 
+            tempImage = ImagePicker.pickImage(source: ImageSource.camera);
+            print("Photo Taken and is a tempImage----------------------------------");
+            fakeOne.uploadImage(tempImage, currentID);
+            
 						//exit edit page:
 						Navigator.pop(context);
 						Navigator.push
@@ -1046,105 +1072,17 @@ class ProductPage extends State<Product>
                         (
                             children: <Widget>
                             [
-                                new FutureBuilder<File>
-								(// Marker of worry --------------------------------------------------------------------------
-									//future: fakeOne.getDatabase()[currentID].getUri(),
-									builder: (BuildContext context, AsyncSnapshot<File> snapshot) 
-									{
-										if (snapshot.connectionState == ConnectionState.done &&
-											snapshot.data != null) 
-										{
-											return new Container //HERO
-											( 
-												height: 250.0, //height of img
-												width: MediaQuery.of(context).size.width,
-												child: new Image.network
-												(
-													fakeOne.getDatabase()[currentID].getUri().toString(),
-													fit: BoxFit.cover,
-												)
-											);
-										} 
-										else if (snapshot.error != null) 
-										{
-											return new InkWell
-											(
-												onTap: ()
-												{
-													void retrievePos ()  async
-													{
-														Position position = await Geolocator().getPosition(LocationAccuracy.best);
-														tempLocation = position;
-													}
-													retrievePos();
-													tempImage = ImagePicker.pickImage(source: ImageSource.camera);
-                          imageUri =  fakeOne.uploadImage(tempImage);
-													fakeOne.getDatabase()[currentID].setUri(imageUri);
-													
-													() async {tempLocation = await Geolocator().getPosition(LocationAccuracy.best);};
-													Navigator.pushReplacement
-													(
-														context,
-														new MaterialPageRoute(builder: (context) => new Product()),
-													);
-												},
+                                new Container //HERO
+								( 
+									height: 250.0, //height of img
+									width: MediaQuery.of(context).size.width,
+									child: new Image.network
+									(
+										fakeOne.getDatabase()[currentID].getUrl(),
+										fit: BoxFit.cover,
+									)
+								),							
 
-												child: new Center
-												(
-													child: Text
-													(
-														'error picking image.',
-														style: new TextStyle
-														(
-															color: Colors.grey,
-															fontFamily: "RobotoMono",
-															fontSize: 16.0,
-														)
-													),
-												),
-											);
-										} 
-										else 
-										{
-											return new InkWell
-											(
-												onTap: ()
-												{
-													void retrievePos ()  async
-													{
-														Position position = await Geolocator().getPosition(LocationAccuracy.best);
-														tempLocation = position;
-													}
-													retrievePos();
-													tempImage = ImagePicker.pickImage(source: ImageSource.camera);
-                          imageUri = fakeOne.uploadImage(tempImage);
-													fakeOne.getDatabase()[currentID].setUri(imageUri);
-
-													() async {tempLocation = await Geolocator().getPosition(LocationAccuracy.best);};
-													Navigator.pushReplacement
-													(
-														context,
-														new MaterialPageRoute(builder: (context) => new Product()),
-													);
-												},
-
-												child: new Center
-												(
-													child: Text(
-														'You have not yet picked an image.',
-														style: new TextStyle
-														(
-															color: Colors.grey,
-															fontFamily: "RobotoMono",
-															fontSize: 16.0,
-														)
-													),
-												),
-											);
-										}
-									},
-                                
-                             	),
 
 								new Padding //shadow
 								(
@@ -1443,35 +1381,16 @@ class SearchPage extends State<Search>
 				);
 			},
 
-			leading: new FutureBuilder<File>
-			(
-				future: fakeOne.getDatabase()[index].getImage(),
-				builder: (BuildContext context, AsyncSnapshot<File> snapshot) 
-				{
-					if (snapshot.connectionState == ConnectionState.done && snapshot.data != null) 
-					{
-						return new Container
+			leading: new Container
 						(
 							height: 40.0,
 							width: 40.0,
-							child: new Image.file
+							child: new Image.network
 							(
-								snapshot.data,
+								fakeOne.getDatabase()[index].getUrl(),
 								fit: BoxFit.cover,
 							)
-						);
-					} 
-					else
-					{
-						return new Placeholder
-						(
-							fallbackHeight: 40.0,
-							strokeWidth: 1.0,
-							color: Colors.grey,
-						);
-					} 
-				}
-			),
+						),
 
 			title: new Padding
 			(
@@ -1700,7 +1619,6 @@ class SearchPage extends State<Search>
 					}
 					retrievePos();
 
-					tempImage = ImagePicker.pickImage(source: ImageSource.camera);
 					() async {tempLocation = await Geolocator().getPosition(LocationAccuracy.best);};
 					Navigator.push
 					(

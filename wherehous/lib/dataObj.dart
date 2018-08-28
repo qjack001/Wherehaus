@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 
 class Item 
@@ -14,11 +12,11 @@ class Item
 	String totalWeight; // total weight
 	String lastEdit; // tracks whoever last edited an item
 	bool empty;
-	Future<Uri> imageUri;
+	String imageUrl;
 	double lat;
 	double long;
 
-	Item(this.title, this.productNumber, this.location, this.position, this.quantity, this.tearWeight, this.totalWeight, this.lastEdit, this.empty, this.imageUri, this.lat, this.long);
+	Item(this.title, this.productNumber, this.location, this.position, this.quantity, this.tearWeight, this.totalWeight, this.lastEdit, this.empty, this.imageUrl, this.lat, this.long);
 
 	Item.fromSnapshot(DataSnapshot snapshot)
 		: key = snapshot.key,
@@ -31,7 +29,7 @@ class Item
 		totalWeight = snapshot.value["totalWeight"],
 		lastEdit = snapshot.value["lastEdit"],
 		empty = snapshot.value["empty"],
-		imageUri = snapshot.value["imageUri"],
+		imageUrl = snapshot.value["imageUrl"],
 		lat = snapshot.value["lat"],
 		long = snapshot.value["long"];
 
@@ -48,7 +46,7 @@ class Item
 		"totalWeight" : totalWeight,
 		"lastEdit" : lastEdit,
 		"empty" : empty,
-		"imageUri" : imageUri,
+		"imageUrl" : imageUrl,
 		"lat" : lat,
 		"long": long
 		};
@@ -135,14 +133,14 @@ class Item
 		}
 	}
 
-	void setImage(Future<Uri> newImage)
+	void setImage(String newImage)
 	{
-		this.imageUri = newImage;
+		this.imageUrl = newImage;
 	}
 
-	Future<Uri> getImage()
+  String getUrl()
 	{
-		return this.imageUri;
+		return this.imageUrl;
 	}
 
 	void setEmpty(bool emptyIn)
