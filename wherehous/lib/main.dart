@@ -14,7 +14,7 @@ import 'package:geolocator/models/position.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dataObj.dart';
 //import 'dart:typed_data';
-//import 'dart:math';
+import 'dart:math';
 //import 'package:flutter/services.dart' show rootBundle;
 //import 'package:firebase_storage/firebase_storage.dart';
 
@@ -1064,7 +1064,7 @@ class ProductPage extends State<Product>
                 [
                     new Container //HERO
                     ( 
-                        height: 250.0, //height of img
+                        height: 0.56 * min(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height),
                         width: MediaQuery.of(context).size.width,
                         color: Colors.grey[300],
                         
@@ -1074,7 +1074,7 @@ class ProductPage extends State<Product>
                             [
                                 new Container //HERO
 								( 
-									height: 250.0, //height of img
+									height: 0.56 * min(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height),
 									width: MediaQuery.of(context).size.width,
 									child: new Image.network
 									(
