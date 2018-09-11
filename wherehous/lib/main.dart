@@ -1304,7 +1304,7 @@ class ProductPage extends State<Product>
 
                     new Container //MAP
                     ( 
-                        height: 300.0, //hight of img
+                        height: 0.6 * min(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height),
                         width: MediaQuery.of(context).size.width,
                         color: Colors.grey,
                         
