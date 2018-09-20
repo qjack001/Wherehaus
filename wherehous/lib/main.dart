@@ -241,75 +241,55 @@ class EditPage extends State<Edit>
 
 		return output;
 	}	
-  Widget getDropdown(String title, int id, List<DropdownMenuItem<String>> options)
-  {
-    return new Padding
-    (
-      padding: EdgeInsets.only(top: 16.0),
-			child: new ListTile
-			(
-				title: new Padding
+
+	Widget getDropdown(String title, int id, List<String> options)
+	{
+		return new Padding
+		(
+		padding: EdgeInsets.only(top: 16.0),
+				child: new ListTile
 				(
-					padding: EdgeInsets.only(bottom: 8.0),
-					child: new Text
+					title: new Padding
 					(
-						'$title:', 
+						padding: EdgeInsets.only(bottom: 8.0),
+						child: new Text
+						(
+							'$title:', 
+							style: new TextStyle
+							(
+								fontFamily: 'RobotoMono',
+								fontWeight: FontWeight.bold,
+								fontSize: 12.0,
+							),
+						),
+					),
+
+					subtitle: new DropdownButton<String>
+					(
+						items: options.map((String value) 
+						{
+							return new DropdownMenuItem<String>
+							(
+								value: value,
+								child: new Text(value),
+							);
+						}).toList(),
+						onChanged: (value) 
+						{
+							valid[id] = true; // required for submission
+							productData[id] = value;
+						},
 						style: new TextStyle
 						(
-							fontFamily: 'RobotoMono',
-							fontWeight: FontWeight.bold,
-							fontSize: 12.0,
+							color: Colors.black,
+							fontFamily: "RobotoMono",
+							fontSize: 16.0,
 						),
 					),
 				),
+		);
+	}
 
-				subtitle: new DropdownButton<String>
-				(
-					items: options,
-          onChanged: ,
-          focusNode: focus[id],
-					initialValue: productData[id],
-
-					style: new TextStyle
-					(
-						color: Colors.black,
-						fontFamily: "RobotoMono",
-						fontSize: 16.0,
-					),
-
-					validator: (value) 
-					{
-						if (value.isEmpty && empty) 
-						{
-							valid[id] = false;
-							return 'Inventory must have a $title';
-						}
-						else if (!isNumeric(value) && num)
-						{
-							valid[id] = false;
-							return 'Must be a number';
-						}
-
-						valid[id] = true; // required for submission
-						_formKey.currentState.save(); // use this line to auto save information
-					},
-
-					onSaved: (value)
-					{
-						productData[id] = value;
-					},
-
-					onFieldSubmitted: (value) 
-					{
-						FocusScope.of(context).requestFocus(focus[id+1]);
-					},
-
-					keyboardType: num? new TextInputType.numberWithOptions(decimal: true) : TextInputType.text,
-
-				),
-			),
-    );
-  }
 	Widget getFeild(String title, String hint, int id, bool empty, bool num)//,{dropdown:const []})
 	{
 		return new Padding
@@ -935,6 +915,54 @@ class NewEditPage extends State<NewEdit>
                 ),
             ),
         );
+	}
+
+	Widget getDropdown(String title, int id, List<String> options)
+	{
+		return new Padding
+		(
+		padding: EdgeInsets.only(top: 16.0),
+				child: new ListTile
+				(
+					title: new Padding
+					(
+						padding: EdgeInsets.only(bottom: 8.0),
+						child: new Text
+						(
+							'$title:', 
+							style: new TextStyle
+							(
+								fontFamily: 'RobotoMono',
+								fontWeight: FontWeight.bold,
+								fontSize: 12.0,
+							),
+						),
+					),
+
+					subtitle: new DropdownButton<String>
+					(
+						items: options.map((String value) 
+						{
+							return new DropdownMenuItem<String>
+							(
+								value: value,
+								child: new Text(value),
+							);
+						}).toList(),
+						onChanged: (value) 
+						{
+							valid[id] = true; // required for submission
+							productData[id] = value;
+						},
+						style: new TextStyle
+						(
+							color: Colors.black,
+							fontFamily: "RobotoMono",
+							fontSize: 16.0,
+						),
+					),
+				),
+		);
 	}
 
 	Form getForm()
