@@ -241,8 +241,76 @@ class EditPage extends State<Edit>
 
 		return output;
 	}	
+  Widget getDropdown(String title, int id, List<DropdownMenuItem<String>> options)
+  {
+    return new Padding
+    (
+      padding: EdgeInsets.only(top: 16.0),
+			child: new ListTile
+			(
+				title: new Padding
+				(
+					padding: EdgeInsets.only(bottom: 8.0),
+					child: new Text
+					(
+						'$title:', 
+						style: new TextStyle
+						(
+							fontFamily: 'RobotoMono',
+							fontWeight: FontWeight.bold,
+							fontSize: 12.0,
+						),
+					),
+				),
 
-	Widget getFeild(String title, String hint, int id, bool empty, bool num)
+				subtitle: new DropdownButton<String>
+				(
+					items: options,
+          onChanged: ,
+          focusNode: focus[id],
+					initialValue: productData[id],
+
+					style: new TextStyle
+					(
+						color: Colors.black,
+						fontFamily: "RobotoMono",
+						fontSize: 16.0,
+					),
+
+					validator: (value) 
+					{
+						if (value.isEmpty && empty) 
+						{
+							valid[id] = false;
+							return 'Inventory must have a $title';
+						}
+						else if (!isNumeric(value) && num)
+						{
+							valid[id] = false;
+							return 'Must be a number';
+						}
+
+						valid[id] = true; // required for submission
+						_formKey.currentState.save(); // use this line to auto save information
+					},
+
+					onSaved: (value)
+					{
+						productData[id] = value;
+					},
+
+					onFieldSubmitted: (value) 
+					{
+						FocusScope.of(context).requestFocus(focus[id+1]);
+					},
+
+					keyboardType: num? new TextInputType.numberWithOptions(decimal: true) : TextInputType.text,
+
+				),
+			),
+    );
+  }
+	Widget getFeild(String title, String hint, int id, bool empty, bool num)//,{dropdown:const []})
 	{
 		return new Padding
 		(
@@ -335,7 +403,7 @@ class EditPage extends State<Edit>
 				children: <Widget>
 				[
 					getFeild("Title", "eg: 'Example", 0, true, false),
-					getFeild("Product Number", "eg: '123456'", 1, true, true),
+					getFeild("Product Number", "eg: '123456'", 1, true, false),
 					getFeild("Location", "eg: 'warehouse'", 2, true, false),
 					getFeild("Spot", "eg: '6'", 3, false, true),
 					getFeild("Quantity", "eg: '200'", 4, true, true),
