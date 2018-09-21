@@ -32,9 +32,9 @@ class DataBase
 	}
 
 	void newItem({String title: '', String productNumber: '', String location: '', String position: '',
-	String quantity: '',  String tearWeight: '',  String totalWeight: '',  String lastEdit: '', bool empty: true, imageUrl, newLat, newLong})
+	String quantity: '',  String tearWeight: '',  String totalWeight: '',  String lastEdit: '', bool empty: true, imageUrl, newLat, newLong,newPO, newProcess, newCustomer, newSalesNumber, newPartNumber, newCreator})
 	{
-		Item item = new Item(title, productNumber, location, position, quantity, tearWeight, totalWeight, lastEdit, empty, imageUrl, newLat, newLong);
+		Item item = new Item(title, productNumber, location, position, quantity, tearWeight, totalWeight, lastEdit, empty, imageUrl, newLat, newLong, newPO, newProcess, newCustomer, newSalesNumber, newPartNumber, newCreator);
 		itemRef.push().set(item.toJson());
     //print('!Image string!'); 
     //print(image);
@@ -75,6 +75,13 @@ class DataBase
 			case 9:
 				itemValue = "long";
 				break;
+      case 10:itemValue="pONumber"; break;
+      case 11:itemValue="processing"; break;
+      case 12:itemValue="customer"; break;
+      case 13:itemValue="salesNumber";break;
+      case 14:itemValue="partNumber";break;
+      case 15:itemValue="createad";break;
+
 		}
 		var itemKey = itemArray[itemId].key;
 		itemRef.child(itemKey).child(itemValue).set(newValue);
@@ -186,7 +193,7 @@ class DataBase
 
 		notInSearch.addAll(itemArray.reversed);
 
-		for (int i = 0; i < 7; i++)
+		for (int i = 0; i < 13; i++) // was 7 ask jack
 		{
 			search(input, i);
 		}

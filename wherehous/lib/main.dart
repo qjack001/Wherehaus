@@ -179,7 +179,13 @@ class EditPage extends State<Edit>
 		fakeOne.getDatabase()[currentID].getInfo(3),
 		fakeOne.getDatabase()[currentID].getInfo(4),
 		fakeOne.getDatabase()[currentID].getInfo(5),
-		fakeOne.getDatabase()[currentID].getInfo(6),
+    fakeOne.getDatabase()[currentID].getInfo(6),
+    "yeet",
+		fakeOne.getDatabase()[currentID].getPONumber(),
+    fakeOne.getDatabase()[currentID].getProcess(),
+    fakeOne.getDatabase()[currentID].getCustomer(),
+    fakeOne.getDatabase()[currentID].getSalesNumber(),
+    fakeOne.getDatabase()[currentID].getPartNumber(),
 	];
 
 	List<String> prevData = 
@@ -191,6 +197,12 @@ class EditPage extends State<Edit>
 		fakeOne.getDatabase()[currentID].getInfo(4),
 		fakeOne.getDatabase()[currentID].getInfo(5),
 		fakeOne.getDatabase()[currentID].getInfo(6),
+    "yeet",
+    fakeOne.getDatabase()[currentID].getPONumber(),
+    fakeOne.getDatabase()[currentID].getProcess(),
+    fakeOne.getDatabase()[currentID].getCustomer(),
+    fakeOne.getDatabase()[currentID].getSalesNumber(),
+    fakeOne.getDatabase()[currentID].getPartNumber(),
 	];
 
 	List<bool> valid = 
@@ -202,6 +214,12 @@ class EditPage extends State<Edit>
 		false,
 		false,
 		false,
+    true,
+    false,
+		false,
+		false,
+		false,
+    false,
 	];
 
 	List<FocusNode> focus =
@@ -214,6 +232,13 @@ class EditPage extends State<Edit>
 		new FocusNode(),
 		new FocusNode(),
 		new FocusNode(),
+    new FocusNode(),
+		new FocusNode(),
+		new FocusNode(),
+		new FocusNode(),
+		new FocusNode(),
+		new FocusNode(),
+
 	];
 
 	bool isNumeric(String s) 
@@ -384,12 +409,21 @@ class EditPage extends State<Edit>
 				[
 					getFeild("Title", "eg: 'Example", 0, true, false),
 					getFeild("Product Number", "eg: '123456'", 1, true, false),
-					getFeild("Location", "eg: 'warehouse'", 2, true, false),
-					getFeild("Spot", "eg: '6'", 3, false, true),
-					getFeild("Quantity", "eg: '200'", 4, true, true),
+					getFeild("Building or Yard", "eg: 'warehouse'", 2, true, false),
+					getFeild("Location", "eg: 'A15'", 3, false, false),
+					getFeild("Quantity", "eg: '200 Lbs'", 4, true, true),
 					getFeild("Tear Weight", "eg: '500'", 5, true, true),
 					getFeild("Total Weight", "eg: '670'", 6, true, true),
-				]
+          getFeild("PO Number", "eg: '102959814'", 8, true, false),
+          getDropdown("Processing", 9, <String> ["Raw Material", "Cut", "Weld", "Painted", "Galvanized", "Assembled", "Finished"] ),
+          getFeild("Customer", "eg: Steel Max", 10, false, false),
+          getFeild("Sales Number", "eg: 238796756", 11, false, true),
+          getFeild("Part Number", "", 12, false, true),
+          new Padding
+          (
+            padding: EdgeInsets.only(top: 60.0),
+          )				
+        ]
 			)
 		);
 	}
