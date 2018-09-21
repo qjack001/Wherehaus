@@ -509,6 +509,27 @@ class EditPage extends State<Edit>
 							fakeOne.edit(currentID, 6, productData[6]);
 						}
 
+            if(prevData[8].toString() != productData[8].toString())
+						{
+							fakeOne.edit(currentID, 10, productData[8]);
+						}
+            if(prevData[9].toString() != productData[9].toString())
+						{
+							fakeOne.edit(currentID, 11, productData[9]);
+						}
+            if(prevData[10].toString() != productData[10].toString())
+						{
+							fakeOne.edit(currentID, 12, productData[10]);
+						}
+            if(prevData[11].toString() != productData[11].toString())
+						{
+							fakeOne.edit(currentID, 13, productData[11]);
+						}
+            if(prevData[12].toString() != productData[12].toString())
+						{
+							fakeOne.edit(currentID, 14, productData[12]);
+						}
+
 						fakeOne.edit(currentID, 7, userName);
 
 						//exit edit page:
@@ -811,16 +832,22 @@ class NewEditPage extends State<NewEdit>
     List<String> productData = 
 	[
 		"",
-		"",
-		"",
-		"",
-		"",
-		"",
-		"",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
 	];
 
-	List<bool> valid = 
-    [
+		List<bool> valid = 
+	[
 		false,
 		false,
 		false,
@@ -828,7 +855,13 @@ class NewEditPage extends State<NewEdit>
 		false,
 		false,
 		false,
-    ];
+    true,
+    false,
+		false,
+		false,
+		false,
+    false,
+	];
 
 	List<FocusNode> focus =
 	[
@@ -840,6 +873,13 @@ class NewEditPage extends State<NewEdit>
 		new FocusNode(),
 		new FocusNode(),
 		new FocusNode(),
+    new FocusNode(),
+		new FocusNode(),
+		new FocusNode(),
+		new FocusNode(),
+		new FocusNode(),
+		new FocusNode(),
+
 	];
 
 	bool isNumeric(String s) 
@@ -1009,12 +1049,21 @@ class NewEditPage extends State<NewEdit>
 				children: <Widget>
 				[
 					getFeild("Title", "eg: 'Example", 0, true, false),
-					getFeild("Product Number", "eg: '123456'", 1, true, true),
-					getFeild("Location", "eg: 'warehouse'", 2, true, false),
-					getFeild("Spot", "eg: '6'", 3, false, true),
-					getFeild("Quantity", "eg: '200'", 4, true, true),
+					getFeild("Product Number", "eg: '123456'", 1, true, false),
+					getFeild("Building or Yard", "eg: 'warehouse'", 2, true, false),
+					getFeild("Location", "eg: 'A15'", 3, false, false),
+					getFeild("Quantity", "eg: '200 Lbs'", 4, true, true),
 					getFeild("Tear Weight", "eg: '500'", 5, true, true),
 					getFeild("Total Weight", "eg: '670'", 6, true, true),
+          getFeild("PO Number", "eg: '102959814'", 8, true, false),
+          getDropdown("Processing", 9, <String> ["Raw Material", "Cut", "Weld", "Painted", "Galvanized", "Assembled", "Finished"] ),
+          getFeild("Customer", "eg: Steel Max", 10, false, false),
+          getFeild("Sales Number", "eg: 238796756", 11, false, true),
+          getFeild("Part Number", "", 12, false, true),
+          new Padding
+          (
+            padding: EdgeInsets.only(top: 60.0),
+          )				
 				]
 			)
 		);
@@ -1088,7 +1137,13 @@ class NewEditPage extends State<NewEdit>
 							lastEdit: userName,
 							imageUrl: "http://www.neotechnocraft.com/images/NoImageFound.jpg",
 							newLat: tempLocation.latitude,
-							newLong: tempLocation.longitude
+							newLong: tempLocation.longitude,
+              newPO: productData[8],
+              newProcess: productData[9],
+              newCustomer: productData[10],
+              newSalesNumber: productData[11],
+              newPartNumber: productData[12],
+              newCreator: userName
 						);
 
             tempImage = ImagePicker.pickImage(source: ImageSource.camera);
@@ -1176,6 +1231,42 @@ class ProductPage extends State<Product>
                     new TextSpan
                     (
                         text: fakeOne.getDatabase()[currentID].getInfo(id), 
+                        style: new TextStyle(fontWeight: FontWeight.normal)
+                    ),
+                ],
+            ),
+        );
+    }
+
+    RichText getData2(String title, String data)
+    {
+        int totalLength = 13;
+        String space = '';
+
+        for (int i = title.length; i < totalLength; i++)
+        {
+            space = space + ' ';
+        }
+
+        return new RichText
+        (
+            text: new TextSpan
+            (
+                text: '$title:$space',
+
+                style: new TextStyle
+                (
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14.0,
+                    fontFamily: 'RobotoMono',
+                    color: Colors.black,
+                ),
+
+                children: <TextSpan>
+                [
+                    new TextSpan
+                    (
+                        text: data, 
                         style: new TextStyle(fontWeight: FontWeight.normal)
                     ),
                 ],
@@ -1423,11 +1514,17 @@ class ProductPage extends State<Product>
                                 getData('name', 0),
                                 getData('number', 1),
                                 getData('location', 2),
-                                getData('position', 3),
+                                getData('position', 3), ////////////////////////// THIS DOESNT WORK
                                 getData('quantity', 4),
                                 getData('tear weight', 5),
                                 getData('total weight', 6),
                                 getData('last seen', 7),
+                                getData2('PO Number', fakeOne.getDatabase()[currentID].getPONumber()),
+                                getData2('Processing', fakeOne.getDatabase()[currentID].getProcess()),
+                                getData2('Customer', fakeOne.getDatabase()[currentID].getCustomer()),
+                                getData2('Sales Number', fakeOne.getDatabase()[currentID].getSalesNumber()),
+                                getData2('Part Number', fakeOne.getDatabase()[currentID].getPartNumber())
+                               // getData2('PO Number', fakeOne.getDatabase()[currentID].getCreated())
                             ],
                         )
                     ),
