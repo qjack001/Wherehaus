@@ -179,13 +179,13 @@ class EditPage extends State<Edit>
 		fakeOne.getDatabase()[currentID].getInfo(3),
 		fakeOne.getDatabase()[currentID].getInfo(4),
 		fakeOne.getDatabase()[currentID].getInfo(5),
-    fakeOne.getDatabase()[currentID].getInfo(6),
-    "yeet",
+		fakeOne.getDatabase()[currentID].getInfo(6),
+		"yeet",
 		fakeOne.getDatabase()[currentID].getPONumber(),
-    fakeOne.getDatabase()[currentID].getProcess(),
-    fakeOne.getDatabase()[currentID].getCustomer(),
-    fakeOne.getDatabase()[currentID].getSalesNumber(),
-    fakeOne.getDatabase()[currentID].getPartNumber(),
+		fakeOne.getDatabase()[currentID].getProcess(),
+		fakeOne.getDatabase()[currentID].getCustomer(),
+		fakeOne.getDatabase()[currentID].getSalesNumber(),
+		fakeOne.getDatabase()[currentID].getPartNumber(),
 	];
 
 	List<String> prevData = 
@@ -197,12 +197,12 @@ class EditPage extends State<Edit>
 		fakeOne.getDatabase()[currentID].getInfo(4),
 		fakeOne.getDatabase()[currentID].getInfo(5),
 		fakeOne.getDatabase()[currentID].getInfo(6),
-    "yeet",
-    fakeOne.getDatabase()[currentID].getPONumber(),
-    fakeOne.getDatabase()[currentID].getProcess(),
-    fakeOne.getDatabase()[currentID].getCustomer(),
-    fakeOne.getDatabase()[currentID].getSalesNumber(),
-    fakeOne.getDatabase()[currentID].getPartNumber(),
+		"yeet",
+		fakeOne.getDatabase()[currentID].getPONumber(),
+		fakeOne.getDatabase()[currentID].getProcess(),
+		fakeOne.getDatabase()[currentID].getCustomer(),
+		fakeOne.getDatabase()[currentID].getSalesNumber(),
+		fakeOne.getDatabase()[currentID].getPartNumber(),
 	];
 
 	List<bool> valid = 
@@ -214,12 +214,12 @@ class EditPage extends State<Edit>
 		false,
 		false,
 		false,
-    true,
-    false,
+		true,
 		false,
 		false,
 		false,
-    false,
+		false,
+		false,
 	];
 
 	List<FocusNode> focus =
@@ -232,7 +232,7 @@ class EditPage extends State<Edit>
 		new FocusNode(),
 		new FocusNode(),
 		new FocusNode(),
-    new FocusNode(),
+		new FocusNode(),
 		new FocusNode(),
 		new FocusNode(),
 		new FocusNode(),
@@ -271,7 +271,7 @@ class EditPage extends State<Edit>
 	{
 		return new Padding
 		(
-		padding: EdgeInsets.only(top: 16.0),
+				padding: EdgeInsets.only(top: 16.0),
 				child: new ListTile
 				(
 					title: new Padding
@@ -315,7 +315,7 @@ class EditPage extends State<Edit>
 		);
 	}
 
-	Widget getFeild(String title, String hint, int id, bool empty, bool num)//,{dropdown:const []})
+	Widget getFeild(String title, String hint, int id, bool empty, bool num)
 	{
 		return new Padding
 		(
@@ -414,16 +414,16 @@ class EditPage extends State<Edit>
 					getFeild("Quantity", "eg: '200 Lbs'", 4, true, true),
 					getFeild("Tear Weight", "eg: '500'", 5, true, true),
 					getFeild("Total Weight", "eg: '670'", 6, true, true),
-          getFeild("PO Number", "eg: '102959814'", 8, true, false),
-          getDropdown("Processing", 9, <String> ["Raw Material", "Cut", "Weld", "Painted", "Galvanized", "Assembled", "Finished"] ),
-          getFeild("Customer", "eg: Steel Max", 10, false, false),
-          getFeild("Sales Number", "eg: 238796756", 11, false, true),
-          getFeild("Part Number", "", 12, false, true),
-          new Padding
-          (
-            padding: EdgeInsets.only(top: 60.0),
-          )				
-        ]
+					getFeild("PO Number", "eg: '102959814'", 8, true, false),
+					getDropdown("Processing", 9, <String> ["Raw Material", "Cut", "Weld", "Painted", "Galvanized", "Assembled", "Finished"] ),
+					getFeild("Customer", "eg: Steel Max", 10, false, false),
+					getFeild("Sales Number", "eg: 238796756", 11, false, true),
+					getFeild("Part Number", "", 12, false, true),
+					new Padding
+					(
+						padding: EdgeInsets.only(top: 60.0),
+					)				
+				]
 			)
 		);
 	}
@@ -508,24 +508,23 @@ class EditPage extends State<Edit>
 						{
 							fakeOne.edit(currentID, 6, productData[6]);
 						}
-
-            if(prevData[8].toString() != productData[8].toString())
+						if(prevData[8].toString() != productData[8].toString())
 						{
 							fakeOne.edit(currentID, 10, productData[8]);
 						}
-            if(prevData[9].toString() != productData[9].toString())
+						if(prevData[9].toString() != productData[9].toString())
 						{
 							fakeOne.edit(currentID, 11, productData[9]);
 						}
-            if(prevData[10].toString() != productData[10].toString())
+						if(prevData[10].toString() != productData[10].toString())
 						{
 							fakeOne.edit(currentID, 12, productData[10]);
 						}
-            if(prevData[11].toString() != productData[11].toString())
+						if(prevData[11].toString() != productData[11].toString())
 						{
 							fakeOne.edit(currentID, 13, productData[11]);
 						}
-            if(prevData[12].toString() != productData[12].toString())
+						if(prevData[12].toString() != productData[12].toString())
 						{
 							fakeOne.edit(currentID, 14, productData[12]);
 						}
