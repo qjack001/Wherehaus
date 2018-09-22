@@ -45,46 +45,57 @@ class DataBase
 		var itemValue = "";
 		switch (editNum)
 		{
-			case 0:
-				itemValue = "title";
-				break;
-			case 1:
-				itemValue = "productNumber";
-				break;
-			case 2:
-				itemValue = "location";
-				break;
-			case 3:
-				itemValue = "position";
-				break;
-			case 4:
-				itemValue = "quantity";
-				break;
-			case 5:
-				itemValue = "tearWeight";
-				break;
-			case 6:
-				itemValue = "totalWeight";
-				break;
-			case 7:
-				itemValue = "lastEdit";
-				break;
-			case 8:
-				itemValue = "lat";
-				break;
-			case 9:
-				itemValue = "long";
-				break;
-      case 10:itemValue="pONumber"; break;
-      case 11:itemValue="processing"; break;
-      case 12:itemValue="customer"; break;
-      case 13:itemValue="salesNumber";break;
-      case 14:itemValue="partNumber";break;
-      case 15:itemValue="createad";break;
-
-		}
-		var itemKey = itemArray[itemId].key;
-		itemRef.child(itemKey).child(itemValue).set(newValue);
+    case 0:
+      itemValue = "title";
+      break;
+    case 1:
+      itemValue = "productNumber";
+      break;
+    case 2:
+      itemValue = "location";
+      break;
+    case 3:
+      itemValue = "position";
+      break;
+    case 4:
+      itemValue = "quantity";
+      break;
+    case 5:
+      itemValue = "tearWeight";
+      break;
+    case 6:
+      itemValue = "totalWeight";
+      break;
+    case 7:
+      itemValue = "lastEdit";
+      break;
+    case 8:
+      itemValue = "lat";
+      break;
+    case 9:
+      itemValue = "long";
+      break;
+    case 10: 
+      itemValue = "pONumber"; 
+      break;
+    case 11:
+      itemValue = "processing"; 
+      break;
+    case 12:
+      itemValue = "customer"; 
+      break;
+    case 13:
+      itemValue = "salesNumber";
+      break;
+    case 14:
+      itemValue = "partNumber";
+      break;
+    case 15:
+      itemValue = "createad";
+      break;
+  }
+  var itemKey = itemArray[itemId].key;
+  itemRef.child(itemKey).child(itemValue).set(newValue);
 	}
 
   // uploadImage(Future<File> futureImage, id) async

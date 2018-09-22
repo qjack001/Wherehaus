@@ -15,12 +15,12 @@ class Item
 	String imageUrl;
 	double lat;
 	double long;
-  String pONumber; //required // 8
-  String processing; // dropdown: Raw Material, Cut, Weld, Painted, Galvanized, Assembled, Finished //9
-  String customer; // not required //10
-  String salesNumber; // Sales Order Number //11
-  String partNumber; //12
-  String created; // record name of object instancer //13
+	String pONumber; //required // 8
+	String processing; // dropdown: Raw Material, Cut, Weld, Painted, Galvanized, Assembled, Finished //9
+	String customer; // not required //10
+	String salesNumber; // Sales Order Number //11
+	String partNumber; //12
+	String created; // record name of object instancer //13
 
 	Item(this.title, this.productNumber, this.location, this.position, this.quantity, this.tearWeight, this.totalWeight, this.lastEdit, this.empty, this.imageUrl, this.lat, this.long,
   this.pONumber, this.processing, this.customer, this.salesNumber, this.partNumber,this.created);
@@ -39,12 +39,12 @@ class Item
 		imageUrl = snapshot.value["imageUrl"],
 		lat = snapshot.value["lat"],
 		long = snapshot.value["long"],
-    pONumber = snapshot.value["pONumber"],
-    processing = snapshot.value["processing"],
-    customer = snapshot.value["customer"],
-    salesNumber = snapshot.value["salesNumber"],
-    partNumber = snapshot.value["partNumber"],
-    created = snapshot.value["created"];
+		pONumber = snapshot.value["pONumber"],
+		processing = snapshot.value["processing"],
+		customer = snapshot.value["customer"],
+		salesNumber = snapshot.value["salesNumber"],
+		partNumber = snapshot.value["partNumber"],
+		created = snapshot.value["created"];
 
 
 	
@@ -52,24 +52,24 @@ class Item
 	{
 		return 
 		{
-		"title": title, //0
-		"productNumber": productNumber, //1
-		"location": location, //2
-		"position": position, //3
-		"quantity" : quantity, //4
-		"tearWeight" : tearWeight, //5
-		"totalWeight" : totalWeight, //6
-		"lastEdit" : lastEdit, //7
-		"empty" : empty,
-		"imageUrl" : imageUrl,
-		"lat" : lat,
-		"long": long,
-    "pONumber": pONumber, //8
-    "processing" : processing, //9
-    "customer" : customer, //10
-    "salesNumber" : salesNumber, //11
-    "partNumber" : partNumber, //12
-    "created" : created //13
+			"title": title, //0
+			"productNumber": productNumber, //1
+			"location": location, //2
+			"position": position, //3
+			"quantity" : quantity, //4
+			"tearWeight" : tearWeight, //5
+			"totalWeight" : totalWeight, //6
+			"lastEdit" : lastEdit, //7
+			"empty" : empty,
+			"imageUrl" : imageUrl,
+			"lat" : lat,
+			"long": long,
+			"pONumber": pONumber, //8
+			"processing" : processing, //9
+			"customer" : customer, //10
+			"salesNumber" : salesNumber, //11
+			"partNumber" : partNumber, //12
+			"created" : created //13
 		};
 	}
 
