@@ -781,11 +781,14 @@ class NewEditPage extends State<NewEdit>
   String imageUrl;
   //String tempUrl;
 	final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+	String _selection;
+
 
 	@override
 	void initState() 
 	{
 		super.initState();
+		_selection = "";
 		final FirebaseDatabase database = FirebaseDatabase.instance; //Rather then just writing FirebaseDatabase(), get the instance.  
 		//final FirebaseStorage storage = FirebaseStorage.instance;
 		//bucket = storage.storageBucket;
@@ -1026,6 +1029,10 @@ class NewEditPage extends State<NewEdit>
 						{
 							valid[id] = true; // required for submission
 							productData[id] = value;
+							setState(() 
+							{
+								_selection = value;
+							});
 						},
 						style: new TextStyle
 						(
