@@ -170,6 +170,7 @@ class EditPage extends State<Edit>
 {
 	final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 	final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+	String _selection;
 
 	List<String> productData = 
 	[
@@ -291,6 +292,7 @@ class EditPage extends State<Edit>
 
 					subtitle: new DropdownButton<String>
 					(
+						value: _selection,
 						items: options.map((String value) 
 						{
 							return new DropdownMenuItem<String>
@@ -303,6 +305,10 @@ class EditPage extends State<Edit>
 						{
 							valid[id] = true; // required for submission
 							productData[id] = value;
+							setState(() 
+							{
+								_selection = value;
+							});
 						},
 						style: new TextStyle
 						(
@@ -1017,6 +1023,7 @@ class NewEditPage extends State<NewEdit>
 
 					subtitle: new DropdownButton<String>
 					(
+						value: _selection,
 						items: options.map((String value) 
 						{
 							return new DropdownMenuItem<String>
