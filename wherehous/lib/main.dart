@@ -831,18 +831,18 @@ class NewEditPage extends State<NewEdit>
     List<String> productData = 
 	[
 		"",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
 	];
 
 		List<bool> valid = 
@@ -854,12 +854,12 @@ class NewEditPage extends State<NewEdit>
 		false,
 		false,
 		false,
-    true,
-    false,
+		true,
 		false,
 		false,
 		false,
-    false,
+		false,
+		false,
 	];
 
 	List<FocusNode> focus =
@@ -872,7 +872,7 @@ class NewEditPage extends State<NewEdit>
 		new FocusNode(),
 		new FocusNode(),
 		new FocusNode(),
-    new FocusNode(),
+		new FocusNode(),
 		new FocusNode(),
 		new FocusNode(),
 		new FocusNode(),
@@ -994,7 +994,7 @@ class NewEditPage extends State<NewEdit>
 	{
 		return new Padding
 		(
-		padding: EdgeInsets.only(top: 16.0),
+				padding: EdgeInsets.only(top: 16.0),
 				child: new ListTile
 				(
 					title: new Padding
@@ -1054,15 +1054,15 @@ class NewEditPage extends State<NewEdit>
 					getFeild("Quantity", "eg: '200 Lbs'", 4, true, true),
 					getFeild("Tear Weight", "eg: '500'", 5, true, true),
 					getFeild("Total Weight", "eg: '670'", 6, true, true),
-          getFeild("PO Number", "eg: '102959814'", 8, true, false),
-          getDropdown("Processing", 9, <String> ["Raw Material", "Cut", "Weld", "Painted", "Galvanized", "Assembled", "Finished"] ),
-          getFeild("Customer", "eg: Steel Max", 10, false, false),
-          getFeild("Sales Number", "eg: 238796756", 11, false, true),
-          getFeild("Part Number", "", 12, false, true),
-          new Padding
-          (
-            padding: EdgeInsets.only(top: 60.0),
-          )				
+					getFeild("PO Number", "eg: '102959814'", 8, true, false),
+					getDropdown("Processing", 9, <String> ["Raw Material", "Cut", "Weld", "Painted", "Galvanized", "Assembled", "Finished"] ),
+					getFeild("Customer", "eg: Steel Max", 10, false, false),
+					getFeild("Sales Number", "eg: 238796756", 11, false, true),
+					getFeild("Part Number", "", 12, false, true),
+					new Padding
+					(
+						padding: EdgeInsets.only(top: 60.0),
+					)				
 				]
 			)
 		);
@@ -1137,17 +1137,17 @@ class NewEditPage extends State<NewEdit>
 							imageUrl: "http://www.neotechnocraft.com/images/NoImageFound.jpg",
 							newLat: tempLocation.latitude,
 							newLong: tempLocation.longitude,
-              newPO: productData[8],
-              newProcess: productData[9],
-              newCustomer: productData[10],
-              newSalesNumber: productData[11],
-              newPartNumber: productData[12],
-              newCreator: userName
+							newPO: productData[8],
+							newProcess: productData[9],
+							newCustomer: productData[10],
+							newSalesNumber: productData[11],
+							newPartNumber: productData[12],
+							newCreator: userName
 						);
 
-            tempImage = ImagePicker.pickImage(source: ImageSource.camera);
-            print("Photo Taken and is a tempImage----------------------------------");
-            fakeOne.uploadImage(tempImage, currentID);
+						tempImage = ImagePicker.pickImage(source: ImageSource.camera);
+						print("Photo Taken and is a tempImage----------------------------------");
+						fakeOne.uploadImage(tempImage, currentID);
             
 						//exit edit page:
 						Navigator.pop(context);
@@ -1510,20 +1510,20 @@ class ProductPage extends State<Product>
 
                             children: <Widget>
                             [
-                                getData('name', 0),
-                                getData('number', 1),
-                                getData('location', 2),
-                                getData('position', 3), ////////////////////////// THIS DOESNT WORK
-                                getData('quantity', 4),
-                                getData('tear weight', 5),
-                                getData('total weight', 6),
-                                getData('last seen', 7),
+                                getData('Name', 0),
+                                getData('Number', 1),
+                                getData('Location', 2),
+                                getData('Position', 3),
+                                getData('Quantity', 4),
+                                getData('Tear Weight', 5),
+                                getData('Total Weight', 6),
                                 getData2('PO Number', fakeOne.getDatabase()[currentID].getPONumber()),
                                 getData2('Processing', fakeOne.getDatabase()[currentID].getProcess()),
                                 getData2('Customer', fakeOne.getDatabase()[currentID].getCustomer()),
                                 getData2('Sales Number', fakeOne.getDatabase()[currentID].getSalesNumber()),
-                                getData2('Part Number', fakeOne.getDatabase()[currentID].getPartNumber())
-                               // getData2('PO Number', fakeOne.getDatabase()[currentID].getCreated())
+                                getData2('Part Number', fakeOne.getDatabase()[currentID].getPartNumber()),
+                                getData2('Created By', fakeOne.getDatabase()[currentID].getCreated()),
+                                getData('Last Edited By', 7),
                             ],
                         )
                     ),
