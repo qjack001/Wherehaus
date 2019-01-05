@@ -4,7 +4,7 @@
   <br>
   <img src="https://raw.githubusercontent.com/qjack001/Wherehouse/master/wherehous/assets/app_icon_dark/web_hi_res_512.png" alt="Wherehaus icon" width="200"></a>
   <br>
-  <a href="https://qjack001.github.io/Wherehouse/">Wherehaus</a>
+  <a href="https://qjack001.github.io/Wherehaus/">Wherehaus</a>
 </h1>
 
 
