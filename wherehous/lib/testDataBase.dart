@@ -80,25 +80,7 @@ class DataBase
 		itemRef.child(itemKey).child(itemValue).set(newValue);
 	}
 
-  // uploadImage(Future<File> futureImage, id) async
-  // {
-  //   //print(await futureImage);
-  //   File image = await futureImage;
-  //   var random = new Random().nextInt(10000);
-  //   print("made it to the method?++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-  //   var ref = FirebaseStorage.instance.ref().child('image_$random.jpg');
-  //   print("Made it past the reference YEEEEEEEEEEEEEEEEEEEEEEEEEHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAW!+++++++++++++++++++++++++++++++++++++++++");
-  //   final StorageUploadTask uploadTask = ref.putFile(image);
-  //   print("Upload task this bois ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-  //   //final Uri downloadUrl = 
-  //   (uploadTask.future).then( (futureTask) { itemArray[id].setImage(futureTask.downloadUrl.toString()); } );
-  //   print("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET++++++++++++++++++++++++++++++");
-  //   //itemArray[id].setImage(downloadUrl.toString());
 
-  //   print("Nibba we made it!-----------------------------------------------------------------------------------------------------------------------------------------------------");
-  //   //print(downloadUrl.toString());
-  //  // return(downloadUrl.toString());
-  // }
   Future<Null> uploadImage(Future<File> image, id) async
   {
     File putImage = await image;
@@ -106,8 +88,6 @@ class DataBase
     var ref = FirebaseStorage.instance.ref().child(fileName);
     final StorageUploadTask task = ref.putFile(putImage);
     final Uri downloadUrl = (await task.future).downloadUrl;
-    print("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET++++++++++++++++++++++++++++++");
-
     String urlString = downloadUrl.toString();
     itemArray[id].setImage(urlString);
     var itemKey = itemArray[id].key;
