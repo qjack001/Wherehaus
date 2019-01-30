@@ -1,7 +1,7 @@
 
 
-@font-face { font-family: Gilroy; src: url("Gilroy-ExtraBold.otf"); }
-@font-face { font-family: Monosten; src: url("Monosten-A-webfont.ttf"); }
+@font-face { font-family: 'heading'; src: url("font1.otf"); }
+@font-face { font-family: 'body'; src: url("font2.ttf"); }
 
 :root 
 {
@@ -12,22 +12,21 @@
     --wolf-red: #fa5f28;
     --purple: #4b00a2;
     
-    --breakpoint-xs: 0;
-    --breakpoint-sm: 576px;
-    --breakpoint-md: 768px;
-    --breakpoint-lg: 992px;
-    --breakpoint-xl: 1200px;
-    --title: Gilroy, Futura, Helvetica, sans-serif;
-    --monospace: Monosten, monospace;
+    --title: 'heading', Futura, Helvetica, sans-serif;
+    --monospace: 'body', monospace;
 }
 
 html
 {
     background: var(--off-white);
-    margin: 40px 15%;
+    margin: 40px 5%;
 }
 
-
+body
+{
+    max-width: 1000px;
+    margin: auto;
+}
 
 
 /* menu */
@@ -35,18 +34,14 @@ html
 header
 {
     margin-bottom: 100px;
+    display: grid;
+    grid-template-columns: auto 100px 100px 100px;
+    text-align: left;
 }
 
 .logo
 {
     width: 140px;
-}
-
-.menu-div
-{
-    text-align: right;
-    display: inline-block;
-    width: 80%;
 }
 
 a
@@ -59,14 +54,20 @@ a
     font-family: var(--monospace);
     font-size: 0.7rem;
     color: var(--light-grey);
-    margin-left: 40px;
     letter-spacing: 0.4px;
     text-decoration: none;
+    text-align: center;
+    align-self: flex-end;
+    vertical-align: bottom;
+    padding: 5px 0;
+    border-radius: 50px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
 }
 
 .menu:hover
 {
-    text-decoration: underline;
+    border-color: #aaaaaa;
 }
 
 
@@ -76,12 +77,13 @@ a
 
 .app-icon
 {
-    width: 50px;
+    width: 40px;
 }
 
 .hero
 {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .hero-div
@@ -89,7 +91,6 @@ a
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 50%;
     position: relative;
     margin-right: 5%;
 }
@@ -106,15 +107,17 @@ h1
 p
 {
     font-family: var(--monospace);
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: var(--dark-grey);
     margin-bottom: 70px;
+    line-height: 1.3rem;
 }
 
 .hero-img
 {
     align-self: flex-end;
     width: 80%;
+    max-width: 400px;
     opacity: 0.75;
 }
 
@@ -156,4 +159,31 @@ p
     font-size: 0.7rem;
     color: var(--light-grey);
     letter-spacing: 0.4px;
+}
+
+
+@media screen and (max-width:775px)
+{
+    header
+    {
+        grid-template-columns: auto 60px 60px 60px;
+    }
+    
+    .hero
+    {
+        grid-template-columns: 1fr;
+        text-align: center;
+        grid-row-gap: 100px;
+    }
+    
+    .hero-div
+    {
+        display: block;
+        margin-right: 0%;
+    }
+    
+    body
+    {
+        text-align: center;
+    }
 }
