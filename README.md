@@ -10,15 +10,15 @@
 <h4 align="center">A mobile app for modern inventory tracking.</h4>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/android-passing-brightgreen.svg">
-  <img src="https://img.shields.io/badge/ios-passing-brightgreen.svg">
-</p>
-
-<p align="center">
   <a href="#description">Description</a> •
   <a href="#screenshots">Screenshots</a> •
   <a href="#authors">Authors</a>
 </p> 
+
+<p align="center">
+  <img src="https://img.shields.io/badge/android-passing-brightgreen.svg">
+  <img src="https://img.shields.io/badge/ios-passing-brightgreen.svg">
+</p>
 
 ## Description
 
