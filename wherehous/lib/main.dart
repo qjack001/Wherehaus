@@ -803,20 +803,6 @@ class NewEditPage extends State<NewEdit>
 		itemRef.onChildChanged.listen(_onEntryChanged);
 	}
 
-  // Future<Null> uploadImage(Future<File> futureImage) async
-  // {
-  //   //print(await futureImage);
-  //   File image = await futureImage;
-  //   var random = new Random().nextInt(10000);
-  //   var ref = FirebaseStorage.instance.ref().child('image_$random.jpg');
-  //   final StorageUploadTask uploadTask = ref.putFile(image);
-  //   final Uri downloadUrl = (await uploadTask.future).downloadUrl;
-
-  //   print("Nibba we made it!");
-  //   print(downloadUrl.toString());
-  //   imageUrl = downloadUrl.toString();
-  // }
-
 	_onEntryAdded(Event event) 
 	{
 		setState(() 
